@@ -1,0 +1,95 @@
+* { margin: 0; }
+body{ font-family: arial; }
+
+.login_employee input, .login_employee select, .login_employee .login_button, .login_employee label{
+  position: relative;
+  float: left;
+}
+
+#login{
+  width: 500px;
+  height: 200px;
+  background: #ddd;
+  margin: auto;
+}
+.login_employee{
+  width: 80%; height: 120px;
+  display: block;
+  margin: 0 auto;
+  background: #eee;
+  padding: 10px;
+}
+.login_employee label{
+  margin-left:15%;
+  width: 20%;
+}
+.login_employee select{
+  width: 50%;
+  margin-right: 15%;
+}
+.login_employee .login_button{
+  width: 50%;
+  margin: 5px 25% 0 25%;
+}
+.login_employee input{
+  margin: 5px 15%;
+  width: 70%;
+  text-align: center;
+}
+
+/* app style */
+body, html{
+  background: #111;
+  width: 100%;
+  height: 100%;
+}
+#header, #header p, #header table, #cardbox, .card div, .card p, #main, #cardbox{
+  position: relative;
+  float: left;
+}
+
+#header{
+  width: 100%;
+  height: 50px;
+  background: #ddd;
+}
+#header p{
+  width: 78%;
+  height: 100%;
+  background: #aaa;
+  color: #fff;
+}
+#header table{
+  width: 22%;
+  height: 50px;
+  background: #999;
+  color: #ddd;
+}
+
+#main{
+  width: calc(100% - 350px);
+  height: calc(100% - 50px);
+  background: #333;
+}
+
+#cardbox{
+  width: 350px;
+  height: calc(100% - 50px) ;
+  background: #222;
+}
+#cardbox .card{
+  width: 100%;
+  height: 100px;
+  background: #325353;
+  color: #15B097;
+  font-size: 32pt;
+}
+.card div{ /* image */
+  width: 30%;
+  height: 100%;
+}
+.card p{
+  width: 70%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
