@@ -1,13 +1,16 @@
 class JsonRequest {
-  static json(url, paramters){
-    if(typeof url !== 'undefined' && paramters !== 'undefined' && typeof paramters.length !== 'undefined'){
-
-    }
-  }
-
   constructor(url, parameters) {
-    this._url = url;
-    this._parameters = parameters;
+    if(typeof url !== 'undefined'){
+      this._url = url;
+      if(paramters !== 'undefined' && typeof paramters.length !== 'undefined')
+        this._parameters = parameters;
+      else
+        this._parameters = [];
+    }
+    else{
+      this._url = 'none';
+      this._parameters = 'none';
+    }
   }
 
   getJson(){
@@ -16,7 +19,8 @@ class JsonRequest {
       if(request.readyState == 4 && request.status = 200)
         return JSON.parse(request.responseText);
     }
-    request.open("GET", theURL, false);
+    request.open("GET", this._url, false);
     request.send();
+    return JSON.parse(request.responseText);
   }
 }
