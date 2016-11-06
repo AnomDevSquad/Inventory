@@ -1,0 +1,42 @@
+*{ margin:0px; padding: 0px; }
+nav{
+  position: relative;
+  float: left;
+}
+nav {
+  margin: 0;
+  width: 15%;
+  height: 100%;
+  background: #ddd;
+}
+nav ul{
+  list-style: none;
+  text-decoration: none;
+}
+nav ul li{
+  font-size: 1.5rem;
+  height: 80px;
+}
+nav ul li a:link, nav ul li a:visited{
+  text-decoration: none;
+  color:#111;
+  font-family: Arial;
+}
+nav ul li .image, nav ul li .title{
+  position: relative;
+  float: left;
+}
+nav ul li .image{
+  width: 17%;
+  padding: 10px;
+  margin: 2px;
+  border-radius: 100000px;
+  background:#faeebc;
+}
+nav ul li .title{
+  width: calc(83% - 70px);
+  height: calc(100%/6);
+  margin-left: 10px;
+  padding: 15px;
+  padding-left: 0px;
+}
