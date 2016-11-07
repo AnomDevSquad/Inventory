@@ -1,4 +1,5 @@
 function init(){
+  console.log('hola mundo soy camacho');
   document.getElementById('header').innerHTML = sessionStorage['where'];
 }
 
