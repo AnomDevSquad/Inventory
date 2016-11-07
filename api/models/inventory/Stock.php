@@ -69,6 +69,26 @@
 		public function get_quantity(){return $this->quantity;}
 		public function set_quantity($newVal)	{	$this->quantity = $newVal;}
 
+		public function get_all_stock(){
+			$list = array();
+			$connection = new SqlServerConnection();
+			$sql ='SELECT i.ing_id, i.ing_description,mu.meu_id, mu.meu_description,w.war_id, w.war_name,s.sto_quantity
+			FROM stock s JOIN ingredients i ON s.sto_id_ing = i.ing_id JOIN warehouses w ON s.war_id = w.war_id
+			JOIN measurementunits mu ON i.mu = mu.meu_id';
+			$data = $connection->execute_query($sql);
+			$found = odbc_num_rows($data) > 0;
+			if(!$found) throw new ItemInStockNotFoundException();
+			while (odbc_fetch_array($data)) {
+				$ingredient = new Ingredient(odbc_result($data, 'ing_id'),odbc_result($data, 'ing_description'),
+				new Measurement(odbc_result($data, 'meu_id'),odbc_result($data, 'meu_description')));
+				$warehouse = new Warehouse(odbc_result($data, 'war_id'),odbc_result($data, 'war_name'));
+				$quantity = odbc_result($data, 'sto_quantity');
+				array_push($list, new Stock($ingredient, $warehouse, $quantity));
+			}
+			$connection->close();
+			return $list;
+		}
+
 		public function to_json(){
 			return '{
 				"ingredient":'.$this->ingredient->to_json().',

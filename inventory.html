@@ -2,9 +2,21 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>iRestaurant - </title>
+    <script src='js/general/json.js'></script>
+    <script src='js/app/inventory.js'></script>
+    <title>Inventory</title>
   </head>
-  <body>
+  <body onload=''>
+    <section class="container">
+      <header>
+        <h3 id='title'>Inventory Section</h3>
+      </header>
+      <div>
+        <button onclick="stock()">Show The Stock</button> <button onclick="movements()">Show the Movements</button>
+      </div>
+      <table id='table'>
 
+      </table>
+    </section>
   </body>
 </html>
