@@ -5,7 +5,7 @@
   class SqlServerConnection
   {
     private $connection;
-    private $connection_string = 'DRIVER={SQL Server};SERVER=ASUSK55N;DATABASE=Inventory';
+    private $connection_string = 'DRIVER={SQL Server};SERVER=ThinkpadX201;DATABASE=Inventory';
     private $user = 'sa';
     private $password = 'hack';
 
