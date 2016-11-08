@@ -1,8 +1,12 @@
+function init(){
+  stock();
+}
+
 function stock(){
   var request = new XMLHttpRequest();
-  var table = document.getElementById('table');
+  var table = document.getElementById('tbl');
   table.innerHTML = '';
-  request.open('GET', 'http://localhost:8080/4to/Inventory/API/v1/get_all_stock.php', true);
+  request.open('GET', basePath()+'/api/v1/get_all_stock.php', true);
   request.send();
   request.onreadystatechange = function(){
     if (request.status == 200 && request.readyState == 4) {
@@ -33,7 +37,10 @@ function stock(){
           tr.appendChild(name);
           tr.appendChild(quantity);
           tr.appendChild(warehouse);
-
+          if(data.length-1 == i){
+            id.setAttribute('class','cnr_bl');
+            warehouse.setAttribute('class','cnr_br');
+          }
           table.appendChild(tr);
         }
       }
@@ -43,9 +50,9 @@ function stock(){
 
 function movements(){
   var request = new XMLHttpRequest();
-  var table = document.getElementById('table');
+  var table = document.getElementById('tbl');
   table.innerHTML = '';
-  request.open('GET', 'http://localhost:8080/4to/Inventory/api/v1/get_all_movements.php', true);
+  request.open('GET', basePath()+'/api/v1/get_all_movements.php', true);
   request.send();
   request.onreadystatechange = function(){
     if (request.status == 200 && request.readyState == 4) {
@@ -87,4 +94,18 @@ function movements(){
       }
     }
   }
+}
+
+function basePath(){
+  var result = '', baseString = '', banner = false;
+  for(var i = location.href.length-1; i>=0; i--){
+    if(!banner)
+      banner = location.href[i] == '/';
+    else
+      baseString += location.href[i];
+  }
+  for(var i = baseString.length-1; i>=0; i--){
+    result += baseString[i];
+  }
+  return result;
 }

@@ -2,21 +2,23 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src='js/general/json.js'></script>
     <script src='js/app/inventory.js'></script>
+    <link rel="stylesheet" href="css/master.css" media="screen" title="no title">
     <title>Inventory</title>
   </head>
-  <body onload=''>
-    <section class="container">
+  <body onload='init()'>
+    <section class="container" id="inv">
       <header>
-        <h3 id='title'>Inventory Section</h3>
+        <h3 id='title'>Inventory</h3>
       </header>
-      <div>
-        <button onclick="stock()">Show The Stock</button> <button onclick="movements()">Show the Movements</button>
-      </div>
-      <table id='table'>
+      <div class="tblinventory">
+        <div class='controls'>
+          <button onclick="stock()">Show The Stock</button> <button onclick="movements()">Show the Movements</button>
+        </div>
+        <table id='tbl'>
 
-      </table>
+        </table>
+      </div>
     </section>
   </body>
 </html>
