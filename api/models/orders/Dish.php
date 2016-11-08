@@ -136,5 +136,19 @@ class Dish
     $connection->close();
     return $list;
   }
+
+	public static function get_all_dishes(){
+		$list = array();
+		$connection = new SqlServerConnection();
+		$sql = 'SELECT dis_id, dis_name, dis_description, dis_price FROM dishes';
+		$data = $connection->execute_query($sql);
+		while (odbc_fetch_array($data)) {
+			array_push($list, new Dish(odbc_result($data, 'dis_id'), odbc_result($data, 'dis_name'),
+			odbc_result($data, 'dis_description'), odbc_result($data, 'dis_price'), array()
+			));
+		}
+		$connection->close();
+		return $list;
+	}
 }
 ?>
