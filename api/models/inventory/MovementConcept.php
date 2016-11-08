@@ -39,6 +39,19 @@
 		public function get_type(){return $this->type;}
 		public function set_type($newVal){$this->type = $newVal;}
 
+		public function get_all_movement_concepts(){
+			$list = array();
+			$connection = new SqlServerConnection();
+			$sql = 'SELECT mco_id, mco_description, mco_type FROM movementconpects';
+			$data = $connection->execute_query($sql);
+			while (odbc_fetch_array($data)) {
+				array_push($list, new MovementConcept(odbc_result($data, 'mco_id'),
+				odbc_result($data, 'mco_description'), odbc_result($data, 'mco_type')));
+			}
+			$connection->close();
+			return $list;
+		}
+
 		public function to_json(){
 			return json_encode(array('id'=>$this->get_id(), 'description'=>$this->get_description(), 'type'=>$this->type));
 		}
