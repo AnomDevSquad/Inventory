@@ -1,14 +1,12 @@
 <?php
   require_once('/../models/inventory/MovementConcept.php');
-  $concept = new MovementConcept();
-
   $json = "";
-  if (count($concept->get_all_movement_concepts()) > 0) {
+  if (count($list = MovementConcept::get_all_movement_concepts()) > 0) {
     $json .= '{
       "status":0,
       "concepts":[';
         $banner = true;
-        foreach ($concept->get_all_movement_concepts() as $value) {
+        foreach ($list as $value) {
           if (!$banner) { $json .= ',';} else { $banner = false; }
           $json .= $value->to_json();
         }

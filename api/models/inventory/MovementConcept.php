@@ -39,7 +39,7 @@
 		public function get_type(){return $this->type;}
 		public function set_type($newVal){$this->type = $newVal;}
 
-		public function get_all_movement_concepts(){
+		public static function get_all_movement_concepts(){
 			$list = array();
 			$connection = new SqlServerConnection();
 			$sql = 'SELECT mco_id, mco_description, mco_type FROM movementconpects';
