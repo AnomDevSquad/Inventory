@@ -5,7 +5,7 @@
     <title>Order</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-      .container, #dishes, #orders{
+      .container, #dishes, #orders, div, #buy{
         position: relative;
         float: left;
       }
@@ -14,15 +14,20 @@
   </head>
   <body onload="init()">
     <section class="container">
-      <div id="dishes">
-        <h3>Dishes</h3>
-        <table id="table">
-          <th>Name</th>
-          <th>Price</th>
-        </table>
-      </div>
-      <div id="orders">
-        <h3>Orders</h3>
+      <header>
+        <h3>Order View</h3>
+      </header>
+      <table id="dishes">
+        <th>Name</th>
+        <th>Price</th>
+      </table>
+      <table id="orders">
+        <th>Name</th>
+        <th>Price</th>
+      </table>
+      <div>
+        <p>Total: <span id="total">$ 0.0</span></p>
+        <p><button onclick="buy()">Buy</button></p>
       </div>
     </section>
   </body>
