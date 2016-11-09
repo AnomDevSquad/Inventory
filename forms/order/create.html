@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Order</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      .container, #dishes, #orders{
+        position: relative;
+        float: left;
+      }
+      #dishes{
+
+      }
+    </style>
+    <script src='../../js/general/forms.js'></script>
+    <script src='../../js/app/orders.js'></script>
+  </head>
+  <body onload="init()">
+    <section class="container">
+      <header>
+        <h3>Order View</h3>
+      </header>
+      <!-- header -->
+      <div id="dishes">
+        <table id="table">
+          <th>Name</th>
+          <th>Price</th>
+        </table>
+        <!-- table -->
+      </div>
+      <!-- div dishes -->
+      <div id="orders">
+        <form  id="form" class="" method="post">
+        </form>
+        <!-- form -->
+      </div>
+      <!-- div orders -->
+    </section>
+    <!-- section container -->
+  </body>
+</html>
