@@ -3,7 +3,7 @@ GO
 USE Restaurant;
 GO
 
-select * from kitchen.category
+
 
 CREATE TABLE [conversions]
 (
