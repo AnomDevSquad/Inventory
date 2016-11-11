@@ -13,7 +13,10 @@ class Measurement extends Information
 			if (func_num_args() == 1) {
 				$connection = new SqlServerConnection();
 				try{
-					$sql = sprintf("SELECT meu_id, meu_description FROM measurementunits WHERE meu_id = '%s'", $args[0]);
+					$sql = sprintf(
+					"	SELECT meu_id, meu_description
+						FROM Inventory.measurementunits 
+						WHERE meu_id = '%s'", $args[0]);
 					$data = $connection->execute_query($sql);
 					while (odbc_fetch_array($data)) {
 						$this->set_id(odbc_result($data, 'meu_id'));

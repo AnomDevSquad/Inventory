@@ -119,6 +119,24 @@ body, html{
   padding: 20px 0;
 }
 
+#inv_menu{
+  width: 300px;
+  position: absolute;
+  z-index: 10;
+}
+#inv_menu .menu_btn{
+  position: relative; float: left;
+  width: 90%;
+  height: 40px;
+  margin-top: 10px;
+}
+#inv_menu .menu_btn_action{
+  width: 10%;
+  height: 100%;
+  margin-top: 10px;
+  height: calc(50px * 4 - 10px);
+}
+
 .tblinventory {
   margin: auto;
   width: 1000px;
