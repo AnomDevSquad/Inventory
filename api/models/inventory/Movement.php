@@ -42,12 +42,12 @@
 												w.war_id, w.war_name,
 												s.sto_quantity,
 											mc.mco_id, mc.mco_description, mc.mco_type
-										FROM movements m
-										JOIN movementconpects mc on m.mov_concept = mc.mco_id
-										JOIN stock s on m.mov_id_stock_ingredient = s.sto_id_ing
-										JOIN ingredients i on s.sto_id_ing = i.ing_id
-										JOIN measurementunits mu on i.mu = mu.meu_id
-										JOIN warehouses w on s.war_id = w.war_id
+										FROM Inventory.movements m
+										JOIN Inventory.movementconpects mc on m.mov_concept = mc.mco_id
+										JOIN Inventory.stock s on m.mov_id_stock_ingredient = s.sto_id_ing
+										JOIN Inventory.ingredients i on s.sto_id_ing = i.ing_id
+										JOIN Inventory.measurementunits mu on i.mu = mu.meu_id
+										JOIN Inventory.warehouses w on s.war_id = w.war_id
 										WHERE m.mov_id = %d', $args[0]);
 						$data = $connection->execute_query($sql);
 						$found = odbc_num_rows($data) > 0;
@@ -109,11 +109,16 @@
 			$list = array();
 			$connection = new SqlServerConnection();
 			try{
-				$sql = 'SELECT m.mov_id, m.mov_date, m.mov_quantity, s.sto_id_ing, i.ing_id, i.ing_description,
-				s.sto_quantity, mu.meu_id, mu.meu_description, w.war_id, w.war_name, mc.mco_id, mc.mco_description,
-				mc.mco_type FROM movements m JOIN movementconpects mc on m.mov_concept = mc.mco_id JOIN stock s on
-				m.mov_id_stock_ingredient = s.sto_id_ing JOIN ingredients i on s.sto_id_ing = i.ing_id
-				JOIN measurementunits mu on i.mu = mu.meu_id JOIN warehouses w on s.war_id = w.war_id';
+				$sql =
+				"	SELECT 	m.mov_id, m.mov_date, m.mov_quantity, s.sto_id_ing, i.ing_id, i.ing_description,
+									s.sto_quantity, mu.meu_id, mu.meu_description, w.war_id, w.war_name, mc.mco_id,
+									mc.mco_description, mc.mco_type
+					FROM Inventory.movements m 
+					JOIN Inventory.movementconpects mc on m.mov_concept = mc.mco_id 
+					JOIN Inventory.stock s on	m.mov_id_stock_ingredient = s.sto_id_ing 
+					JOIN Inventory.ingredients i on s.sto_id_ing = i.ing_id
+					JOIN Inventory.measurementunits mu on i.mu = mu.meu_id 
+					JOIN Inventory.warehouses w on s.war_id = w.war_id";
 				$data = $connection->execute_query($sql);
 				while (odbc_fetch_array($data)) {
 					$id = odbc_result($data, 'mov_id');

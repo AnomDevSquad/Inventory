@@ -27,13 +27,12 @@ class Order
 				$connection = new SqlServerConnection();
 				try{
 					$sql = sprintf(
-						'SELECT
-						o.ord_id, o.ord_date, o.ord_subtotal, o.ord_iva, o.ord_total,
-						od.dis_id, d.dis_name, d.dis_description, d.dis_price, od.ord_dis_quantity
-						from orders o
-						join order_dishes od on od.ord_id = o.ord_id
-						join dishes d on d.dis_id = od.dis_id
-						where o.ord_id = %d', $args[0]);
+						"	SELECT	o.ord_id, o.ord_date, o.ord_subtotal, o.ord_iva, o.ord_total,
+											od.dis_id, d.dis_name, d.dis_description, d.dis_price, od.ord_dis_quantity
+						from Sales.orders o
+						join Sales.order_dishes od on od.ord_id = o.ord_id
+						join Kitchen.dishes d on d.dis_id = od.dis_id
+						where o.ord_id = %d", $args[0]);
 					$data = $connection->execute_query($sql);
 					$order_details = array();
 					$found = odbc_num_rows($data) > 0;

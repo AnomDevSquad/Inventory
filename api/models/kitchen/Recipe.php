@@ -38,7 +38,7 @@
     public function get_all_dish_ingredients(){
       $list = array();
       $connection = new SqlServerConnection();
-      $sql = "SELECT ing_id, dis_id, dis_ing_quantity from dish_ingredients";
+      $sql = "SELECT ing_id, dis_id, dis_ing_quantity from Kitchen.dish_ingredients";
       $data = $connection->execute_query();
       while (odbc_fetch_array($data)) {
         $ingredient = odbc_result($data, 'ing_id');
@@ -51,7 +51,7 @@
 
     public function add(){
         $connection = new SqlServerConnection();
-        $sql = "INSERT INTO dish_ingredients(ing_id, dis_id, dis_ing_quantity) VALUES (?,?,?)";
+        $sql = "INSERT INTO Kitchen.dish_ingredients(ing_id, dis_id, dis_ing_quantity) VALUES (?,?,?)";
         $connection->execute_non_query($sql, array($this->ingredient, $this->dish, $this->quantity));
         $connection->close();
     }

@@ -15,7 +15,10 @@
 					$connection = new SqlServerConnection();
 					try{
 						$args = func_get_args();
-						$sql = sprintf("SELECT war_id, war_name FROM warehouses WHERE war_id = '%s'", strval($args[0]));
+						$sql = sprintf(
+						"	SELECT war_id, war_name
+							FROM Inventory.warehouses
+							WHERE war_id = '%s'", strval($args[0]));
 						$data = $connection->execute_query($sql);
 						$found = odbc_num_rows($data) > 0;
 						if(!$found){ throw new WarehouseNotFoundException(); }

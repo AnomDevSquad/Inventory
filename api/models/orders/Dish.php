@@ -26,7 +26,10 @@ class Dish
 			if($argsCount == 1){
 			  $connection = new SqlServerConnection();
 				try{
-			    $sql = sprintf('SELECT dis_id, dis_name, dis_description, dis_price FROM dishes WHERE dis_id = %d', $args[0]);
+			    $sql = sprintf(
+					"	SELECT dis_id, dis_name, dis_description, dis_price
+						FROM Kitchen.dishes
+						WHERE dis_id = %d", $args[0]);
 			    $query = $connection->execute_query($sql);
 			    $found = odbc_num_rows($query)>0;
 			    if(!$found) throw new DishNotFoundException();
@@ -121,9 +124,11 @@ class Dish
     $list = array();
     $connection = new SqlServerConnection();
     $sql = sprintf(
-		'select i.ing_id, i.ing_description, di.dis_ing_quantity
-		from ingredients i join dish_ingredients di on i.ing_id = di.ing_id
-		join dishes d on d.dis_id = di.dis_id where d.dis_id = %d',$this->id);
+		"	SELECT i.ing_id, i.ing_description, di.dis_ing_quantity
+			FROM Kitchen.ingredients i
+			JOIN Kitchen.dish_ingredients di ON i.ing_id = di.ing_id
+			JOIN Kitchen.dishes d ON d.dis_id = di.dis_id
+			WHERE d.dis_id = %d",$this->id);
     $query = $connection->execute_query($sql);
     $found = odbc_num_rows($query)>0;
 	if(!$found) throw new DishNotFoundException();
@@ -140,7 +145,7 @@ class Dish
 	public static function get_all_dishes(){
 		$list = array();
 		$connection = new SqlServerConnection();
-		$sql = 'SELECT dis_id, dis_name, dis_description, dis_price FROM dishes';
+		$sql = "SELECT dis_id, dis_name, dis_description, dis_price FROM kitchen.dishes";
 		$data = $connection->execute_query($sql);
 		while (odbc_fetch_array($data)) {
 			array_push($list, new Dish(odbc_result($data, 'dis_id'), odbc_result($data, 'dis_name'),

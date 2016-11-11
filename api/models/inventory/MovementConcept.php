@@ -16,7 +16,10 @@
 				if (func_num_args() == 1) {
 					$connection = new SqlServerConnection();
 					try{
-						$sql = sprintf('SELECT mco_id, mco_description, mco_type FROM movementconpects WHERE mco_id = %d', $args[0]);
+						$sql = sprintf(
+						"	SELECT mco_id, mco_description, mco_type
+							FROM Inventory.movementconpects
+							WHERE mco_id = %d", $args[0]);
 						$data = $connection->execute_query($sql);
 						while (odbc_fetch_array($data)) {
 							$this->set_id(odbc_result($data, 'mco_id'));
@@ -42,7 +45,9 @@
 		public static function get_all_movement_concepts(){
 			$list = array();
 			$connection = new SqlServerConnection();
-			$sql = 'SELECT mco_id, mco_description, mco_type FROM movementconpects';
+			$sql =
+			"	SELECT mco_id, mco_description, mco_type
+				FROM Inventory.movementconpects";
 			$data = $connection->execute_query($sql);
 			while (odbc_fetch_array($data)) {
 				array_push($list, new MovementConcept(odbc_result($data, 'mco_id'),

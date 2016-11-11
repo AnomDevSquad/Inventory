@@ -16,11 +16,11 @@ class Ingredient extends Information
 			$args = func_get_args();
 			if (func_num_args() == 1) {
 				$connection = new SqlServerConnection();
-				$sql = sprintf("SELECT
-					i.ing_id, i.ing_description,
-						mu.meu_id, mu.meu_description
-					FROM ingredients i
-					JOIN measurementunits mu on i.mu = mu.meu_id
+				$sql = sprintf(
+				"	SELECT 	i.ing_id, i.ing_description,
+									mu.meu_id, mu.meu_description
+					FROM Inventory.ingredients i
+					JOIN Inventory.measurementunits mu on i.mu = mu.meu_id
 					WHERE ing_id = %d", $args[0]);
 				$data = $connection->execute_query($sql);
 				$found = odbc_num_rows($data) > 0;

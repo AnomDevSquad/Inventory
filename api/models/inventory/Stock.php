@@ -22,16 +22,17 @@
 				$args = func_get_args();
 				if ($argsCount == 2) {
 					$connection = new SqlServerConnection();
-					$sql = sprintf('SELECT
-															i.ing_id, i.ing_description,
-																mu.meu_id, mu.meu_description,
-														w.war_id, w.war_name,
-														s.sto_quantity
-													FROM stock s
-													JOIN ingredients i ON s.sto_id_ing = i.ing_id
-													JOIN warehouses w ON s.war_id = w.war_id
-													JOIN measurementunits mu ON i.mu = mu.meu_id
-													WHERE i.ing_id = %d and w.war_id = \'%s\'', $args[0], $args[1]);
+					$sql = sprintf(
+					"	SELECT
+						i.ing_id, i.ing_description,
+						mu.meu_id, mu.meu_description,
+						w.war_id, w.war_name,
+						s.sto_quantity
+						FROM Inventory.stock s
+						JOIN Inventory.ingredients i ON s.sto_id_ing = i.ing_id
+						JOIN Inventory.warehouses w ON s.war_id = w.war_id
+						JOIN Inventory.measurementunits mu ON i.mu = mu.meu_id
+						WHERE i.ing_id = %d and w.war_id = '%s'", $args[0], $args[1]);
 					$data = $connection->execute_query($sql);
 					$found = odbc_num_rows($data) > 0;
 					if(!$found) throw new ItemInStockNotFoundException();
@@ -72,9 +73,12 @@
 		public function get_all_stock(){
 			$list = array();
 			$connection = new SqlServerConnection();
-			$sql ='SELECT i.ing_id, i.ing_description,mu.meu_id, mu.meu_description,w.war_id, w.war_name,s.sto_quantity
-			FROM stock s JOIN ingredients i ON s.sto_id_ing = i.ing_id JOIN warehouses w ON s.war_id = w.war_id
-			JOIN measurementunits mu ON i.mu = mu.meu_id';
+			$sql =
+			'	SELECT i.ing_id, i.ing_description,mu.meu_id, mu.meu_description,w.war_id, w.war_name,s.sto_quantity
+				FROM Inventory.stock s
+				JOIN Inventory.ingredients i ON s.sto_id_ing = i.ing_id
+				JOIN Inventory.warehouses w ON s.war_id = w.war_id
+				JOIN Inventory.measurementunits mu ON i.mu = mu.meu_id';
 			$data = $connection->execute_query($sql);
 			$found = odbc_num_rows($data) > 0;
 			if(!$found) throw new ItemInStockNotFoundException();
