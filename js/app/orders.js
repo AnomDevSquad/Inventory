@@ -34,13 +34,33 @@ function loadDishes(){
         tr.appendChild(name);
         tr.appendChild(price);
         table.appendChild(tr);
-
       }
     }
   }
 }
 
 function addToForm(id){
-  var price = document.getElementById(id);
-  alert(price.innerHTML);
+  var form = document.getElementById('form');
+  if (validateItem(form).length > 0) {
+    for (var i = 0; i < validateItem(form).length; i++) {
+      var item = document.getElementById(id);
+      if (item.innerHTML == validateItem(form)[i]) {
+        return alert('Already there is one similar ')
+      }
+    }
+  }
+  var label = createLabel(form, item.getAttribute('id'), item.innerHTML);
+  var input = createInput(form, item.getAttribute('id'), 'number', item.innerHTML);
+  createDiv(form, [label, input], '', 'input-field');
+  validateItem(form);
+}
+
+function validateItem(form){
+  var items = [];
+  if (form.childNodes.length > 0) {
+    for (var i = 0; i < form.childNodes.length; i++) {
+      item.push(form.childNodes[1].innerHTML;)
+    }
+  }
+  return items;
 }
