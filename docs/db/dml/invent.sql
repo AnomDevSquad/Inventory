@@ -1,36 +1,33 @@
-insert into warehouses values
-('W01','Kitchen'),
-('W02','Warehouse');
+insert into Inventory.warehouses values
+(1,'Kitchen'),
+(2,'Warehouse');
 go
-insert into stock values
-(1,'W01',80),
-(2,'W01',150),
-(3,'W01',45),
-(4,'W01',90),
-(5,'W01',100),
-(6,'W01',80),
-(7,'W01',120),
-(8,'W01',75),
-(9,'W01',125),
-(10,'W01',100),
-(1,'W02',120),
-(2,'W02',110),
-(3,'W02',200),
-(4,'W02',200),
-(5,'W02',100),
-(6,'W02',40),
-(7,'W02',220),
-(8,'W02',89),
-(9,'W02',150),
-(10,'W02',120);
+insert into Inventory.stock values
+(1,1,80,20,700),
+(2,1,150,20,700),
+(3,1,45,20,700),
+(4,1,90,20,700),
+(5,1,100,20,700),
+(6,1,80,20,700),
+(7,1,120,20,700),
+(8,1,75,20,700),
+(9,1,125,20,700),
+(10,1,100,20,700),
+(1,2,120,20,700),
+(2,2,110,20,700),
+(3,2,200,20,700),
+(4,2,200,20,700),
+(5,2,100,20,700),
+(6,2,40,20,700),
+(7,2,220,20,700),
+(8,2,89,20,700),
+(9,2,150,20,700),
+(10,2,120,20,700);
 go
---date--cantidad--almacen--idstock--concept
-insert into movements values
-(getdate(),5,'W01',10,2),
-(getdate(),30,'W02',3,10),
-(getdate(),20,'W01',10,2),
-(getdate(),8,'W02',6,1),
-(getdate(),43,'W01',10,10);
-
-
---ya son las 2 de la mañana.....weba
+-- esta falta por editar ... los campos estan en otro orden
+insert into Inventory.movements values
+(getdate(),5,1,10,2),
+(getdate(),30,2,3,10),
+(getdate(),20,1,10,2),
+(getdate(),8,2,6,1),
+(getdate(),43,1,10,10);

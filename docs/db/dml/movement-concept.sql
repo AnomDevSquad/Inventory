@@ -1,5 +1,3 @@
-
-
-insert into movementconpects values 
-(1, 'Purchase','I'), (2, 'Sale','O'),  (3, 'Minimum losses ','O'), (4, 'Maximum Losses','O'), (5, 'Entry Transfer','I'),
-(6, 'Output Transfer','O'), (9,'Spoiled','O'), (10, 'Expiration','O');
+insert into Inventory.movementconcepts values
+(1, 'Purchase'), (2, 'Sale'),  (3, 'Minimum losses '), (4, 'Maximum Losses'), (5, 'Entry Transfer'),
+(6, 'Output Transfer'), (9,'Spoiled'), (10, 'Expiration');
