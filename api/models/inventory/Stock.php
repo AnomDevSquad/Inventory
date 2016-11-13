@@ -29,7 +29,7 @@
 						w.war_id, w.war_name,
 						s.sto_quantity
 						FROM Inventory.stock s
-						JOIN Inventory.ingredients i ON s.sto_id_ing = i.ing_id
+						JOIN Kitchen.ingredients i ON s.sto_id_ing = i.ing_id
 						JOIN Inventory.warehouses w ON s.war_id = w.war_id
 						JOIN Inventory.measurementunits mu ON i.mu = mu.meu_id
 						WHERE i.ing_id = %d and w.war_id = '%s'", $args[0], $args[1]);
@@ -74,17 +74,23 @@
 			$list = array();
 			$connection = new SqlServerConnection();
 			$sql =
-			'	SELECT i.ing_id, i.ing_description,mu.meu_id, mu.meu_description,w.war_id, w.war_name,s.sto_quantity
+			'SELECT i.ing_id, i.ing_description,w.war_id, w.war_name,s.sto_quantity
 				FROM Inventory.stock s
-				JOIN Inventory.ingredients i ON s.sto_id_ing = i.ing_id
-				JOIN Inventory.warehouses w ON s.war_id = w.war_id
-				JOIN Inventory.measurementunits mu ON i.mu = mu.meu_id';
+				JOIN Kitchen.ingredients i ON s.sto_id_ing = i.ing_id
+				JOIN Inventory.warehouses w ON s.war_id = w.war_id';
+			// FALTA POR ARREGLAR DE LO DE measurementunits NO SE PUEDE HACER JOIN POR EL TIPO DE DATOS
+			// QUE SE ESTA MANEJANDO EN EL FOREIGN KEY, POR LOS PRONTO FUNCIONA DE LA FORMA DE ARRIBA 
+			// 'SELECT i.ing_id, i.ing_description,mu.meu_id, mu.meu_description,w.war_id, w.war_name,s.sto_quantity
+			//  FROM Inventory.stock s
+			//  JOIN Kitchen.ingredients i ON s.sto_id_ing = i.ing_id
+			//  JOIN Inventory.warehouses w ON s.war_id = w.war_id
+			//  JOIN Inventory.measurementunits mu ON i.mu = mu.meu_id';
 			$data = $connection->execute_query($sql);
 			$found = odbc_num_rows($data) > 0;
 			if(!$found) throw new ItemInStockNotFoundException();
 			while (odbc_fetch_array($data)) {
 				$ingredient = new Ingredient(odbc_result($data, 'ing_id'),odbc_result($data, 'ing_description'),
-				new Measurement(odbc_result($data, 'meu_id'),odbc_result($data, 'meu_description')));
+			new Measurement(/*odbc_result($data, 'meu_id'),odbc_result($data, 'meu_description')*/));
 				$warehouse = new Warehouse(odbc_result($data, 'war_id'),odbc_result($data, 'war_name'));
 				$quantity = odbc_result($data, 'sto_quantity');
 				array_push($list, new Stock($ingredient, $warehouse, $quantity));

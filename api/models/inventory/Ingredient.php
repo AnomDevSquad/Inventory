@@ -19,7 +19,7 @@ class Ingredient extends Information
 				$sql = sprintf(
 				"	SELECT 	i.ing_id, i.ing_description,
 									mu.meu_id, mu.meu_description
-					FROM Inventory.ingredients i
+					FROM Kitchen.ingredients i
 					JOIN Inventory.measurementunits mu on i.mu = mu.meu_id
 					WHERE ing_id = %d", $args[0]);
 				$data = $connection->execute_query($sql);
