@@ -1,0 +1,9 @@
+@font-face {
+  font-family: fancy_china;
+  src: url('css/src/fonts/fancy china.ttf');
+}
+
+@font-face {
+  font-family: china_small;
+  src: url('css/src/fonts/fancy small.ttf');
+}

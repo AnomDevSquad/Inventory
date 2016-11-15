@@ -4,45 +4,20 @@
     <meta charset="utf-8">
     <title>Order</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-      *{
-        margin: 0px;
-        padding: 0px;
-        font-family: Arial;
-        font-size: 14pt;
-      }
-      .container, #dishes, #orders{
-        position: relative;
-        float: left;
-      }
-      .input-field{
-        display: block;
-      }
-    </style>
     <script src='../../js/general/forms.js'></script>
     <script src='../../js/app/orders.js'></script>
   </head>
   <body onload="init()">
-    <section class="container">
-      <header>
-        <h3>Order View</h3>
-      </header>
-      <!-- header -->
+    <div id="order">
+      <div id="menu">
+        <p class="title">Menu</p>
+      </div>
       <div id="dishes">
-        <table id="table">
-          <th>Name</th>
-          <th>Price</th>
-        </table>
-        <!-- table -->
+        <p class="title">Dishes</p>
       </div>
-      <!-- div dishes -->
-      <div id="orders">
-        <form  id="form" class="" method="post">
-        </form>
-        <!-- form -->
+      <div id="bill">
+        <p class="title">Bill</p>
       </div>
-      <!-- div orders -->
-    </section>
-    <!-- section container -->
+    </div>
   </body>
 </html>

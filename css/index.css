@@ -1,0 +1,96 @@
+#controls,
+footer
+{
+    position: relative;
+
+    float: left;
+}
+
+/* app style*/
+#controls
+{
+    width: 70%;
+    height: 70%;
+    margin-top: 100px;
+    margin-right: 15%;
+    margin-left: 15%;
+}
+#controls a:hover
+{
+    animation: app_control_hover;
+    animation-duration: .2s;
+
+    background: #586469;
+}
+#controls a,
+#controls a:visited
+{
+    display: block;
+
+    margin: 5px;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    border-radius: 10px;
+    background: #353c3f;
+}
+#controls .control
+{
+    position: relative; float: left;
+}
+#controls .control
+{
+    width: calc(100% / 3);
+    height: 100%;
+}
+#controls .control .image
+{
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    padding-top: 15px;
+}
+#controls .control .title
+{
+    font-size: 20pt;
+
+    width: 50%;
+    margin: auto;
+    margin-top: 10px;
+    padding-bottom: 10px;
+
+    text-align: center;
+
+    color: #fdfdfe;
+}
+
+/* animations */
+@keyframes app_control_hover
+{
+    from
+    {
+        background: #353c3f;
+    }
+    to
+    {
+        background: #586469;
+    }
+}
+
+footer
+{
+    width: 100%;
+
+    background: #ff8d3f;
+}
+footer p
+{
+    font-size: 100pt;
+
+    width: 100%;
+
+    text-align: center;
+
+    color: #fff;
+}

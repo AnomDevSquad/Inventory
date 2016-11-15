@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <script src='js/app/inventory.js'></script>
     <link rel="stylesheet" href="css/master.css" media="screen" title="no title">
+    <link rel="stylesheet" href="css/inventory.css" media="screen" title="no title">
     <title>Inventory</title>
-  </head>
-  <body onload='init()'>
-    <section class="container" id="inv">
-      <header>
-        <h3 id='title'>Inventory</h3>
-      </header>
-      <div id="inv_menu">
-        <button class='menu_btn' type="button" name="btn_change_warehouse">Change warehouse</button>
-        <button class='menu_btn' type="button" name="btn_transfer">Transfer</button>
-        <button class='menu_btn' type="button" name="btn_loss">Report losses</button>
-        <button class='menu_btn' type="button" name="btn_weekly_report">Weekly report</button>
-        <button class='menu_btn_action' type="button" name="btn_menu_action" id="btn_menu_action"><img id="btn_action_img" src=""/></button>
-      </div>
-      <div class="tblinventory">
-        <div class='controls'>
-          <button onclick="stock()">Show The Stock</button> <button onclick="movements()">Show the Movements</button>
-        </div>
-        <table id='tbl'>
+</head>
 
-        </table>
-      </div>
+<body onload=''>
+    <section class="container">
+        <div id="content">
+            <header>
+                <span id='title'>INVENTORY</span>
+            </header>
+            <section class="controls" id="inventory_controls">
+                <button id="transf" onclick="action(this)"><span>Transfer</span><img src="" alt=""></button>
+                <button id="income" onclick="action(this)"><span>Income</span><img src="" alt=""></button>
+                <button id="report" onclick="action(this)"><span>Report</span><img src="" alt=""></button>
+                <button id="weekly" onclick="action(this)"><span>Weekly Report</span><img src="" alt=""></button>
+            </section>
+            <section class="main" id="inventory">
+                <div id="stock">
+
+                </div>
+            </section>
+        </div>
     </section>
-  </body>
+    <section class="actions">
+        <div id="actions" class="actions_hide">
+          
+        </div>
+    </section>
+</body>
+
 </html>
