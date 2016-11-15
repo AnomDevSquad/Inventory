@@ -140,81 +140,81 @@ GO
 
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
-ALTER TABLE [conversions] 
+ALTER TABLE [conversions]
  ADD CONSTRAINT [PK_conversions]
 	PRIMARY KEY CLUSTERED ([cvn_from_id_ingredient] ASC,[cvn_from_id_warehouse] ASC,[cvn_from_id_measurement] ASC,[cvn_to_id_measurement] ASC)
 GO
 
 ALTER TABLE [category]
-ADD CONSTRAINT [PK_cat_id] 
+ADD CONSTRAINT [PK_cat_id]
 PRIMARY KEY CLUSTERED ([cat_id] ASC)
 GO
 
-ALTER TABLE [dish_ingredients] 
+ALTER TABLE [dish_ingredients]
  ADD CONSTRAINT [PK_dish_ingredients]
 	PRIMARY KEY CLUSTERED ([ing_id] ASC,[dis_id] ASC,[measurement] ASC)
 GO
 
-ALTER TABLE [dishes] 
+ALTER TABLE [dishes]
  ADD CONSTRAINT [PK_dishes]
 	PRIMARY KEY CLUSTERED ([dis_id] ASC)
 GO
 
-ALTER TABLE [employees] 
+ALTER TABLE [employees]
  ADD CONSTRAINT [PK_employees]
 	PRIMARY KEY CLUSTERED ([emp_id] ASC)
 GO
 
-ALTER TABLE [ingredient_measurements] 
+ALTER TABLE [ingredient_measurements]
  ADD CONSTRAINT [PK_ingredient_measurements]
 	PRIMARY KEY CLUSTERED ([ims_id_ingredient] ASC,[ims_id_warehouse] ASC,[ims_id_measurement] ASC)
 GO
 
-ALTER TABLE [ingredients] 
+ALTER TABLE [ingredients]
  ADD CONSTRAINT [PK_ingredients]
 	PRIMARY KEY CLUSTERED ([ing_id] ASC)
 GO
 
 
 
-ALTER TABLE [measurementunits] 
+ALTER TABLE [measurementunits]
  ADD CONSTRAINT [PK_measurementunits]
 	PRIMARY KEY CLUSTERED ([meu_id] ASC)
 GO
 
-ALTER TABLE [movementconcepts] 
+ALTER TABLE [movementconcepts]
  ADD CONSTRAINT [PK_movementconpects]
 	PRIMARY KEY CLUSTERED ([mco_id] ASC)
 GO
 
-ALTER TABLE [movements] 
+ALTER TABLE [movements]
  ADD CONSTRAINT [PK_movements]
 	PRIMARY KEY CLUSTERED ([mov_id] ASC)
 GO
 
-ALTER TABLE [order_dishes] 
+ALTER TABLE [order_dishes]
  ADD CONSTRAINT [PK_order_dishes]
 	PRIMARY KEY CLUSTERED ([dis_id] ASC,[ord_id] ASC)
 GO
 
 
-ALTER TABLE [orders] 
+ALTER TABLE [orders]
  ADD CONSTRAINT [PK_orders]
 	PRIMARY KEY CLUSTERED ([ord_id] ASC)
 GO
 
 
-ALTER TABLE [orderstatus] 
+ALTER TABLE [orderstatus]
  ADD CONSTRAINT [PK_orderstatus]
 	PRIMARY KEY CLUSTERED ([ors_id] ASC)
 GO
 
-ALTER TABLE [stock] 
+ALTER TABLE [stock]
  ADD CONSTRAINT [PK_stock]
 	PRIMARY KEY CLUSTERED ([sto_id_ing] ASC,[war_id] ASC)
 GO
 
-ALTER TABLE [warehouses] 
+ALTER TABLE [warehouses]
  ADD CONSTRAINT [PK_warehouses]
 	PRIMARY KEY CLUSTERED ([war_id] ASC)
 GO

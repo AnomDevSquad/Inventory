@@ -4,12 +4,11 @@
 
 	class MovementConcept extends Information
 	{
-		private $type;
 		public function __construct()
 		{
 			parent::__construct();
 			if (func_num_args() == 0) {
-				$this->type = "";
+
 			}
 			else{
 				$args = func_get_args();
@@ -17,48 +16,43 @@
 					$connection = new SqlServerConnection();
 					try{
 						$sql = sprintf(
-						"	SELECT mco_id, mco_description, mco_type
+						"	SELECT mco_id, mco_description
 							FROM Inventory.movementconpects
 							WHERE mco_id = %d", $args[0]);
 						$data = $connection->execute_query($sql);
 						while (odbc_fetch_array($data)) {
 							$this->set_id(odbc_result($data, 'mco_id'));
 							$this->set_description(odbc_result($data, 'mco_description'));
-							$this->type = odbc_result($data, 'mco_type');
 						}
 					}
 					finally{
 						$connection->close();
 					}
 				}
-				elseif (func_num_args() == 3) {
+				elseif (func_num_args() == 2) {
 					$this->set_id($args[0]);
 					$this->set_description($args[1]);
-					$this->type = $args[2];
 				}
 			}
 		}
-
-		public function get_type(){return $this->type;}
-		public function set_type($newVal){$this->type = $newVal;}
 
 		public static function get_all_movement_concepts(){
 			$list = array();
 			$connection = new SqlServerConnection();
 			$sql =
-			"	SELECT mco_id, mco_description, mco_type
-				FROM Inventory.movementconpects";
+			"	SELECT mco_id, mco_description
+				FROM Inventory.movementconcepts";
 			$data = $connection->execute_query($sql);
 			while (odbc_fetch_array($data)) {
 				array_push($list, new MovementConcept(odbc_result($data, 'mco_id'),
-				odbc_result($data, 'mco_description'), odbc_result($data, 'mco_type')));
+				odbc_result($data, 'mco_description')));
 			}
 			$connection->close();
 			return $list;
 		}
 
 		public function to_json(){
-			return json_encode(array('id'=>$this->get_id(), 'description'=>$this->get_description(), 'type'=>$this->type));
+			return json_encode(array('id'=>$this->get_id(), 'description'=>$this->get_description()));
 		}
 
 		public function __toString(){
