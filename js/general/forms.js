@@ -19,8 +19,14 @@ function createInput(parent, id, type, name){
   parent.appendChild(input);
 }
 
-function createOption(){
-  // do something
+function createOption(parent, name, id, className, eventType, fn){
+  var option = document.createElement('option');
+  option.setAttribute('id', id);
+  option.innerHTML = name;
+  option.setAttribute('class', className);
+  option.setAttribute(eventType, fn);
+  parent.appendChild(option);
+  return fn;
 }
 
 function createSelect(){

@@ -38,6 +38,18 @@
 			}
 		}
 
+		public static function get_all_warehouses(){
+			$connection = new SqlServerConnection();
+			$list = array();
+			$sql = 'SELECT war_id, war_name FROM Inventory.warehouses';
+			$data = $connection->execute_query($sql);
+			while (odbc_fetch_array($data)) {
+				array_push($list, new Warehouse(odbc_result($data, 'war_id'), odbc_result($data, 'war_name')));
+			}
+			$connection->close();
+			return $list;
+		}
+
 		public function to_json(){
 			return json_encode(array('id'=>$this->get_id(), 'description'=>$this->get_description()));
 		}
