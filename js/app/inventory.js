@@ -114,19 +114,31 @@ function basePath() {
 
 function action(sender) {
     var id = sender.id,
-        actions = new Array(),
         frameUrl = '',
         actionsSection = document.getElementById('actions'),
         container = document.getElementById('content'),
-        frame = document.createElement('iframe');
-    actions['transf'] = "forms/inventory/movement_create.html";
-    actions['income'] = "forms/inventory/";
-    actions['report'] = "forms/inventory/";
-    actions['weekly'] = "forms/inventory/";
-    frameUrl = actions[id];
-    frame.src = frameUrl;
-    actionsSection.setAttribute('class', 'actions_' + id);
-    actionsSection.innerHTML = '';
+        forms = ['transf', 'income', 'report', 'weekly'],
+        selectForm = '',
+        otherForm = '';
     container.setAttribute('class', 'container_hide');
-    actionsSection.appendChild(frame);
+    actionsSection.style.visibility = 'visible';
+    for (var i = 0; i < forms.length; i++) {
+        if (forms[i] == id) {
+            selectForm = document.getElementById("form_" + id);
+            selectForm.setAttribute('class', 'form_show');
+        } else {
+            otherForm = document.getElementById("form_" + forms[i]);
+            otherForm.setAttribute('class', 'form_hide');
+        }
+    }
+}
+
+function actions_reset() {
+    var container = document.getElementById('content'),
+        actionsSection = document.getElementById('actions'),
+        forms = actionsSection.getElementsByTagName('form');
+    for(var i = 0; i<forms.length; i++)
+      forms[i].setAttribute('class','form_hide');
+    container.setAttribute('class', '');
+    actionsSection.style.visibility = 'collapse';
 }

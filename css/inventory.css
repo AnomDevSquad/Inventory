@@ -1,105 +1,54 @@
-@font-face
-{
-    font-family: fancyChina;
-
-    src: url('src/fonts/fancy china.ttf');
-}
-
-@font-face
-{
+#actions label, #actions input, #actions select {
     font-family: chinaSmall;
-
-    src: url('src/fonts/fancy small.ttf');
-}
-
-
-.container
-{
-    font-family: chinaSmall;
-
-    position: absolute;
-
-    width: 100%;
-    height: 100%;
-
-    -webkit-filter: blur(0px);
-            filter: blur(0px);
-}
-#content
-{
-    width: 100%;
-    height: 100%;
-}
-
-.container header
-{
-    width: 100%;
-    height: 70px;
-    padding: 10px 0;
-
-    text-align: center;
-
-    color: #fff;
-    background: #ff8d3f;
-}
-
-.container header span
-{
-    font-family: fancyChina;
-    font-size: 40pt;
     font-weight: bold;
-    line-height: 70px;
-
-    vertical-align: middle;
-}
-
-.container .controls,
-.container .main
-{
     position: relative;
-
     float: left;
-}
-
-.container .controls
-{
-    width: 30%;
-    height: calc(100% - 90px);
-
-    background: #353c3f;
-}
-
-.container .controls button
-{
-    width: calc(100% - 20px);
-    margin: 5px 10px;
-    padding: 10px 0;
-}
-
-.container .controls b
-{
     margin-top: 5px;
 }
 
-.container .main
-{
-    width: 70%;
-    height: calc(100% - 90px);
+#actions form {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+    padding: 20px;
+    background: #ff8d3f;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
-.container_hide
-{
-    -webkit-filter: blur(5px);
-            filter: blur(5px);
+#form_transf {
+    width: 500px;
+    height: 300px;
+    margin: auto;
+    margin-left: calc(50% - 250px);
+    overflow: hidden;
+    animation: anim_form_transf;
+    animation-duration: 1.4s;
+    animation-timing-function: ease;
 }
 
-#actions {
-  z-index: 5;
-  position: absolute;
-  width: 100%;
-  height: 100%;
+#form_transf label, #form_transf input, #form_transf select {
+    width: 50%;
+    height: 30px;
 }
 
-.actions_hide{
-  visibility: collapse;
+#form_transf input[type=number] {
+    width: calc(50% - 16px);
+}
+
+#form_transf input[type=submit] {
+    width: 50%;
+    margin: 0 25% 0 25%;
+    margin-top: 30px;
+}
+
+@keyframes anim_form_transf {
+    0% {
+        margin-left: -5000px;
+    }
+    100% {
+        margin-left: calc(50% - 250px);
+    }
 }

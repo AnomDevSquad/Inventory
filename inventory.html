@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <script src='js/app/inventory.js'></script>
+    <link rel="stylesheet" href="css/fonts.css" media="screen" title="no title">
     <link rel="stylesheet" href="css/master.css" media="screen" title="no title">
     <link rel="stylesheet" href="css/inventory.css" media="screen" title="no title">
     <title>Inventory</title>
@@ -20,6 +21,7 @@
                 <button id="income" onclick="action(this)"><span>Income</span><img src="" alt=""></button>
                 <button id="report" onclick="action(this)"><span>Report</span><img src="" alt=""></button>
                 <button id="weekly" onclick="action(this)"><span>Weekly Report</span><img src="" alt=""></button>
+                <buntton id="back"><span>Go back</span><img src="" alt=""></buntton>
             </section>
             <section class="main" id="inventory">
                 <div id="stock">
@@ -29,8 +31,32 @@
         </div>
     </section>
     <section class="actions">
-        <div id="actions" class="actions_hide">
-          
+        <div id="actions">
+          <form action="" id="form_transf" method="post">
+            <label for="">Ingredient</label>
+            <select name="" id="slc_transf_ingredient"></select>
+            <label for="">Quantity</label>
+            <input type="number">
+            <label for="" class="warehouse_type">Origin</label>
+            <select name="slc_transf_war_origin" id="slc_transf_war_origin" class="warehouse_type"></select>
+            <label for="" class="warehouse_type">Destination</label>
+            <select name="slc_transf_war_destination" id="slc_transf_war_destination" class="warehouse_type"></select>
+            <input type="submit" value="Go">
+          </form>
+          <form class='form_hide' id="form_movement">
+            <label for="">Stock Ingredient</label>
+            <select name="" id="form_ingredients">
+            </select>
+            <label for="">Warehouse</label>
+            <select name="" id="form_warehouses">
+            </select>
+            <label for="">Movement Concept</label>
+            <select name="" id="form_concepts">
+            </select>
+            <label for="">Quantity</label>
+            <input type="number">
+            <input type="submit" name="submit" value="Submit" id="submit">
+          </form>
         </div>
     </section>
 </body>
