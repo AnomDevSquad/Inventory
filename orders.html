@@ -3,53 +3,15 @@
 
 <head>
     <meta charset="utf-8">
-    <title>iRestaurant - </title>
-    <link rel="stylesheet" href="css/master.css" media="screen" title="no title">
-    <link rel="stylesheet" href="css/orders.css" media="screen" title="no title">
+    <title>Restaurant - Orders</title>
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/template.css">
+    <script src="js/template.js" charset="utf-8"></script>
 </head>
 
-<body>
-    <section class="container">
-        <header>
-            <span id='title'>ORDERS</span>
-        </header>
-        <div id="content">
-            <section class="controls">
-                <button><span>New Order</span><img src="" alt=""></button>
-                <button><span>Deliver Order</span><img src="" alt=""></button>
-                <button><span>Cancel Order</span><img src="" alt=""></button>
-                <button><span>All orders</span><img src="" alt=""></button>
-                <button><span>Go Back</span><img src="" alt=""></button>
-            </section>
-            <section class="main" id="orders">
-                <div class="order" id="order_1">
-                    <div class="title">
-                      <p>Order #1</p>
-                    </div>
-                    <div class="details">
-                        <div class="headers">
-                            <p class="product">Product</p>
-                            <p class="quantity">Quantity</p>
-                            <p class="price">Price</p>
-                        </div>
-                        <div class="content">
-                          <div class="detail">
-                            <p class="product">Sea Paradise Sushi</p>
-                            <p class="quantity">2</p>
-                            <p class="price">$20</p>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="bill">
-                        <span class="total">Total</span><span class="price">$18</span>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </section>
-    <section class="actions">
-        <div id="actions">
-        </div>
+<body onload="initTemplate()">
+    <section id="content" class="content">
+
     </section>
 </body>
 

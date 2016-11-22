@@ -1,0 +1,84 @@
+.container
+{
+    width: 100%;
+    height: 100%;
+}
+
+.actions
+{
+    position: absolute;
+    top: 0; right: 0;
+    bottom: 0; left: 0;
+
+    width: 1080px;
+    max-width: 100%;
+    height: 400px;
+    max-height: 100%;
+    margin: auto;
+
+    vertical-align: middle;
+}
+
+.action
+{
+    position: relative;
+
+    float: left;
+}
+
+.action
+{
+    width: 300px;
+    height: 300px;
+    margin: 0 10px;
+    padding: 20px;
+
+    text-align: center;
+
+    border-radius: 20px;
+    background: #353c3f;
+    transition: 0.2s;
+}
+
+.action:hover{
+  cursor: pointer;
+  background: #515a5d;
+  animation: anim_actions_background;
+  transition: 0.5s;
+}
+
+@keyframes anim_actions_background {
+  0%{
+    background: #353c3f;
+  }
+  100%{
+    background: #515a5d;
+  }
+}
+
+.action .title
+{
+    font-size: 24pt;
+    line-height: 50px;
+
+    height: 50px;
+    margin: 0;
+    padding: 10px;
+
+    text-align: center;
+
+    color: #ebeafc;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, .5);
+}
+
+.action svg
+{
+    height: 190px;
+    padding: 30px;
+}
+
+.action svg path, .action svg rect
+{
+    fill: #e5ebee;
+}
