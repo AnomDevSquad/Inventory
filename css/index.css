@@ -11,19 +11,21 @@ body
 .background
 {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     top: -15px;
     right: -15px;
     bottom: -15px;
     left: -15px;
 
-    background-image: url('../img/bg/login/chinese food 720p.jpg');
+    background-image: url("../img/bg/login/chinese food 4k.jpg");
     background-size: cover;
 
-    filter: blur(10px) saturate(30%) opacity(50%);
+    filter: blur(7px) saturate(30%) opacity(50%);
+
 }
 .form
 {
+	z-index:3;
     position: absolute;
     top: 0; right: 0;
     bottom: 0; left: 0;
@@ -37,9 +39,9 @@ body
 
     vertical-align: middle;
 
-    border: 5px solid #d5692c;
+    border: 5px solid #1e2223;
     border-radius: 30px;
-    background: #ff8d3f;
+    background: #353c3f;
     box-shadow: 0 0 200px rgba(0, 0, 0, .9);
 }
 .form input
@@ -51,6 +53,27 @@ body
 }
 .form input[type=button]
 {
+	border: 0;
+    color: #fffaf7;
+    border-radius: 2000000px;
+    background: #ff812b;
+	cursor: pointer;
     width: 200px;
     margin-left: 100px;
+	transition: 0.5s;
+}
+
+.form input[type=button]:hover{
+	background: #ff9953;
+    animation: btn_hover;
+    transition: 0.5s;
+}
+
+@keyframes btn_hover {
+  0%{
+    background: #ff812b;
+  }
+  100%{
+    background: #ff812b;
+  }
 }
