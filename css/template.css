@@ -1,94 +1,149 @@
-*:focus
-{
+*:focus {
     outline: none;
 }
-*::-moz-focus-inner
-{
+
+*::-moz-focus-inner {
     border: 0;
 }
 
-.container
-{
+.container {
     width: 100%;
     height: 100%;
 }
 
-.hamburger,
-.title,
-.options,
-.actions,
-.main,
-.main_header,
-.main_content
-{
+.hamburger, .title, .options, .options_menu, .actions, .main, .main_header, .main_content {
     position: relative;
 
     float: left;
 }
 
-.header
-{
+.header {
     width: 100%;
     height: 80px;
 
     background: #353c3f;
 }
 
-.hamburger
-{
-    width: 80px;
-    height: 80px;
+.hamburger {
+    overflow: hidden;
 
     cursor: pointer;
 
     opacity: .8;
 }
-.hamburger img
-{
-    width: calc(100% - 10px * 2);
-    height: calc(100% - 10px * 2);
-    margin: 10px;
+
+.hamburger img {
+    width: 0;
+    height: 0;
 
     opacity: .85;
 }
 
-.title
-{
-    width: calc(100% - 380px);
+.header .title {
+    width: calc(100% - 80px);
     height: 100%;
 
     color: #fff;
 }
 
-.title p
-{
-    font-size: 32pt;
-    line-height: 80px;
-
+.header .title p {
     width: 100%;
     margin: 0;
 
     text-align: center;
+
+    font-size: 32pt;
+    line-height: 80px;
 }
 
-.options
-{
-    width: 300px;
-    height: 100%;
+.options {
+    z-index: 100;
+
+    width: 80px;
+    height: 80px;
 }
 
-.actions
-{
+.options a, .options a:link, .options a:visited, .options a:hover {
+    text-decoration: none;
+}
+
+.options ul {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+.options .btn{
+  width: 80px;
+  height: 80px;
+}
+
+.options .btn img {
+    padding: 10px;
+
+    transition: 0.5s;
+
+    opacity: .7;
+}
+
+.options .btn img:hover {
+    transition: .5s;
+    animation: opt_hover;
+
+    background: #41494d;
+}
+
+@keyframes opt_hover {
+    0% {
+        background: #353c3f;
+    }
+    100% {
+        background: #41494d;
+    }
+}
+
+.options ul li ul {
+
+margin-top: -5px;
+    display: none;
+
+    transition: 1s;
+}
+
+.options ul li:hover ul {
+    display: block;
+
+  margin-top: -5px;
+
+    transition: 1s;
+}
+
+.options ul li ul li {
+    float: right;
+
+    width: 200px;
+    padding: 10px;
+
+    text-align: center;
+
+    background: #353c3f;
+}
+
+.options ul li ul li:hover {
+    background: #41494d;
+}
+.options ul li ul li a{
+  color: #fff;
+}
+
+.actions {
     width: 500px;
     height: calc(100% - 80px);
 
     background: #756867;
 }
 
-.actions button
-{
-    font-size: 24pt;
-
+.actions button {
     width: calc(100% - 30px * 2);
     height: 100px;
     margin: 30px;
@@ -96,48 +151,98 @@
     padding: 0;
 
     cursor: pointer;
+    transition: .5s;
 
     color: #fffaf7;
     border: none;
     border-radius: 2000000px;
     background: #ff812b;
-    transition: .5s;
+
+    font-size: 24pt;
 }
 
-.actions button:hover
-{
+.actions button:hover {
+    transition: 0.5s;
+    animation: btn_hover;
+
     color: #fff;
     background: #ff9953;
-    animation: btn_hover;
-    transition: 0.5s;
 }
 
 @keyframes btn_hover {
-  0%{
-    background: #ff812b;
-  }
-  100%{
-    background: #ff812b;
-  }
+    0% {
+        background: #ff812b;
+    }
+    100% {
+        background: #ff812b;
+    }
 }
 
-.main{
-  width: calc(100% - 500px);
-  height: calc(100% - 80px);
-  overflow: hidden;
+.main {
+    overflow: hidden;
+
+    width: calc(100% - 500px);
+    height: calc(100% - 80px);
 }
-.main_header{
-  width: 100%;
-  height: 70px;
-  background: #8f8180;
-  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.5);
+
+.main_header {
+    width: 100%;
+    height: 70px;
+
+    background: #8f8180;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.5);
 }
+
 .main_header p {
-  color: #fff;
-  font-size: 18pt;
+    color: #fff;
+
+    font-size: 18pt;
 }
 
-.main_content{
-  width: 100%;
-  height: calc(100% - 70px);
+.main_content {
+    width: 100%;
+    height: calc(100% - 70px);
+}
+
+@media only screen and (max-width: 1360px) {
+    .actions button {
+        height: 75px;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .actions button {
+        width: calc(100% - 30px * 2);
+        height: 75px;
+        margin: 30px;
+        margin-bottom: 0;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .header .title {
+        width: calc(100% - 160px);
+    }
+    .options {
+        width: 80px;
+        height: 80px;
+    }
+    .hamburger {
+        width: 80px;
+        height: 80px;
+    }
+    .hamburger img {
+        width: 60px;
+        height: 60px;
+        margin: 10px;
+    }
+    .main {
+        width: 100%;
+    }
+    .actions {
+        visibility: collapse;
+
+        width: 0;
+        height: 0;
+    }
 }
