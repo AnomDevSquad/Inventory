@@ -8,15 +8,30 @@ function loadFormMovements(){
   var content = document.getElementById('main_content');
   var form = create(content, 'form', ['id'], ['form_movement']);
   var labels = ['Ingredient', 'Warehouse', 'Concept', 'Quantity'];
+  var inputsName = ['itmid', 'waridout', 'waridin', 'qty']
   for (var i = 0; i < labels.length; i++) {
     if (labels[i] == 'Quantity') {
       create(form, 'label', '', '', labels[i]);
-      create(form, 'input', ['type'], ['number'], '');
+      create(form, 'input', ['type', 'name'], ['number', inputsName[i]], '');
     } else {
       create(form, 'label', '', '', labels[i]);
-      create(form, 'select', ['id'], [labels[i].toLocaleLowerCase()], '');
+      create(form, 'select', ['id', 'name'], [labels[i].toLocaleLowerCase(), inputsName[i]], '');
     }
   }
+
+  create(form, 'button', ['id'], ['submit'], 'generate movement');
+  document.getElementById('submit').addEventListener('click', function(e){
+    e.preventDefault();
+    var request = new XMLHttpRequest();
+    request.open('POST', 'http://localhost:8080/4to/inventory/API/v1/warehouse_transfer.php', true);
+    var data = new FormData(document.getElementById('form_movement'));
+    request.send(data);
+    request.onreadystatechange = function(){
+      if (request.status == 200 && request.readyState == 4) {
+        console.log(request.responseText);
+      }
+    }
+  }, false);
 
   loadStockItems();
   loadWarehouseItems();

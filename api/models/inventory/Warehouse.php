@@ -38,6 +38,13 @@
 			}
 		}
 
+		// public function add(){
+		// 	$connection = new SqlServerConnection();
+		// 	$sql = "INSERT INTO warehouses(war_id, war_description)VALUES(?,?)";
+		// 	$connection->execute_non_query($sql, array($this->id, $this->description);
+		// 	$connection->close();
+		// }
+
 		public static function get_all_warehouses(){
 			$connection = new SqlServerConnection();
 			$list = array();
