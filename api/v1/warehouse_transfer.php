@@ -13,6 +13,14 @@ $json = '{';
       $wari = $_POST['waridin'];
       $qty = $_POST['qty'];
 
+      // $json .= '
+      //   "status":0,
+      //   "item":"'.$sto.'",
+      //   "from_warehouse":"'.$waro.'",
+      //   "to_warehouse":"'.$wari.'",
+      //   "quantity":"'.$qty.'"
+      // ';
+
       $result = Inventory::transfer($sto, $waro, $wari, $qty);
       if($result == 0)
         $json .= '"status": 0, "message": "Transfer successful"';

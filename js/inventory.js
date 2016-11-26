@@ -18,8 +18,8 @@ function loadFormMovements(){
       create(form, 'select', ['id', 'name'], [labels[i].toLocaleLowerCase(), inputsName[i]], '');
     }
   }
-
   create(form, 'button', ['id'], ['submit'], 'generate movement');
+
   document.getElementById('submit').addEventListener('click', function(e){
     e.preventDefault();
     var request = new XMLHttpRequest();
@@ -31,7 +31,7 @@ function loadFormMovements(){
         console.log(request.responseText);
       }
     }
-  }, false);
+  });
 
   loadStockItems();
   loadWarehouseItems();
