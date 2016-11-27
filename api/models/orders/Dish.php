@@ -3,6 +3,7 @@ require_once ('/../inventory/Ingredient.php');
 require_once ('/../../sqlserverconnection/connection_sql_server.php');
 require_once('/../exceptions/DishNotFoundException.php');
 require_once('/../kitchen/Recipe.php');
+require_once('/../Kitchen/Category.php');
 
 class Dish
 {
@@ -10,6 +11,7 @@ class Dish
 	private $name;
 	private $description;
 	private $price;
+	private $category;
 	private $ingredients;
 
 	function __construct() {
@@ -19,6 +21,7 @@ class Dish
 			$this->name="";
 			$this->description="";
 			$this->price=0;
+			$this->category = new Category();
 			$this->ingredients = array();
 		}
 		else{
@@ -58,6 +61,14 @@ class Dish
 				$this->price = $args[3];
 				$this->ingredients = $args[4];
 			}
+			elseif($argsCount == 6){
+				$this->id = $args[0];
+				$this->name = $args[1];
+				$this->description = $args[2];
+				$this->price = $args[3];
+				$this->category = $args[4];
+				$this->ingredients = $args[5];
+			}
 		}
 	}
 	public function get_id(){return $this->id;}
@@ -70,6 +81,9 @@ class Dish
 	public function set_price($newVal){$this->price = $newVal;}
 	public function get_ingredients(){return $this->ingredients;}
 	public function set_ingredients($newValue){$this->ingredients = $newValue;}
+	public function get_category(){return $this->category;}
+	public function set_category($newValue){$this->category = $newValue;}
+
 	public function add_ingredient($ingredient){
 		if($ingredient instanceof Ingredient)
 			array_push($this->ingredients, $ingredient);
@@ -103,6 +117,7 @@ class Dish
 			"name":"'.$this->get_name().'",
 			"description":"'.$this->get_description().'",
 			"price":'.$this->get_price().',
+			"category":'.$this->get_category().',
 			"ingredients":'.$this->ingredients_to_json().'
 		}';
 	}
@@ -145,11 +160,11 @@ class Dish
 	public static function get_all_dishes(){
 		$list = array();
 		$connection = new SqlServerConnection();
-		$sql = "SELECT dis_id, dis_name, dis_description, dis_price FROM kitchen.dishes";
+		$sql = "SELECT dis_id, dis_name, dis_description, dis_price, dis_cat_id FROM kitchen.dishes";
 		$data = $connection->execute_query($sql);
 		while (odbc_fetch_array($data)) {
 			array_push($list, new Dish(odbc_result($data, 'dis_id'), odbc_result($data, 'dis_name'),
-			odbc_result($data, 'dis_description'), odbc_result($data, 'dis_price'), array()
+			odbc_result($data, 'dis_description'), odbc_result($data, 'dis_price'),odbc_result($data, 'dis_cat_id'),array()
 			));
 		}
 		$connection->close();
