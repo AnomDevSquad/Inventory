@@ -1,0 +1,17 @@
+1- I_Register OrDER
+	lo mandas a llamar 1 vez y te regresara el numero de orden que se aca de registrar (se necesita para el segundo StoredPro)
+
+2- I_AttachDishes2Order
+	lo mandas a llamar N de diferentes platillos
+	-recibe 3 param:  la order id (la que te regreso el pasado)
+			  el dish id (el platillo que le pondras a esa orden )
+			  quantity ( la cantidad de ese platillo para esa orden) 
+
+3- I _SaveIngredients
+	-lo mandas a llamar 1 vez
+
+4- I_lowerStock01
+	-lo mandas a llamar 1 vez
+
+5- I_InsertMovements
+	-lo mandas a llamar 1 vez
