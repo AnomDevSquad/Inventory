@@ -1,5 +1,4 @@
-body
-{
+body {
     position: relative;
 
     overflow: hidden;
@@ -8,8 +7,8 @@ body
 
     background-color: #d6d5d2;
 }
-.background
-{
+
+.background {
     position: absolute;
     z-index: 0;
     top: -15px;
@@ -21,14 +20,15 @@ body
     background-size: cover;
 
     filter: blur(7px) saturate(30%) opacity(50%);
-
 }
-.form
-{
-	z-index:3;
+
+.form {
     position: absolute;
-    top: 0; right: 0;
-    bottom: 0; left: 0;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 
     width: 400px;
     max-width: 100%;
@@ -44,36 +44,100 @@ body
     background: #353c3f;
     box-shadow: 0 0 200px rgba(0, 0, 0, .9);
 }
-.form input
-{
+
+.form input {
     width: 300px;
     height: 40px;
     margin-top: 10px;
     margin-left: 50px;
 }
-.form input[type=button]
-{
-	border: 0;
-    color: #fffaf7;
-    border-radius: 2000000px;
-    background: #ff812b;
-	cursor: pointer;
+
+.form input[type=button] {
     width: 200px;
     margin-left: 100px;
-	transition: 0.5s;
-}
 
-.form input[type=button]:hover{
-	background: #ff9953;
-    animation: btn_hover;
+    cursor: pointer;
     transition: 0.5s;
+
+    color: #fffaf7;
+    border: 0;
+    border-radius: 2000000px;
+    background: #ff812b;
 }
 
-@keyframes btn_hover {
-  0%{
-    background: #ff812b;
-  }
-  100%{
-    background: #ff812b;
-  }
+.form input[type=button]:hover {
+    transition: 0.5s;
+    animation: btn_hover;
+
+    background: #ff9953;
+}
+
+.message {
+    position: absolute;
+    z-index: 500;
+
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    justify-content: center;
+    align-items: center;
+}
+
+.message_hide {
+    position: absolute;
+    z-index: -500;
+
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    justify-content: center;
+    align-items: center;
+}
+
+.error_message {
+    overflow: hidden;
+
+    width: 500px;
+    height: 200px;
+    padding: 30px;
+
+    text-align: center;
+
+    color: #fff;
+    border-radius: 20px;
+    background: #ea0218;
+}
+
+.error_message p {
+    width: 100%;
+    height: 75px;
+
+    font-size: 16pt;
+    line-height: 75px;
+}
+
+.error_message button {
+
+    height: 50px;
+    padding: 10px;
+
+    transition: .5s;
+
+    border: 0;
+    border-radius: 10000px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.error_message button:hover {
+    transition: .5s;
+
+    background: rgba(255, 255, 255, 0.75);
 }
