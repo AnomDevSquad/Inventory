@@ -6,8 +6,8 @@ var itemsArray = [];
 
 function init() {
     initOrdersTemplate();
-    initOrders();
     initDishes();
+    initOrders();
 }
 
 function initDishes(){
@@ -86,7 +86,7 @@ function initOrders() {
 }
 
 function initOrdersTemplate() {
-    document.getElementById('id')
+    document.getElementById('id');
     document.getElementById('action_1').innerHTML = 'New Order';
     document.getElementById('action_2').innerHTML = '';
     document.getElementById('action_3').innerHTML = '';
@@ -263,3 +263,5 @@ class Dish {
         parent.appendChild(this.div);
     }
 }
+
+function closeSession(){}
