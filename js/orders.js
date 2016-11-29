@@ -114,8 +114,8 @@ class Order {
         parent.appendChild(this.div);
     }
 
-    toString(){
-      return this._no;
+    toString() {
+        return this._no;
     }
 }
 
@@ -189,12 +189,12 @@ class Dish {
         this.pName.setAttribute('class', 'name');
         this.pQuantity.setAttribute('class', 'quantity');
         this.pPrice.setAttribute('class', 'price');
-        this.pSubtotal.setAttribute('class','subtotal');
+        this.pSubtotal.setAttribute('class', 'subtotal');
 
         this.pName.innerHTML = this._name;
         this.pQuantity.innerHTML = this._quantity;
-        this.pPrice.innerHTML = this._price;
-        this.pSubtotal.innerHTML = this._subtotal;
+        this.pPrice.innerHTML = '$' + this._price;
+        this.pSubtotal.innerHTML = '$' + this._subtotal;
     }
 
     draw(parent) {

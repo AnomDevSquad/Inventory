@@ -15,10 +15,20 @@
     padding: 20px;
 }
 
+.order .dishes .header,
+.order .dishes .list,
+.order .dish,
+.order .bill,
+.order .bill .subtotal,
+.order .bill .tax,
+.order .bill .total {
+    width: 100%;
+}
+
 .order .header {
     background: #ddd;
     width: 100%;
-    height: 70px;
+    height: 50px;
 }
 
 .order .header .title {
@@ -37,8 +47,12 @@
     overflow: auto;
 }
 
-.order .dishes .header, .order .dishes .list, .order .dish, .order .bill, .order .bill .subtotal, .order .bill .tax, .order .bill .total {
-    width: 100%;
+.order .dishes .header{
+  width: calc(100% - 20px);
+  padding: 10px;
+}
+.order .dishes .header p{
+  margin: 0;
 }
 
 .order .dishes .name {
@@ -49,21 +63,4 @@
     width: 20%;
 }
 
-.order .bill p {
-    width: 50%;
-    margin: 0;
-}
-
-.order .bill div{
-  margin: 5px;
-  background: #a6cc70;
-  padding: 5px;
-}
-
-.order .bill .money{
-  text-align: right;
-}
-
-.order .bill .total .money {
-    font-size: 24pt;
-}
+.order
