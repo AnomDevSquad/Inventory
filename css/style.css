@@ -1,0 +1,89 @@
+* { font-family:arial; }
+body { margin:0px; background:#333; }
+header, #values, #svg, #chart  { position:relative; float:left; }
+header {width:100%; background:#555; border-bottom:2px solid #8BC34A; } 
+header h1 { margin:10px; padding:0px; font-size:18pt; font-weight:bold; color:#8BC34A; }
+
+#values { width:20%; }
+#values label { width:90%; display:block; margin:10px auto 10px 5%; font-size:14pt; color:#CCC; }
+#values input { width:90%; background:#555; margin:0px auto 0px 5%; padding:10px; font-size:14pt; color:#8BC34A; border:1px solid #8BC34A; }
+#values button { width:50%; background:#8BC34A; margin:10px auto auto 25%; padding:10px 0px 10px 0px; border:0px; font-size:14pt; color:#FFF; cursor:pointer; }
+#values button:hover { background:#9CCC65; }
+	
+#chart{width:80%;height:100%; background:#FFF;}
+#svg { width:100%; height:100%;}
+
+.header
+{
+	text-anchor:middle;
+	font-size:24pt;
+	font-weight:bold;
+	fill:#999;
+}
+.axis
+{
+	stroke:#999;
+	stroke-width:1px;
+}
+.scale
+{
+	text-anchor:middle;
+	font-size:8pt;
+	fill:#999;
+}
+
+.bar
+{
+	fill: #BBB;
+	stroke:#999;
+	stroke-width:1px;
+}
+
+.name
+{
+	font-size:14pt;
+	fill:#999;
+	text-anchor:end;
+}
+
+.barGreen
+{
+	fill: #4CAF50;
+	stroke:#000;
+	stroke-width:1px;
+}
+
+.barYellow
+{
+	fill: #FFEB3B;
+	stroke:#000;
+	stroke-width:1px;
+}
+
+.barRed
+{
+	fill: #F44336;
+	stroke:#000;
+	stroke-width:1px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

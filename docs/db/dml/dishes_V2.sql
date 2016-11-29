@@ -1,4 +1,4 @@
-insert into kitchen.category values (1, 'Entrace'),
+insert into Kitchen.category values (1, 'Entrace'),
 									(2, 'Sushi and Sashimi'),
 									(3, 'Main Course'),
 									(4, 'Tempura'),

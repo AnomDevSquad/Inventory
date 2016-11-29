@@ -1,3 +1,8 @@
+function initTemplate(){
+  sendReq('template.html');
+  setTimeout(init, 5);
+}
+
 function createRequestObject() {
     var obj;
     var browser = navigator.appName;
@@ -25,13 +30,21 @@ function loadTemplate(url) {
     sendReq(url);
 }
 
-function initTemplate(){
-  sendReq('template.html');
+function goBack(){
+  go_index();
+}
+function go_index(){
+  location = 'index.html';
 }
 
-function goBack(){
-  go_actions_menu();
+function goOrders(){
+  location = 'orders.html';
 }
-function go_actions_menu(){
-  location = 'actions_menu.html';
+
+function goInventory(){
+  location = 'inventory.html';
+}
+
+function goGraphs(){
+  location = 'graphs.html';
 }
