@@ -1,4 +1,6 @@
 <?php
+  require_once('/../sqlserverconnection/connection_sql_server.php');
+
   if (isset($_POST['dishes'])) {
     $array = $_POST['dishes'];
     $dishes = array_unique($_POST['dishes']);
@@ -14,11 +16,14 @@
       array_push($quantity, $count);
       $count = 0;
     }
-
-    print_r($dishes);
-    echo "<br>";
-    print_r($quantity);
   }
 
+  $connection = new SqlServerConnection();
+  
+  $connection->close();
 
 ?>
+
+<!-- // print_r($dishes);
+// echo "<br>";
+// print_r($quantity); -->

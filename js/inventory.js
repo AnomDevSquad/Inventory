@@ -1,4 +1,10 @@
-function initInventory(){
+// function initInventory(){
+//   document.getElementById('content').innerHTML = "";
+//   loadTemplate('template.html');
+//   setTimeout(loadFormMovements, 1500);
+// }
+
+function init(){
   document.getElementById('content').innerHTML = "";
   loadTemplate('template.html');
   setTimeout(loadFormMovements, 1500);
