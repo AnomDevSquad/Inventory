@@ -65,15 +65,15 @@ function buy(){
   }
   var form = document.getElementById('form');
   for (var i = 0; i < itemsArray.length; i++) {
-    create(form, 'input', ['id', 'type', 'name'], [itemsArray[i] , 'hidden', 'dishes[]']);
+    create(form, 'input', ['id', 'type', 'name', 'value'], [itemsArray[i] , 'hidden', 'dishes[]', itemsArray[i]]);
   }
-  // var request = new XMLHttpRequest();
-  // request.open('POST', url, true);
-  // var data = new FormData(form);
-  // request.send(data);
-  // request.onreadystatechange = function(){
-  //   if (request.status == 200 && request.readyState == 4) {
-  //     console.log(request.responseText);
-  //   }
-  // }
+  var request = new XMLHttpRequest();
+  request.open('POST', 'http://localhost:8080/4to/inventory/api/v1/add_order.php', true);
+  var data = new FormData(form);
+  request.send(data);
+  request.onreadystatechange = function(){
+    if (request.status == 200 && request.readyState == 4) {
+      console.log(request.responseText);
+    }
+  }
 }
