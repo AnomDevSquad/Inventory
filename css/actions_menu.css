@@ -43,17 +43,30 @@
 .action:hover{
   cursor: pointer;
   background: #515a5d;
-  animation: anim_actions_background;
   transition: 0.5s;
 }
 
-@keyframes anim_actions_background {
-  0%{
-    background: #353c3f;
-  }
-  100%{
-    background: #515a5d;
-  }
+#orders{
+  background: #2c9149;
+}
+
+#orders:hover{
+  background: #32a553;
+}
+
+#inventory{
+  background: #7551be;
+}
+
+#inventory:hover{
+  background: #8464c5;
+}
+
+#graphs{
+  background: #fc8532;
+}
+#graphs:hover{
+  background: #fda364;
 }
 
 .action .title

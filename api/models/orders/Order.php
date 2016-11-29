@@ -27,7 +27,7 @@ class Order
 				$connection = new SqlServerConnection();
 				try{
 					$sql = sprintf(
-						"	SELECT	o.ord_id, o.ord_date, o.ord_subtotal, o.ord_iva, o.ord_total,
+						"	SELECT	o.ord_id, o.ord_date, o.ord_subtotal, o.ord_iva, od.ord_total,
 											od.dis_id, d.dis_name, d.dis_description, d.dis_price, od.ord_dis_quantity
 						from Sales.orders o
 						join Sales.order_dishes od on od.ord_id = o.ord_id

@@ -1,0 +1,69 @@
+.main_content {
+    overflow: auto;
+}
+
+.order, .order div, .order p {
+    position: relative;
+    float: left;
+}
+
+.order {
+    background: #fff;
+    width: calc(50% - 60px);
+    height: 400px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.order .header {
+    background: #ddd;
+    width: 100%;
+    height: 70px;
+}
+
+.order .header .title {
+    padding: 10px;
+    color: #000;
+    margin: 0;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    top: calc(50% - 20px);
+    text-align: center;
+}
+
+.order .dishes {
+    width: 100%;
+    height: 200px;
+    overflow: auto;
+}
+
+.order .dishes .header, .order .dishes .list, .order .dish, .order .bill, .order .bill .subtotal, .order .bill .tax, .order .bill .total {
+    width: 100%;
+}
+
+.order .dishes .name {
+    width: 40%;
+}
+
+.order .dishes .quantity, .order .dishes .price, .order .dishes .subtotal {
+    width: 20%;
+}
+
+.order .bill p {
+    width: 50%;
+    margin: 0;
+}
+
+.order .bill div{
+  margin: 5px;
+  background: #a6cc70;
+  padding: 5px;
+}
+
+.order .bill .money{
+  text-align: right;
+}
+
+.order .bill .total .money {
+    font-size: 24pt;
+}
