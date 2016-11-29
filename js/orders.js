@@ -6,11 +6,11 @@ var itemsArray = [];
 
 function init() {
     initOrdersTemplate();
-    initDishes();
+    initNewOrder();
     initOrders();
 }
 
-function initDishes(){
+function initNewOrder(){
   var content = document.querySelector('#main_content');
   var request = new XMLHttpRequest();
   request.open('GET', 'http://localhost:8080/4to/Inventory/api/v1/get_all_dishes.php', true);
@@ -43,6 +43,20 @@ function loadDishes(data){
   create(order, 'div', ['id'], ['dishes']);
   var form = create(order, 'form', ['id', 'method'], ['form', 'post']);
   create(form, 'input', ['id', 'class', 'onclick', 'type', 'value'], ['submit', 'btn', 'buy();', 'button', 'Buy']);
+}
+
+function addDish(id){
+  var dishes = document.getElementById('dishes');
+  var dish = document.getElementById(id).cloneNode(true);
+  dish.setAttribute('id', id.slice(5, id.length));
+  dish.setAttribute('onclick', 'removeDish(this.id);');
+  dishes.appendChild(dish);
+}
+
+function removeDish(id){
+  var item = document.getElementById(id);
+  alert(item.innerHTML);
+  item.parentNode.removeChild(item);
 }
 
 function buy(){
@@ -263,5 +277,3 @@ class Dish {
         parent.appendChild(this.div);
     }
 }
-
-function closeSession(){}
