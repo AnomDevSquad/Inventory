@@ -29,8 +29,51 @@ function initInventoryTemplate() {
     options[1].appendChild(opt2);
 
     actions[0].addEventListener('click', loadFormMovements);
+    actions[2].addEventListener('click', loadTablesComparation);
     options[0].addEventListener('click', goOrders);
     options[1].addEventListener('click', goGraphs);
+}
+
+function loadTablesComparation(){
+  document.getElementById('main_content').innerHTML = '';
+  var content = document.querySelector('#main_content');
+  var section_table = create(content, 'div', ['id'], ['table-content']);
+  var kitchen = create(section_table, 'table', ['id', 'class'], ['table-kitchen', 'table']);
+  var warehouse = create(section_table, 'table', ['id', 'class'], ['table-warehouse', 'table']);
+  var header = ['Id', 'Name', 'Warehouse', 'Quantity'];
+  for (var i = 0; i < header.length; i++) {
+    create(kitchen, 'th', ['class'], ['table-header'], header[i]);
+    create(warehouse, 'th', ['class'], ['table-header'], header[i]);
+  }
+  loadStock(warehouse, kitchen);
+}
+
+function loadStock(warehouse, kitchen){
+  var request = new XMLHttpRequest();
+  request.open('GET', 'http://localhost:8080/4to/inventory/API/v1/get_all_stock.php', true);
+  request.send();
+  request.onreadystatechange = function(){
+    if (request.status == 200 && request.readyState == 4) {
+      var json = JSON.parse(request.responseText)
+      var stock = json.stock;
+      for (var i = 0; i < stock.length; i++) {
+        var item = stock[i];
+        if (item.warehouse.id == 1) {
+          var tr = create(kitchen, 'tr', [], [], '');
+          create(tr, 'td', [], [], item.ingredient.id);
+          create(tr, 'td', [], [], item.ingredient.description);
+          create(tr, 'td', [], [], item.warehouse.description);
+          create(tr, 'td', [], [], item.quantity);
+        } else {
+          var tr = create(warehouse, 'tr', [], [], '');
+          create(tr, 'td', [], [], item.ingredient.id);
+          create(tr, 'td', [], [], item.ingredient.description);
+          create(tr, 'td', [], [], item.warehouse.description);
+          create(tr, 'td', [], [], item.quantity);
+        }
+      }
+    }
+  }
 }
 
 function loadFormMovements() {
