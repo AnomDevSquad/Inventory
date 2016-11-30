@@ -33,12 +33,22 @@
       $sum = 0;
     }
     $iva = ($subtotal * 16) / 100;
-    echo $iva;
 
-    $connection = new SqlServerConnection();
-    $connection->execute_non_query('{CALL I_RegisterOrder(?,?,?,?)}', array($subtotal, $iva, 1, 1));
-    $sql = 'SELECT TOP 1 ord_id FROM Sales.orders ORDER BY ord_id DESC';
-    $data = $connection->execute_query($sql);
-    $connection->close();
+    // $connection = new SqlServerConnection();
+    // $connection->execute_non_query('{CALL I_RegisterOrder(?,?,?,?)}', array($subtotal, $iva, 1, 1));
+    //
+    // $sql = 'SELECT TOP 1 ord_id FROM Sales.orders ORDER BY ord_id DESC';
+    // $data = $connection->execute_query($sql);
+    // $last_id = odbc_result($data, 'ord_id');
+    //
+    // for ($i=0; $i < count($dishes); $i++) {
+    //   $connection->execute_non_query('{CALL I_AttachDishes2Order(?,?,?)}', array($last_id, $dishes[$i], $quantity[$i]));
+    // }
+    // $connection->execute_non_query('{CALL I_SaveIngredients}', array());
+    // // aqui para
+    // $connection->execute_non_query('{CALL I_LowerStock01}', array());
+    // $connection->execute_non_query('{CALL I_InsertMovements}', array());
+    // $connection->close();
+    // echo "FIN";
   }
 ?>

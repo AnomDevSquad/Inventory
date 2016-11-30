@@ -18,7 +18,7 @@ begin
 
 	begin tran --transaction
 		set @RESULT = 0;  --initialize result
-		set @TOTAL = (@IVA + 1) * @SUBTOTAL;
+		set @TOTAL = @IVA + @SUBTOTAL;
 
 
 		select top 1 @ORDERID = ord_id from Sales.orders order by ord_id desc;
@@ -26,7 +26,7 @@ begin
 		begin
 			set @ORDERID = @ORDERID + 1;
 
-			insert into Sales.orders values(@ORDERID,GETDATE(),@SUBTOTAL,@IVA * @SUBTOTAL,@TOTAL,1);
+			insert into Sales.orders values(@ORDERID,GETDATE(),@SUBTOTAL,@IVA,@TOTAL,1,1);
 
 			--ERROR HANDLER
 			set @ERROR = @@ERROR;
@@ -39,7 +39,7 @@ begin
 		else
 		begin
 			set @ORDERID = 1;
-			insert into Sales.orders values(@ORDERID,GETDATE(),@SUBTOTAL,@IVA * @SUBTOTAL,@TOTAL,1);
+			insert into Sales.orders values(@ORDERID,GETDATE(),@SUBTOTAL,@IVA,@TOTAL,1,1);
 			--ERROR HANDLER
 		set @ERROR = @@ERROR;
 		if (@ERROR <> 0)
