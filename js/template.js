@@ -1,6 +1,10 @@
 function initTemplate(){
   sendReq('template.html');
+<<<<<<< HEAD
   setTimeout(init, 250);
+=======
+  setTimeout(init, 1000);
+>>>>>>> a8998d37b1b53f037e5f1aa43e15421ae51c7764
 }
 
 function createRequestObject() {

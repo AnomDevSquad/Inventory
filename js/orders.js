@@ -5,9 +5,9 @@ var iva = 0;
 var itemsArray = [];
 
 function init() {
-    initOrdersTemplate();
     initNewOrder();
-    initOrders();
+    // initOrders();
+    initOrdersTemplate();
 }
 
 function initNewOrder(){
@@ -24,7 +24,7 @@ function initNewOrder(){
 }
 
 function loadSections(content){
-  var menu = create(content, 'div', ['id', 'class'], ['menu', ''])
+  var menu = create(content, 'div', ['id', 'class'], ['menu', '']);
   for (var i = 0; i < categoryName.length; i++) {
     create(menu, 'div', ['id', 'class'], ["category_"+idCategory[i], 'category'], '<p>'+categoryName[i]+'</p>');
   }
@@ -77,6 +77,7 @@ function buy(){
       console.log(request.responseText);
     }
   }
+  alert('Gracias por su compra');
 }
 
 function initOrders() {
