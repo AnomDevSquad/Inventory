@@ -5,9 +5,9 @@ var iva = 0;
 var itemsArray = [];
 
 function init() {
+    initOrders();
     initOrdersTemplate();
     initNewOrder();
-    initOrders();
 }
 
 function initNewOrder(){
@@ -77,6 +77,7 @@ function buy(){
       console.log(request.responseText);
     }
   }
+  alert('Gracias por su compra');
 }
 
 function initOrders() {
