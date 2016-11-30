@@ -21,8 +21,8 @@ END
 GO
 
 -- Como se usa
-DECLARE @e int, @m varchar(60), @id int;
-EXEC Sales.new_order 1, @e output, @m output, @id output; 
-SELECT @e as [error],@m as [message],@id as [id]
+DECLARE @e int, @id int;
+EXEC Sales.new_order 1, @e output, @id output; 
+SELECT @e as [error],@id as [id]
 
 INSERT INTO HumanResource.employees VALUES(1,'Cajeta','Coronado', 'ADMIN', 'Alex', '123');

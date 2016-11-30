@@ -1,24 +1,26 @@
 <?php
   header("Access-Control-Allow-Origin:*");
   require_once('/../models/inventory/Stock.php');
-  $stock = new Stock();
-  $json = "";
-  if (count($stock->get_all_stock() > 0)) {
-    $json .= '{
+  require_once('/../models/exceptions/StockEmptyException.php');
+  $json = '{';
+    try{
+      $all_stock = Stock::get_all_stock();
+      $first = true;
+      $json .= '
       "status":0,
-      "stock":[';
-        $banner = true;
-        foreach ($stock->get_all_stock() as $value) {
-          if (!$banner) { $json .= ',';} else { $banner = false; }
-          $json .= $value->to_json();
-        }
-        $json .= ']}';
-  }
-  else {
-      $json = '{
-        "status":1,
-        "message": "There are not products in Stock"
-      }';
-  }
-  echo $json;
+      "stock":[
+      ';
+      foreach ($all_stock as $stock) {
+        if(!$first) $json .= ','; else $first = false;
+        $json .= $stock->to_json();
+      }
+      $json .= ']';
+    }
+    catch(StockEmptyException $ex){
+      $json .= '
+      "status": 1,
+      "message": "'.$ex->get_message().'"
+      ';
+    }
+  echo $json.'}';
 ?>

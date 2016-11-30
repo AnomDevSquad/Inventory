@@ -1,6 +1,6 @@
 function initTemplate(){
   sendReq('template.html');
-  setTimeout(init, 5);
+  setTimeout(init, 250);
 }
 
 function createRequestObject() {
@@ -47,4 +47,25 @@ function goInventory(){
 
 function goGraphs(){
   location = 'graphs.html';
+}
+
+function getActionsButtons(){
+  var actions = [
+    document.getElementById('action_1'),
+    document.getElementById('action_2'),
+    document.getElementById('action_3'),
+    document.getElementById('action_4'),
+    document.getElementById('go_back')
+  ];
+  return actions;
+}
+
+function getOptions(){
+  var options =
+  [
+    document.getElementById('opt_1'),
+    document.getElementById('opt_2'),
+    document.getElementById('opt_3')
+  ];
+  return options;
 }

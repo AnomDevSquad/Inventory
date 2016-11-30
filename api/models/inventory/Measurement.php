@@ -2,8 +2,7 @@
 require_once('/../../sqlserverconnection/connection_sql_server.php');
 require_once ('/../general/Information.php');
 
-class Measurement extends Information
-{
+class Measurement extends Information {
 	public function __construct()
 	{
 		parent::__construct();
@@ -15,7 +14,7 @@ class Measurement extends Information
 				try{
 					$sql = sprintf(
 					"	SELECT meu_id, meu_description
-						FROM Inventory.measurementunits 
+						FROM Inventory.measurementunits
 						WHERE meu_id = '%s'", $args[0]);
 					$data = $connection->execute_query($sql);
 					while (odbc_fetch_array($data)) {

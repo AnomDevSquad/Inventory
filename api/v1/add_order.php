@@ -18,10 +18,6 @@
     }
   }
 
-  $connection = new SqlServerConnection();
-  
-  $connection->close();
-
 ?>
 
 <!-- // print_r($dishes);

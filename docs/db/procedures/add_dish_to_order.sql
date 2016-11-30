@@ -1,6 +1,6 @@
 ALTER PROCEDURE Sales.add_dish_to_order 
 	@order int, @dish int, @quantity int,
-	@error int OUTPUT, @message VARCHAR(60) OUTPUT
+	@error int OUTPUT
 AS BEGIN
 	DECLARE 
 		@subtotal money,
@@ -26,15 +26,13 @@ AS BEGIN
 	UPDATE Sales.orders SET ord_iva = ord_subtotal * .16 WHERE ord_id = @order;
 	UPDATE Sales.orders SET ord_total = ord_iva + ord_subtotal WHERE ord_id = @order;
 	SET @error = 0;
-	SET @message = 'Success';
 	
 	RETURN @error;
-	RETURN @message;
 END
 
 DECLARE @e int, @m varchar(60);
-EXEC Sales.add_dish_to_order 1,4,1, @e OUTPUT, @m OUTPUT;
-SELECT @e as [error], @m as [message]
+EXEC Sales.add_dish_to_order 2,4,3, @e OUTPUT;
+SELECT @e as [error]
 
 SELECT * FROM Sales.order_dishes
 SELECT * FROM Sales.orders
