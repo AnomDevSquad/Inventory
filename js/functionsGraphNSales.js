@@ -28,15 +28,15 @@ function loadGNS() {
                     Gdata.push(data);
                     var data = array[i].day;
                     var d = new Date(data);
-                    Wdays.push(Ndays[i] + ' ' + (d.getDate()+1));
+                    Wdays.push(Ndays[i] + ' ' + (d.getDate() + 1));
 
                 }
                 console.log(Wdays);
                 //draw chart
                 var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                svg.setAttribute('id','svg');
-                svg.setAttribute('width','700px');
-                svg.setAttribute('height','700px');
+                svg.setAttribute('id', 'svg');
+                svg.setAttribute('width', '700px');
+                svg.setAttribute('height', '700px');
                 document.getElementById('main_content').appendChild(svg);
                 drawNSalesChart(document.getElementById('svg'), document.getElementById('main_title'));
                 addChartValues();
@@ -69,7 +69,7 @@ function addChartValues() {
     clean();
 }
 
-function drawNSalesChart(svgParent,titleParent) {
+function drawNSalesChart(svgParent, titleParent) {
     //header
     //writeText(svgParent, '', '50%', '50px', 'Daily Sales' + ' (' + Wdays[0] + ' To ' + Wdays[6] + ')', 'header');
     titleParent.innerHTML = '<p>Daily Sales' + ' (' + Wdays[0] + ' To ' + Wdays[6] + ')</p>';

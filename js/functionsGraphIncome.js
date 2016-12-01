@@ -1,6 +1,6 @@
 //Wdays
 var Wdays = [];
-var Ndays = ['Mon','Tues','Wed','Thur','Fri','Sat','Sun'];
+var Ndays = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
 var Size = 0;
 //Data for graph
 var Gdata = [];
@@ -24,16 +24,16 @@ function loadGI() {
                     Gdata.push(data);
                     var data = array[i].day;
                     var d = new Date(data);
-                    Wdays.push(Ndays[i] + ' ' + (d.getDate()+1));
+                    Wdays.push(Ndays[i] + ' ' + (d.getDate() + 1));
 
                 }
                 var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                svg.setAttribute('id','svg');
-                svg.setAttribute('width','700px');
-                svg.setAttribute('height','700px');
+                svg.setAttribute('id', 'svg');
+                svg.setAttribute('width', '700px');
+                svg.setAttribute('height', '700px');
                 document.getElementById('main_content').appendChild(svg);
                 //draw chart
-                drawIncomeChart(document.getElementById('svg'),document.getElementById('main_title'));
+                drawIncomeChart(document.getElementById('svg'), document.getElementById('main_title'));
                 defineLocation(document.getElementById('svg'), 1000);
             } else
                 alert(jso.errorMessage);
@@ -42,7 +42,7 @@ function loadGI() {
     }
 }
 
-function drawIncomeChart(svgParent,titleParent) {
+function drawIncomeChart(svgParent, titleParent) {
     //header
     //writeText(titleParent, '', '50%', '50px', 'Income' + ' (' + Wdays[0] + ' To ' + Wdays[6] + ')', 'header');
     titleParent.innerHTML = '<p>Income' + ' (' + Wdays[0] + ' To ' + Wdays[6] + ')</p>';
@@ -52,7 +52,7 @@ function drawIncomeChart(svgParent,titleParent) {
     drawLine(svgParent, '20%', '600px', '80%', '600px', 'axis');
     var count = 0;
     //horizontal lane
-    for (var i = 0; i <= Wdays.length-1; i++) {
+    for (var i = 0; i <= Wdays.length - 1; i++) {
         drawLine(svgParent, (20 + count) + '%', '600px', (20 + count) + '%', '610px', 'axis');
         writeText(svgParent, 'name' + i, (20 + count) + '%', '625', Wdays[i], '');
         count += 10;
@@ -62,8 +62,8 @@ function drawIncomeChart(svgParent,titleParent) {
     var separator = ((parseInt(verticalLine.getAttribute('y2')) - 230) / Wdays.length);
     //vertical lane
     for (var i = 10; i >= 0; i--) {
-      if(i!=0)
-        drawLine(svgParent, '20%', (count + 65) + (separator / 2), '20.5%', (count + 65) + (separator / 2), 'axis');
+        if (i != 0)
+            drawLine(svgParent, '20%', (count + 65) + (separator / 2), '20.5%', (count + 65) + (separator / 2), 'axis');
         writeText(svgParent, 'name' + i, '19%', (count + 70) + (separator / 2), '$' + i * 100, 'name');
 
         count += separator;
@@ -93,7 +93,7 @@ function defineLocation(svgParent, d) {
     clean();
 }
 
-function clean(){
-  Wdays = [];
-  Gdata = [];
+function clean() {
+    Wdays = [];
+    Gdata = [];
 }
