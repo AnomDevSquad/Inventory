@@ -65,9 +65,12 @@
 
 .main_content #menu, .main_content #orders {
     width: 50%;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .main_content #menu p, .main_content #orders p {
+    height: 40px;
     text-align: center;
     color: #fafdfb;
     font-size: 20pt;
@@ -92,4 +95,19 @@
     font-size: 18pt;
     background: #45c76a;
     transition: 0.5s;
+}
+
+.main_content #orders #dishes {
+    width: 100%;
+    height: calc(100% - 80px);
+}
+
+.main_content #orders #dishes button{
+  padding: 10px;
+  width: calc(100% - 20px);
+  margin: 10px;
+}
+
+.main_content #orders form{
+  height: 40px;
 }
