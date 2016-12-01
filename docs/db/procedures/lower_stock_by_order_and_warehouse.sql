@@ -43,6 +43,7 @@ BEGIN
 					FETCH NEXT FROM cursor_select INTO @ing_id, @ord_qty, @dish_qty, @dish_qty_by_ord
 					WHILE @@FETCH_STATUS = 0
 					BEGIN
+						
 						UPDATE Inventory.stock SET sto_quantity = (sto_quantity - @dish_qty_by_ord) WHERE sto_id_ing = @ing_id and war_id = @warehouse;
 						SET @error = @@ERROR;
 						IF(@error <> 0) BEGIN
@@ -57,14 +58,12 @@ BEGIN
 						END	
 						FETCH NEXT FROM cursor_select INTO @ing_id, @ord_qty, @dish_qty, @dish_qty_by_ord
 					END
-					CLOSE cursor_select
-					DEALLOCATE cursor_select
-					UPDATE Sales.orders SET ord_status = 0 WHERE ord_id = @order;
 					SET @error = @@ERROR;
 					IF(@error <> 0) BEGIN
 						SET @error = 999;
 						goto handleError;
 					END
+					UPDATE Sales.orders SET ord_status = 0 WHERE ord_id = @order;
 				END
 			END
 		END
@@ -76,5 +75,7 @@ BEGIN
 		END
 		ROLLBACK TRANSACTION;
 	returnError:
+		CLOSE cursor_select
+		DEALLOCATE cursor_select
 		RETURN @error;
 END
