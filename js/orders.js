@@ -7,8 +7,6 @@ var itemsArray = [];
 var urlAPI = 'http://localhost:8080/4to/Inventory/';
 
 function init() {
-    initNewOrder();
-    // initOrders();
     initOrdersTemplate();
 }
 
@@ -30,12 +28,18 @@ function initOrdersTemplate() {
     templateElements().options.option1.addEventListener('click', goInventory);
     templateElements().options.option2.addEventListener('click', goGraphs);
 
+    templateElements().actions.action1.addEventListener('click', initNewOrder);
+    templateElements().actions.action2.addEventListener('click', initOrders);
+
 }
 
 function initNewOrder() {
+    document.getElementById('main_content').innerHTML = '';
     var content = document.querySelector('#main_content');
     var request = new XMLHttpRequest();
-    request.open('GET', urlAPI+'api/v1/get_all_dishes.php', true);
+    var jsonEmployee = JSON.parse(sessionStorage['employee_session']);
+    request.setRequestHeader('empid', 1);
+    request.open('GET', 'api/v1/get_all_dishes.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
@@ -60,7 +64,7 @@ function loadDishes(data) {
         var section = document.getElementById('category_' + item.category);
         var button = create(section, 'button', ['id', 'onclick', 'price'], ['dish_' + item.id, 'addDish(this.id)', item.price], '');
         var divContent = create(button, 'div', ['class'], ['picture']);
-        create(divContent, 'img', ['src'], [item.id + '.jpg']);
+        create(divContent, 'img', ['src'], ['img/dishes/'+item.id + '.jpg']);
         create(button, 'p', ['class'], ['name'], item.name);
         create(button, 'p', ['class'], ['price'], ' $ ' + item.price + ' DLLS ');
     }
@@ -82,7 +86,6 @@ function addDish(id) {
 
 function removeDish(id) {
     var item = document.getElementById(id);
-    alert(item.innerHTML);
     item.parentNode.removeChild(item);
 }
 
@@ -108,6 +111,7 @@ function buy() {
 }
 
 function initOrders() {
+    document.getElementById('main_content').innerHTML = '';
     // obtener las ordenes
     var ordersRequest = new XMLHttpRequest();
     ordersRequest.open('GET', 'api/v1/get_orders.php', true);
@@ -126,7 +130,6 @@ function initOrders() {
         }
     }
 }
-
 
 // para armar las ordenes
 class Order {
