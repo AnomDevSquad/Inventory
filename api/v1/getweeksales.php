@@ -1,6 +1,6 @@
 <?php
   header("Access-Control-Allow-Origin:*");
-  require_once('WeekSale.php');
+  require_once('/../models/graphs/WeekSale.php');
   $ws = new WeekSale();
   $json = "";
   if (count($ws->get_all_ws() > 0)) {
@@ -22,5 +22,5 @@
   }
   echo $json;
 
-  
+
 ?>
