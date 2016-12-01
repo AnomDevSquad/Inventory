@@ -58,4 +58,4 @@ CREATE PROCEDURE Inventory.ingredient_losses
 		IF(@error <> 0) ROLLBACK TRAN;
 	returnError:
 		RETURN @error;
-END
+END;
