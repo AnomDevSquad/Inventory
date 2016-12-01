@@ -15,13 +15,7 @@
     padding: 20px;
 }
 
-.order .dishes .header,
-.order .dishes .list,
-.order .dish,
-.order .bill,
-.order .bill .subtotal,
-.order .bill .tax,
-.order .bill .total {
+.order .dishes .header, .order .dishes .list, .order .dish, .order .bill, .order .bill .subtotal, .order .bill .tax, .order .bill .total {
     width: 100%;
 }
 
@@ -47,12 +41,13 @@
     overflow: auto;
 }
 
-.order .dishes .header{
-  width: calc(100% - 20px);
-  padding: 10px;
+.order .dishes .header {
+    width: calc(100% - 20px);
+    padding: 10px;
 }
-.order .dishes .header p{
-  margin: 0;
+
+.order .dishes .header p {
+    margin: 0;
 }
 
 .order .dishes .name {
@@ -63,4 +58,38 @@
     width: 20%;
 }
 
-.order
+.main_content #menu, .main_content #orders {
+    position: relative;
+    float: left;
+}
+
+.main_content #menu, .main_content #orders {
+    width: 50%;
+}
+
+.main_content #menu p, .main_content #orders p {
+    text-align: center;
+    color: #fafdfb;
+    font-size: 20pt;
+    margin: 0;
+    padding: 5px;
+    background: #1a562b;
+}
+
+.main_content #menu button {
+    font-size: 14pt;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    border: 0;
+    cursor: pointer;
+    background: #38b85d;
+    transition: 0.5s;
+}
+
+.main_content #menu button:hover {
+    padding: 20px;
+    font-size: 18pt;
+    background: #45c76a;
+    transition: 0.5s;
+}
