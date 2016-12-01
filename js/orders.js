@@ -37,8 +37,8 @@ function initNewOrder() {
     document.getElementById('main_content').innerHTML = '';
     var content = document.querySelector('#main_content');
     var request = new XMLHttpRequest();
-    var jsonEmployee = JSON.parse(sessionStorage['employee_session']);
-    request.setRequestHeader('empid', 1);
+    // var jsonEmployee = JSON.parse(sessionStorage['employee_session']);
+    // request.setRequestHeader('empid', 1);
     request.open('GET', 'api/v1/get_all_dishes.php', true);
     request.send();
     request.onreadystatechange = function() {

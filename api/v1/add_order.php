@@ -1,5 +1,6 @@
 <?php
   require_once('/../models/orders/Order.php');
+  require_once('/../sqlserverconnection/connection_sql_server.php');
   require_once('/../models/exceptions/SqlExecuteException.php');
   require_once('/../models/exceptions/OrderNotFoundException.php');
   require_once('/../models/exceptions/DishNotFoundException.php');
@@ -9,7 +10,7 @@
 
   $json = '{';
 
-  if (isset($_POST['dishes']) && isset($headers['empid'])) {
+  if (isset($_POST['dishes'])) {
     $array = $_POST['dishes'];
     $dish_ids = array_unique($_POST['dishes']);
     $dish_qtys = array();
@@ -26,42 +27,42 @@
     }
 
     $dish_ids = array_values($dish_ids);
-    $employee = new Employee();
-    $employee.set_id($headers['empid']);
-    try{
-      Order::add_new_order($employee, $dish_ids, $dish_qtys);
-      $json .= '
-      "status": 0,
-      "message": "Success"';
-    }
-    catch(NewOrderException $ex){
-      $json .= '
-      "status": 2,
-      "message": "'.$ex->get_message().'"';
-    }
-    catch(OrderNotFoundException $ex){
-      $json .= '
-      "status": 2,
-      "message": "'.$ex->get_message().'"';
-    }
-    catch(DishNotFoundException $ex){
-      $json .= '
-      "status": 2,
-      "message": "'.$ex->get_message().'"';
-    }
-    catch(SqlExcecuteException $ex){
-      $json .= '
-      "status": 2,
-      "message": "'.$ex->get_message().'"';
-    }
-  }
-  else{
-    $json .= '
-    "status": 1,
-    "message": "Parameters not were found."';
-  }
+  //   $employee = new Employee();
+  //   $employee.set_id($headers['empid']);
+  //   try{
+  //     Order::add_new_order($employee, $dish_ids, $dish_qtys);
+  //     $json .= '
+  //     "status": 0,
+  //     "message": "Success"';
+  //   }
+  //   catch(NewOrderException $ex){
+  //     $json .= '
+  //     "status": 2,
+  //     "message": "'.$ex->get_message().'"';
+  //   }
+  //   catch(OrderNotFoundException $ex){
+  //     $json .= '
+  //     "status": 2,
+  //     "message": "'.$ex->get_message().'"';
+  //   }
+  //   catch(DishNotFoundException $ex){
+  //     $json .= '
+  //     "status": 2,
+  //     "message": "'.$ex->get_message().'"';
+  //   }
+  //   catch(SqlExcecuteException $ex){
+  //     $json .= '
+  //     "status": 2,
+  //     "message": "'.$ex->get_message().'"';
+  //   }
+  // }
+  // else{
+  //   $json .= '
+  //   "status": 1,
+  //   "message": "Parameters not were found."';
+  // }
 
-/*
+
     $list = array();
     foreach ($dish_ids as $key => $value) {
       array_push($list, new Dish($value));
@@ -99,7 +100,6 @@
 
     $connection->close();
   }
-  */
   $json .= '}';
   echo $json;
 ?>

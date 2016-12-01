@@ -108,7 +108,7 @@ function loadFormTransfer() {
 
 function loadStockItems() {
     var request = new XMLHttpRequest();
-    request.open('GET', urlAPI+'api/v1/get_all_stock.php', true);
+    request.open('GET', 'api/v1/get_all_stock.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
@@ -130,7 +130,7 @@ function loadStockItems() {
 
 function loadWarehouseItems() {
     var request = new XMLHttpRequest();
-    request.open('GET', urlAPI+'api/v1/get_all_warehouses.php', true);
+    request.open('GET', 'api/v1/get_all_warehouses.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
@@ -153,7 +153,7 @@ function loadWarehouseItems() {
 
 function loadConceptItems() {
     var request = new XMLHttpRequest();
-    request.open('GET', urlAPI+'api/v1/get_all_movement_concepts.php', true);
+    request.open('GET', 'api/v1/get_all_movement_concepts.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
