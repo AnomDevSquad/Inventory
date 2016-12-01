@@ -1,9 +1,11 @@
+var urlAPI = 'http://localhost:8080/4to/Inventory/';
+
 function init() {
     setTimeout(initInventoryTemplate, 100);
 }
 
 function transfer() {
-    setTimeout(loadFormMovements, 100);
+    setTimeout(loadFormTransfer, 100);
 }
 
 function initInventoryTemplate() {
@@ -20,8 +22,8 @@ function initInventoryTemplate() {
     templateElements().options.option1.appendChild(opt1);
     templateElements().options.option2.appendChild(opt2);
 
-    templateElements().actions.action1.addEventListener('click', loadFormMovements);
-    templateElements().actions.action2.addEventListener('click', loadFormMovements);
+    templateElements().actions.action1.addEventListener('click', loadFormTransfer);
+    templateElements().actions.action2.addEventListener('click', loadFormTransfer);
     templateElements().actions.action3.addEventListener('click', loadTablesComparation);
     templateElements().options.option1.addEventListener('click', goOrders);
     templateElements().options.option2.addEventListener('click', goGraphs);
@@ -69,11 +71,11 @@ function loadStock(warehouse, kitchen) {
     }
 }
 
-function loadFormMovements() {
+function loadFormTransfer() {
     document.getElementById('main_content').innerHTML = '';
     var content = document.getElementById('main_content');
     var form = create(content, 'form', ['id'], ['form_movement']);
-    var labels = ['Ingredient', 'Warehouse', 'Concept', 'Quantity'];
+    var labels = ['Ingredient', 'WarehouseOutput', 'WarehouseInput', 'Quantity'];
     var inputsName = ['itmid', 'waridout', 'waridin', 'qty']
     for (var i = 0; i < labels.length; i++) {
         if (labels[i] == 'Quantity') {
@@ -101,12 +103,12 @@ function loadFormMovements() {
 
     loadStockItems();
     loadWarehouseItems();
-    loadConceptItems();
+    // loadConceptItems();
 }
 
 function loadStockItems() {
     var request = new XMLHttpRequest();
-    request.open('GET', 'api/v1/get_all_stock.php', true);
+    request.open('GET', urlAPI+'api/v1/get_all_stock.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
@@ -128,18 +130,21 @@ function loadStockItems() {
 
 function loadWarehouseItems() {
     var request = new XMLHttpRequest();
-    request.open('GET', 'api/v1/get_all_warehouses.php', true);
+    request.open('GET', urlAPI+'api/v1/get_all_warehouses.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
             var json = JSON.parse(request.responseText);
             if (json.status == 0) {
-                var warehouse = document.querySelector('#warehouse');
+                var warehouseOutput = document.querySelector('#warehouseoutput');
+                var warehouseInput = document.querySelector('#warehouseinput');
                 var wh = json.warehouses;
-                create(warehouse, 'option', [], [], 'Select Option');
+                create(warehouseOutput, 'option', [], [], 'Select Option');
+                create(warehouseInput, 'option', [], [], 'Select Option');
                 for (var i = 0; i < wh.length; i++) {
                     var item = wh[i];
-                    create(warehouse, 'option', ['id'], [item.id], item.description);
+                    create(warehouseOutput, 'option', ['id'], [item.id], item.description);
+                    create(warehouseInput, 'option', ['id'], [item.id], item.description);
                 }
             }
         }
@@ -148,7 +153,7 @@ function loadWarehouseItems() {
 
 function loadConceptItems() {
     var request = new XMLHttpRequest();
-    request.open('GET', 'api/v1/get_all_movement_concepts.php', true);
+    request.open('GET', urlAPI+'api/v1/get_all_movement_concepts.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
