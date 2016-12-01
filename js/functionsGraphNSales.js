@@ -10,9 +10,9 @@ var y2 = 470;
 //setInterval(updateGraph,1000);
 
 //API STUFF
-var urlApis = 'http://localhost:8080/svg/';
+var urlApis = 'http://localhost:8080/Inventory/api/v1/';
 
-function init() {
+function loadGNS() {
     var x = new XMLHttpRequest(); //ajax request
     x.open('GET', urlApis + 'getweeksales.php', true);
     x.send();
@@ -27,12 +27,18 @@ function init() {
                     var data = array[i].total;
                     Gdata.push(data);
                     var data = array[i].day;
-                    Wdays.push(data);
+                    var d = new Date(data);
+                    Wdays.push(Ndays[i] + ' ' + (d.getDate() + 1));
 
                 }
                 console.log(Wdays);
                 //draw chart
-                drawNSalesChartChart(document.getElementById('svg'));
+                var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                svg.setAttribute('id', 'svg');
+                svg.setAttribute('width', '700px');
+                svg.setAttribute('height', '700px');
+                document.getElementById('main_content').appendChild(svg);
+                drawNSalesChart(document.getElementById('svg'), document.getElementById('main_title'));
                 addChartValues();
             } else
                 alert(JSONuser.errorMessage);
@@ -60,11 +66,13 @@ function addChartValues() {
         var barWidth = ordN * 6;
         if (barWidth != 0) bar.setAttribute('width', barWidth + '%');
     }
+    clean();
 }
 
-function drawNSalesChart(svgParent) {
+function drawNSalesChart(svgParent, titleParent) {
     //header
-    writeText(svgParent, '', '50%', '50px', 'Daily Sales' + ' (' + Wdays[0] + ' To ' + Wdays[6] + ')', 'header');
+    //writeText(svgParent, '', '50%', '50px', 'Daily Sales' + ' (' + Wdays[0] + ' To ' + Wdays[6] + ')', 'header');
+    titleParent.innerHTML = '<p>Daily Sales' + ' (' + Wdays[0] + ' To ' + Wdays[6] + ')</p>';
     // y axis
     drawLine(svgParent, '30%', '70px', '30%', '600px', 'axis');
     drawLine(svgParent, '30%', '600px', '90%', '600px', 'axis');
