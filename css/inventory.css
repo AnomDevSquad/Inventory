@@ -1,0 +1,27 @@
+.main_content form, .main_content label, .main_content select, .main_content button, .main_content input{
+  position: relative;
+  float: left;
+}
+.main_content #form_movement{
+  margin: 10px 10px;
+  width: 700px;
+  height: 100%;
+}
+.main_content #form_movement label{
+  display: block;
+  width: calc(50% - 20px);
+  padding: 10px;
+}
+.main_content #form_movement select{
+  display: block;
+  width: calc(50% - 22px);
+  padding: 10px;
+}
+.main_content #form_movement input{
+  display: block;
+  width: calc(50% - 45px);
+  padding: 10px;
+}
+.main_content #form_movement button{
+
+}
