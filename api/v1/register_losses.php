@@ -1,5 +1,4 @@
 <?php
-  header('Acess-Control-Allow-Origin:*');
   $json = '{';
     if (isset($_POST['itmid']) && isset($_POST['waridout']) && isset($_POST['waridin']) && isset($_POST['qty'])) {
       $sto = $_POST['itmid'];
@@ -14,10 +13,7 @@
         "to_warehouse":"'.$wari.'",
         "quantity":"'.$qty.'"
       ';
-    }
-    else{
-      $json .= '"status": 1, "message":"Invalid Parameters"';
+
     }
   $json .= '}';
-  echo $json;
 ?>
