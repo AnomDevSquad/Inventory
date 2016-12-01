@@ -65,7 +65,8 @@ function loadDishes(data) {
         create(button, 'p', ['class'], ['price'], ' $ ' + item.price + ' DLLS ');
     }
     var content = document.querySelector('#main_content');
-    var order = create(content, 'div', ['id', 'class'], ['orders', ''], 'Orders');
+    var order = create(content, 'div', ['id', 'class'], ['orders', '']);
+    create(order, 'p', ['id'], ['title'], 'Orders');
     create(order, 'div', ['id'], ['dishes']);
     var form = create(order, 'form', ['id', 'method'], ['form', 'post']);
     create(form, 'input', ['id', 'class', 'onclick', 'type', 'value'], ['submit', 'btn', 'buy();', 'button', 'Buy']);

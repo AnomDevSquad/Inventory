@@ -21,7 +21,8 @@ function initInventoryTemplate() {
     templateElements().options.option2.appendChild(opt2);
 
     templateElements().actions.action1.addEventListener('click', loadFormMovements);
-    templateElements().actions.action2.addEventListener('click', loadTablesComparation);
+    templateElements().actions.action2.addEventListener('click', loadFormMovements);
+    templateElements().actions.action3.addEventListener('click', loadTablesComparation);
     templateElements().options.option1.addEventListener('click', goOrders);
     templateElements().options.option2.addEventListener('click', goGraphs);
 }
