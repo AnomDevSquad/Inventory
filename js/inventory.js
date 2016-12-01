@@ -3,7 +3,7 @@ function init() {
 }
 
 function transfer() {
-    setTimeout(loadFormMovements, 1500);
+    setTimeout(loadFormMovements, 100);
 }
 
 function initInventoryTemplate() {
@@ -21,51 +21,52 @@ function initInventoryTemplate() {
     templateElements().options.option2.appendChild(opt2);
 
     templateElements().actions.action1.addEventListener('click', loadFormMovements);
-    templateElements().actions.action2.addEventListener('click', loadTablesComparation);
+    templateElements().actions.action2.addEventListener('click', loadFormMovements);
+    templateElements().actions.action3.addEventListener('click', loadTablesComparation);
     templateElements().options.option1.addEventListener('click', goOrders);
     templateElements().options.option2.addEventListener('click', goGraphs);
 }
 
-function loadTablesComparation(){
-  document.getElementById('main_content').innerHTML = '';
-  var content = document.querySelector('#main_content');
-  var section_table = create(content, 'div', ['id'], ['table-content']);
-  var kitchen = create(section_table, 'table', ['id', 'class'], ['table-kitchen', 'table']);
-  var warehouse = create(section_table, 'table', ['id', 'class'], ['table-warehouse', 'table']);
-  var header = ['Id', 'Name', 'Warehouse', 'Quantity'];
-  for (var i = 0; i < header.length; i++) {
-    create(kitchen, 'th', ['class'], ['table-header'], header[i]);
-    create(warehouse, 'th', ['class'], ['table-header'], header[i]);
-  }
-  loadStock(warehouse, kitchen);
+function loadTablesComparation() {
+    document.getElementById('main_content').innerHTML = '';
+    var content = document.querySelector('#main_content');
+    var section_table = create(content, 'div', ['id'], ['table-content']);
+    var kitchen = create(section_table, 'table', ['id', 'class'], ['table-kitchen', 'table']);
+    var warehouse = create(section_table, 'table', ['id', 'class'], ['table-warehouse', 'table']);
+    var header = ['Id', 'Name', 'Warehouse', 'Quantity'];
+    for (var i = 0; i < header.length; i++) {
+        create(kitchen, 'th', ['class'], ['table-header'], header[i]);
+        create(warehouse, 'th', ['class'], ['table-header'], header[i]);
+    }
+    loadStock(warehouse, kitchen);
 }
 
-function loadStock(warehouse, kitchen){
-  var request = new XMLHttpRequest();
-  request.open('GET', 'http://localhost:8080/4to/inventory/API/v1/get_all_stock.php', true);
-  request.send();
-  request.onreadystatechange = function(){
-    if (request.status == 200 && request.readyState == 4) {
-      var json = JSON.parse(request.responseText)
-      var stock = json.stock;
-      for (var i = 0; i < stock.length; i++) {
-        var item = stock[i];
-        if (item.warehouse.id == 1) {
-          var tr = create(kitchen, 'tr', [], [], '');
-          create(tr, 'td', [], [], item.ingredient.id);
-          create(tr, 'td', [], [], item.ingredient.description);
-          create(tr, 'td', [], [], item.warehouse.description);
-          create(tr, 'td', [], [], item.quantity);
-        } else {
-          var tr = create(warehouse, 'tr', [], [], '');
-          create(tr, 'td', [], [], item.ingredient.id);
-          create(tr, 'td', [], [], item.ingredient.description);
-          create(tr, 'td', [], [], item.warehouse.description);
-          create(tr, 'td', [], [], item.quantity);
+function loadStock(warehouse, kitchen) {
+    var request = new XMLHttpRequest();
+    request.open('GET', 'api/v1/get_all_stock.php', true);
+    request.send();
+    request.onreadystatechange = function() {
+        if (request.status == 200 && request.readyState == 4) {
+            var json = JSON.parse(request.responseText)
+            var stock = json.stock;
+            for (var i = 0; i < stock.length; i++) {
+                var item = stock[i];
+                if (item.warehouse.id == 1) {
+                    var tr = create(kitchen, 'tr', [], [], '');
+                    create(tr, 'td', [], [], item.ingredient.id);
+                    create(tr, 'td', [], [], item.ingredient.description);
+                    create(tr, 'td', [], [], item.warehouse.description);
+                    create(tr, 'td', [], [], item.quantity);
+                } else {
+                    var tr = create(warehouse, 'tr', [], [], '');
+                    create(tr, 'td', [], [], item.ingredient.id);
+                    create(tr, 'td', [], [], item.ingredient.description);
+                    create(tr, 'td', [], [], item.warehouse.description);
+                    create(tr, 'td', [], [], item.quantity);
+                }
+            }
         }
-      }
     }
-  }
 }
 
 function loadFormMovements() {
@@ -88,7 +89,7 @@ function loadFormMovements() {
     document.getElementById('submit').addEventListener('click', function(e) {
         e.preventDefault();
         var request = new XMLHttpRequest();
-        request.open('POST', 'http://localhost:8080/4to/inventory/API/v1/warehouse_transfer.php', true);
+        request.open('POST', 'api/v1/warehouse_transfer.php', true);
         var data = new FormData(document.getElementById('form_movement'));
         request.send(data);
         request.onreadystatechange = function() {
@@ -105,7 +106,7 @@ function loadFormMovements() {
 
 function loadStockItems() {
     var request = new XMLHttpRequest();
-    request.open('GET', 'http://localhost:8080/4to/inventory/API/v1/get_all_stock.php', true);
+    request.open('GET', 'api/v1/get_all_stock.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
@@ -127,7 +128,7 @@ function loadStockItems() {
 
 function loadWarehouseItems() {
     var request = new XMLHttpRequest();
-    request.open('GET', 'http://localhost:8080/4to/inventory/api/v1/get_all_warehouses.php', true);
+    request.open('GET', 'api/v1/get_all_warehouses.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
@@ -147,7 +148,7 @@ function loadWarehouseItems() {
 
 function loadConceptItems() {
     var request = new XMLHttpRequest();
-    request.open('GET', 'http://localhost:8080/4to/inventory/api/v1/get_all_movement_concepts.php', true);
+    request.open('GET', 'api/v1/get_all_movement_concepts.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
