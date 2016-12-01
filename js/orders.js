@@ -27,6 +27,7 @@ function initOrdersTemplate() {
 
     templateElements().options.option1.addEventListener('click', goInventory);
     templateElements().options.option2.addEventListener('click', goGraphs);
+
 }
 
 function initNewOrder() {

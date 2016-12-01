@@ -129,7 +129,8 @@ class Order
 				od.dis_id, d.dis_name, d.dis_description, d.dis_price, od.ord_dis_quantity
 				from Sales.orders o
 				join Sales.order_dishes od on od.ord_id = o.ord_id
-				join Kitchen.dishes d on d.dis_id = od.dis_id';
+				join Kitchen.dishes d on d.dis_id = od.dis_id
+				order by o.ord_id';
 			$data = $connection->execute_query($sql);
 			$o = new Order();
 			$order_details = array();
