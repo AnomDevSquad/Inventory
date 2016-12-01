@@ -18,9 +18,6 @@
       $count = 0;
     }
 
-<<<<<<< HEAD
-?>
-=======
     $dishes = array_values($dishes);
 
     $list = array();
@@ -42,7 +39,6 @@
     $connection = new SqlServerConnection();
     $sql = sprintf('EXEC I_RegisterOrder %d,%d,%d,%d', $subtotal, $iva, 1, 1);
     $connection->execute_query($sql);
->>>>>>> a8998d37b1b53f037e5f1aa43e15421ae51c7764
 
     $sql = 'SELECT TOP 1 ord_id FROM Sales.orders ORDER BY ord_id DESC';
     $data = $connection->execute_query($sql);

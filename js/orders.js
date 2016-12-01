@@ -4,6 +4,8 @@ var total = 0;
 var iva = 0;
 var itemsArray = [];
 
+var urlAPI = 'http://localhost:8080/4to/Inventory/';
+
 function init() {
     initNewOrder();
     // initOrders();
@@ -33,7 +35,7 @@ function initOrdersTemplate() {
 function initNewOrder() {
     var content = document.querySelector('#main_content');
     var request = new XMLHttpRequest();
-    request.open('GET', 'api/v1/get_all_dishes.php', true);
+    request.open('GET', urlAPI+'api/v1/get_all_dishes.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
@@ -56,10 +58,15 @@ function loadDishes(data) {
     for (var i = 0; i < dishes.length; i++) {
         var item = dishes[i];
         var section = document.getElementById('category_' + item.category);
-        create(section, 'button', ['id', 'onclick', 'price'], ['dish_' + item.id, 'addDish(this.id)', item.price], item.name + ", $ " + item.price + " DLLS");
+        var button = create(section, 'button', ['id', 'onclick', 'price'], ['dish_' + item.id, 'addDish(this.id)', item.price], '');
+        var divContent = create(button, 'div', ['class'], ['picture']);
+        create(divContent, 'img', ['src'], [item.id + '.jpg']);
+        create(button, 'p', ['class'], ['name'], item.name);
+        create(button, 'p', ['class'], ['price'], ' $ ' + item.price + ' DLLS ');
     }
     var content = document.querySelector('#main_content');
-    var order = create(content, 'div', ['id', 'class'], ['orders', ''], 'Orders');
+    var order = create(content, 'div', ['id', 'class'], ['orders', '']);
+    create(order, 'p', ['id'], ['title'], 'Orders');
     create(order, 'div', ['id'], ['dishes']);
     var form = create(order, 'form', ['id', 'method'], ['form', 'post']);
     create(form, 'input', ['id', 'class', 'onclick', 'type', 'value'], ['submit', 'btn', 'buy();', 'button', 'Buy']);
