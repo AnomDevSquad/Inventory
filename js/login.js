@@ -10,11 +10,10 @@ function login() {
         if (sessionRequest.readyState == 4 && sessionRequest.status == 200) {
             var json = JSON.parse(sessionRequest.responseText);
             if (json.status != 0) {
-                alert('ERROR #'+errorNumber(json.status)+': '+json.message);
-            }
-            else{
-              sessionStorage['employee_session'] = JSON.stringify(json.session);
-              location = 'index.html';
+                alert('ERROR #' + errorNumber(json.status) + ': ' + json.message);
+            } else {
+                sessionStorage['employee_session'] = JSON.stringify(json.session);
+                location = 'index.html';
             }
         }
     }
