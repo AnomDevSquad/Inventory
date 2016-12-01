@@ -1,9 +1,3 @@
-// function initInventory(){
-//   document.getElementById('content').innerHTML = "";
-//   loadTemplate('template.html');
-//   setTimeout(loadFormMovements, 1500);
-// }
-
 function init() {
     setTimeout(initInventoryTemplate, 100);
 }
@@ -13,25 +7,23 @@ function transfer() {
 }
 
 function initInventoryTemplate() {
-    var actions = getActionsButtons();
-    var options = getOptions();
-    actions[0].innerHTML = 'Transfer';
-    actions[1].innerHTML = 'Loss';
-    actions[2].innerHTML = 'Comparation';
-    actions[3].innerHTML = 'Inventory';
-    options[0].innerHTML = '';
-    options[1].innerHTML = '';
     var opt1 = document.createElement('p');
     var opt2 = document.createElement('p');
     opt1.innerHTML = 'Orders';
     opt2.innerHTML = 'Graphs';
-    options[0].appendChild(opt1);
-    options[1].appendChild(opt2);
+    templateElements().actions.action1.innerHTML = 'Transfer';
+    templateElements().actions.action2.innerHTML = 'Loss';
+    templateElements().actions.action3.innerHTML = 'Comparation';
+    templateElements().actions.action4.innerHTML = 'Inventory';
+    templateElements().options.option1.innerHTML = '';
+    templateElements().options.option2.innerHTML = '';
+    templateElements().options.option1.appendChild(opt1);
+    templateElements().options.option2.appendChild(opt2);
 
-    actions[0].addEventListener('click', loadFormMovements);
-    actions[2].addEventListener('click', loadTablesComparation);
-    options[0].addEventListener('click', goOrders);
-    options[1].addEventListener('click', goGraphs);
+    templateElements().actions.action1.addEventListener('click', loadFormMovements);
+    templateElements().actions.action2.addEventListener('click', loadTablesComparation);
+    templateElements().options.option1.addEventListener('click', goOrders);
+    templateElements().options.option2.addEventListener('click', goGraphs);
 }
 
 function loadTablesComparation(){

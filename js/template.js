@@ -1,10 +1,6 @@
 function initTemplate(){
   sendReq('template.html');
-// <<<<<<< HEAD
-//   setTimeout(init, 250);
-// =======
   setTimeout(init, 1000);
-// >>>>>>> a8998d37b1b53f037e5f1aa43e15421ae51c7764
 }
 
 function createRequestObject() {
@@ -53,23 +49,38 @@ function goGraphs(){
   location = 'graphs.html';
 }
 
-function getActionsButtons(){
-  var actions = [
-    document.getElementById('action_1'),
-    document.getElementById('action_2'),
-    document.getElementById('action_3'),
-    document.getElementById('action_4'),
-    document.getElementById('go_back')
-  ];
+function getActionButtons(){
+  var actions = [];
+  actions['action1'] = document.getElementById('action_1');
+  actions['action2'] = document.getElementById('action_2');
+  actions['action3'] = document.getElementById('action_3');
+  actions['action4'] = document.getElementById('action_4');
+  actions['action5'] = document.getElementById('action_5');
   return actions;
 }
 
 function getOptions(){
-  var options =
-  [
-    document.getElementById('opt_1'),
-    document.getElementById('opt_2'),
-    document.getElementById('opt_3')
-  ];
+  var options = [];
+  options['option1'] = document.getElementById('opt_1');
+  options['option2'] = document.getElementById('opt_2');
+  options['option3'] = document.getElementById('opt_3');
   return options;
+}
+
+function getTitles(){
+  var titles = [];
+  titles['principal'] = document.getElementById('title');
+  titles['subtitle'] = document.getElementById('main_title');
+  return titles;
+}
+
+function templateElements(){
+  var actions = getActionButtons();
+  var options = getOptions();
+  var titles = getTitles();
+  var templateVariableElements = [];
+  templateVariableElements['titles'] = titles;
+  templateVariableElements['actions'] = actions;
+  templateVariableElements['options'] = options;
+  return templateVariableElements
 }
