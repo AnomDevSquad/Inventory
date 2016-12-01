@@ -5,16 +5,24 @@
 -- 4: concepto no valido
 -- 999: error desconocido(usualmente de base de datos)
 CREATE PROCEDURE Inventory.ingredient_losses
-@ing_id as int, @warehouse as int, @concept as int, @ing_qty as int, @error int OUTPUT AS
-BEGIN
-	DECLARE @validate_warehouse int, @validate_ing int, @validate_ing_qty int, @validate_concept;
+  @ing_id as int,
+  @warehouse as int,
+  @concept as int,
+  @ing_qty as int,
+  @error int OUTPUT
+  AS BEGIN
+	DECLARE @validate_warehouse as int,
+          @validate_ing as int,
+          @validate_ing_qty as int,
+          @validate_concept as int
+  BEGIN TRAN
 	-- checar que exista el almacen
 	SET @validate_warehouse = (SELECT COUNT(war_id) FROM Inventory.warehouses WHERE war_id = @warehouse);
 	-- checar que exista el ingrediente en el warehouse
 	SET @validate_ing = (SELECT COUNT(sto_id_ing) FROM Inventory.stock WHERE war_id = @warehouse and sto_id_ing = @ing_id);
 	-- checar que exista suficiente cantidad de existencias del ingrediente
 	SET @validate_ing_qty = (SELECT sto_quantity - @ing_qty from Inventory.stock where war_id = @warehouse and sto_id_ing = @ing_id);
-	BEGIN TRAN;
+
 		IF (@validate_warehouse = 0)
 		BEGIN
 			SET @error = 1;
@@ -44,11 +52,10 @@ BEGIN
 			set @error = 999;
 			goto handleError;
 		END
-	COMMIT TRAN;
+	COMMIT TRAN
 
 	handleError:
-		IF(@error = 0) goto returnError;
-		ROLLBACK TRAN;
+		IF(@error <> 0) ROLLBACK TRAN;
 	returnError:
 		RETURN @error;
 END
