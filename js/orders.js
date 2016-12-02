@@ -4,8 +4,6 @@ var total = 0;
 var iva = 0;
 var itemsArray = [];
 
-var urlAPI = 'http://localhost:8080/4to/Inventory/';
-
 function init() {
     initOrdersTemplate();
 }
@@ -62,7 +60,7 @@ function loadDishes(data) {
     for (var i = 0; i < dishes.length; i++) {
         var item = dishes[i];
         var section = document.getElementById('category_' + item.category);
-        var button = create(section, 'button', ['id', 'onclick', 'price'], ['dish_' + item.id, 'addDish(this.id)', item.price], '');
+        var button = create(section, 'div', ['id', 'onclick', 'price'], ['dish_' + item.id, 'addDish(this.id)', item.price], '');
         var divContent = create(button, 'div', ['class'], ['picture']);
         create(divContent, 'img', ['src'], ['img/dishes/'+item.id + '.jpg']);
         create(button, 'p', ['class'], ['name'], item.name);
@@ -70,7 +68,7 @@ function loadDishes(data) {
     }
     var content = document.querySelector('#main_content');
     var order = create(content, 'div', ['id', 'class'], ['orders', '']);
-    create(order, 'p', ['id'], ['title'], 'Orders');
+    create(order, 'p', ['id'], ['title'], 'Order');
     create(order, 'div', ['id'], ['dishes']);
     var form = create(order, 'form', ['id', 'method'], ['form', 'post']);
     create(form, 'input', ['id', 'class', 'onclick', 'type', 'value'], ['submit', 'btn', 'buy();', 'button', 'Buy']);
