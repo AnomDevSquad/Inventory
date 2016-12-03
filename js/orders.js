@@ -45,6 +45,26 @@ function initNewOrder() {
 }
 
 function loadDishes(content, data) {
+  var menu = create(content, 'div', ['id', 'class'], ['menu', 'menu']);
+  var order = create(content, 'div', ['id', 'class'], ['order', 'order']);
+  create(menu, 'div', ['id', 'class'], ['', 'title'], 'Food');
+  create(order, 'div', ['id', 'class'], ['', 'title'], 'Order');
+  for (var i = 0; i < categoryName.length; i++) {
+    create(menu, 'div', ['id', 'class'], [idCategory[i], 'category'], '<p>'+ categoryName[i] +'</p>');
+  }
+  var json = JSON.parse(data);
+  var dishes = json.dishes;
+  for (var i = 0; i < dishes.length; i++) {
+    var item = dishes[i];
+    var category = document.getElementById(item.category);
+    var dish = create(category, 'div', ['id', 'class'], ['', 'dish']);
+    create(dish, 'span', ['id', 'class'], ['', 'picture'], 'image');
+    create(dish, 'span', ['id', 'class'], ['', 'name'], item.name);
+    create(dish, 'span', ['id', 'class'], ['', 'price'], '$ '+item.price);
+  }
+  var form = create(order, 'form', ['id', 'method'], ['form', 'post']);
+  var orderDishes = create(order, 'div', ['id', 'class'], ['', 'order_dishes']);
+
 }
 
 function addDish(id) {
