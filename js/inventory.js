@@ -33,17 +33,15 @@ function loadTablesComparation() {
     document.getElementById('main_content').innerHTML = '';
     var content = document.querySelector('#main_content');
     var section_table = create(content, 'div', ['id'], ['table-content']);
-    var kitchen = create(section_table, 'table', ['id', 'class'], ['table-kitchen', 'table']);
-    var warehouse = create(section_table, 'table', ['id', 'class'], ['table-warehouse', 'table']);
-    var header = ['Id', 'Name', 'Warehouse', 'Quantity'];
+    var table = create(section_table, 'table', ['id', 'class'], ['table-comparation', 'table']);
+    var header = ['Id', 'Name', 'Kitchen', 'Warehouse'];
     for (var i = 0; i < header.length; i++) {
-        create(kitchen, 'th', ['class'], ['table-header'], header[i]);
-        create(warehouse, 'th', ['class'], ['table-header'], header[i]);
+        create(table, 'th', ['class'], ['table-header'], header[i]);
     }
-    loadStock(warehouse, kitchen);
+    loadStock(table);
 }
 
-function loadStock(warehouse, kitchen) {
+function loadStock(table) {
     var request = new XMLHttpRequest();
     request.open('GET', 'api/v1/get_all_stock.php', true);
     request.send();
@@ -51,21 +49,13 @@ function loadStock(warehouse, kitchen) {
         if (request.status == 200 && request.readyState == 4) {
             var json = JSON.parse(request.responseText)
             var stock = json.stock;
-            for (var i = 0; i < stock.length; i++) {
-                var item = stock[i];
-                if (item.warehouse.id == 1) {
-                    var tr = create(kitchen, 'tr', [], [], '');
-                    create(tr, 'td', [], [], item.ingredient.id);
-                    create(tr, 'td', [], [], item.ingredient.description);
-                    create(tr, 'td', [], [], item.warehouse.description);
-                    create(tr, 'td', [], [], item.quantity);
-                } else {
-                    var tr = create(warehouse, 'tr', [], [], '');
-                    create(tr, 'td', [], [], item.ingredient.id);
-                    create(tr, 'td', [], [], item.ingredient.description);
-                    create(tr, 'td', [], [], item.warehouse.description);
-                    create(tr, 'td', [], [], item.quantity);
-                }
+            for (var i = 0; i < stock.length; i+=2) {
+              var tr = create(table, 'tr', [], []);
+              var item = stock[i];
+              create(tr, 'td', [], [], item.ingredient.id);
+              create(tr, 'td', [], [], item.ingredient.description);
+              create(tr, 'td', [], [], item.quantity);
+              create(tr, 'td', [], [], stock[i+1].quantity);
             }
         }
     }
