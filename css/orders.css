@@ -58,76 +58,108 @@
     width: 20%;
 }
 
-.main_content #menu, .main_content #orders {
+.main_content .menu, .main_content .client_order {
     position: relative;
     float: left;
-}
-
-.main_content #menu, .main_content #orders {
     width: 50%;
     height: 100%;
+}
+
+.menu .title {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 24pt;
+    text-align: center;
+    padding: 10px 0;
+    background: #206a35;
+    color: #fafdfb;
+}
+
+.food_menu .category, .food_menu .dish {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.food_menu {
+    width: 100%;
+    height: calc(100% - 70px);
     overflow-y: auto;
 }
 
-.main_content #orders #dishes {
-  width: 100%;
-  height: calc(100% - 90px);
-  overflow-y: auto;
+.food_menu .category {
+    border-top: 3px solid #295a36;
 }
 
-.main_content #menu p, .main_content #orders p {
-    line-height: 40px;
-    height: 40px;
+.food_menu .category div {
+    margin: 0;
+    padding: 0;
+}
+
+.food_menu .category .title {
+    margin: 0;
+    padding: 5px 0;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16pt;
     text-align: center;
-    color: #fafdfb;
-    font-size: 20pt;
-    margin: 0;
-    padding: 5px;
-    background: #1a562b;
+    background: #2c9149;
 }
 
-.main_content #menu button, .main_content #orders button {
-    font-size: 14pt;
-    width: 100%;
-    margin: 0;
-    padding: 10px;
-    border: 0;
-    cursor: pointer;
-    background: #38b85d;
-    transition: 0.5s;
-    overflow: hidden;
-}
-
-.main_content #menu button:hover, .main_content #orders button:hover {
-    font-size: 18pt;
-    background: #45c76a;
-    transition: 0.5s;
-}
-
-.main_content #orders form {
-    height: 40px;
-}
-
-.main_content #menu .name, .main_content #menu .price, .main_content #orders .name, .main_content #orders .price {
+.food_menu .dish, .food_menu .dish .picture, .food_menu .name, .food_menu .price {
     position: relative;
     float: left;
-    width: calc(50% - 20px);
-    height: 50px;
-    line-height: 50px;
-    background: rgba(0, 0, 0, 0);
+    margin: 0;
+    padding: 0;
 }
 
-.main_content #menu .picture, .main_content #orders .picture {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
+.food_menu .dish {
+    height: 80px;
+    padding: 5px;
+    background: #b7dec2;
+    transition: 0.5s;
 }
 
-.main_content #menu .name, .main_content #orders .name {
+.food_menu .dish:hover {
+    background: #d2ead9;
+    transition: 0.5s;
+}
+
+.food_menu .dish span {
+    display: block;
+    height: 100%;
+}
+
+.food_menu .dish .picture {
+    width: 80px;
+    background: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.food_menu .dish .picture img {
+    zoom: 4;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.food_menu .dish .price {
+    width: 150px;
+    text-align: right;
+    font-size: 18pt;
+    color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    padding-right: 30px;
+}
+
+.food_menu .dish .name {
+    width: calc(100% - 270px - (10px * 2));
+    height: calc(100% - 20px);
     font-size: 16pt;
-}
-
-.main_content #menu .picture img .main_content #orders .picture img {
-    width: 300px;
-    margin: auto;
+    padding: 10px;
 }
