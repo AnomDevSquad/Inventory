@@ -66,7 +66,20 @@ function loadDishes(content, data) {
   }
   var form = create(order, 'form', ['id', 'method'], ['form', 'post']);
   var orderDishes = create(order, 'div', ['id', 'class'], ['order_content', 'order_dishes']);
+  var bill = create(order, 'div', ['id', 'class'], ['bill', 'bill']);
+  var tax = create(bill, 'div', ['id', 'class'], ['tax', 'tax']);
+  var subtotal = create(bill, 'div', ['id', 'class'], ['subtotal', 'subtotal']);
+  var total = create(bill, 'div', ['id', 'class'], ['total', 'total']);
+  var controls = create(bill, 'div', ['id', 'class'], ['controls', 'controls']);
 
+  create(tax, 'span', [], [], 'Tax');
+  create(tax, 'span', ['id', 'class'], ['tax-number',''], '$ 0');
+  create(subtotal, 'span', [], [], 'SubTotal');
+  create(subtotal, 'span', ['id', 'class'], ['subtotal-number',''], '$ 0');
+  create(total, 'span', [], [], 'Total');
+  create(total, 'span', ['id', 'class'], ['total-number',''], '$ 0');
+  create(controls, 'button', ['id', 'class', 'onclick'], ['accept', 'btn', 'accept()'], 'Accept');
+  create(controls, 'button', ['id', 'class', 'onclick'], ['accept', 'btn', 'cancel()'], 'Cancel');
 }
 
 function addDish(id) {
@@ -84,6 +97,7 @@ function addDish(id) {
     create(dish, 'span', ['id', 'class'], ['combo', 'combo'], 'X1');
     order.appendChild(dish);
   }
+  calculateTotalAndTax();
 }
 
 function validateCombo(order, dishName){
@@ -98,28 +112,66 @@ function validateCombo(order, dishName){
 
 function removeDish(id) {
   var item = document.getElementById(id);
-  item.parentNode.removeChild(item);
+  var getCombo = parseInt(item.childNodes[3].innerHTML.slice(1)) - 1;
+  if (getCombo <= 0) {
+    item.parentNode.removeChild(item);
+  } else {
+    item.childNodes[3].innerHTML = 'X' + getCombo;
+  }
+  calculateTotalAndTax();
 }
 
-function buy() {
-    var dishes = document.getElementById('dishes').childNodes;
-    for (var i = 0; i < dishes.length; i++) {
-        itemsArray.push(dishes[i].getAttribute('id'));
+function calculateTotalAndTax(){
+  var dishes = document.getElementById('order_content');
+  if (dishes.childNodes.length > 0) {
+    var sum = [];
+    for (var i = 0; i < dishes.childNodes.length; i++) {
+      var item = dishes.childNodes[i];
+      var price = parseFloat(item.childNodes[2].innerHTML.slice(2));
+      var combo = parseFloat(item.childNodes[3].innerHTML.slice(1));
+      sum.push((price*combo));
     }
-    var form = document.getElementById('form');
-    for (var i = 0; i < itemsArray.length; i++) {
-        create(form, 'input', ['id', 'type', 'name', 'value'], [itemsArray[i], 'hidden', 'dishes[]', itemsArray[i]]);
+    var subtotal = 0;
+    for (var i = 0; i < sum.length; i++) {
+      subtotal += sum[i];
+    }
+    var tax = (subtotal * 16)/100;
+    var total = tax + subtotal;
+    document.getElementById('tax-number').innerHTML = '$ ' + tax;
+    document.getElementById('subtotal-number').innerHTML = '$ ' + subtotal;
+    document.getElementById('total-number').innerHTML = '$ ' + total;
+  } else {
+    document.getElementById('tax-number').innerHTML = '$ 0';
+    document.getElementById('subtotal-number').innerHTML = '$ 0';
+    document.getElementById('total-number').innerHTML = '$ 0';
+  }
+}
+
+function accept() {
+  var dishes = document.getElementById('order_content');
+  var form = document.getElementById('form');
+  if (dishes.childNodes.length > 0) {
+    var dishesListId = [];
+    var comboList = [];
+    for (var i = 0; i < dishes.childNodes.length; i++) {
+      var item = dishes.childNodes[i];
+      create(form, 'input', ['type', 'name', 'value'], ['hidden', 'dishes[]', item.id.slice(1)]);
+      create(form, 'input', ['type', 'name', 'value'], ['hidden', 'combos[]', item.childNodes[3].innerHTML.slice(1)]);
     }
     var request = new XMLHttpRequest();
     request.open('POST', 'api/v1/add_order.php', true);
     var data = new FormData(form);
     request.send(data);
     request.onreadystatechange = function() {
-        if (request.status == 200 && request.readyState == 4) {
-            console.log(request.responseText);
-        }
+      if (request.status == 200 && request.readyState == 4) {
+        console.log(request.responseText);
+      }
     }
-    alert('Gracias por su compra');
+  }
+}
+
+function cancel(){
+  alert('cancel')
 }
 
 function initOrders() {
