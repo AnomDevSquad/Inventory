@@ -67,17 +67,17 @@ function loadDishes(content, data) {
   var form = create(order, 'form', ['id', 'method'], ['form', 'post']);
   var orderDishes = create(order, 'div', ['id', 'class'], ['order_content', 'order_dishes']);
   var bill = create(order, 'div', ['id', 'class'], ['bill', 'bill']);
-  var tax = create(bill, 'div', ['id', 'class'], ['tax', 'tax']);
   var subtotal = create(bill, 'div', ['id', 'class'], ['subtotal', 'subtotal']);
+  var tax = create(bill, 'div', ['id', 'class'], ['tax', 'tax']);
   var total = create(bill, 'div', ['id', 'class'], ['total', 'total']);
-  var controls = create(bill, 'div', ['id', 'class'], ['controls', 'controls']);
+  var controls = create(order, 'div', ['id', 'class'], ['controls', 'controls']);
 
-  create(tax, 'span', [], [], 'Tax');
-  create(tax, 'span', ['id', 'class'], ['tax-number',''], '$ 0');
-  create(subtotal, 'span', [], [], 'SubTotal');
-  create(subtotal, 'span', ['id', 'class'], ['subtotal-number',''], '$ 0');
-  create(total, 'span', [], [], 'Total');
-  create(total, 'span', ['id', 'class'], ['total-number',''], '$ 0');
+  create(subtotal, 'span', ['class'], ['amount_type'], 'SubTotal');
+  create(subtotal, 'span', ['id', 'class'], ['subtotal-number','money'], '$ 0');
+  create(tax, 'span', ['class'], ['amount_type'], 'Tax');
+  create(tax, 'span', ['id', 'class'], ['tax-number','money'], '$ 0');
+  create(total, 'span', ['class'], ['amount_type'], 'Total');
+  create(total, 'span', ['id', 'class'], ['total-number','money'], '$ 0');
   create(controls, 'button', ['id', 'class', 'onclick'], ['accept', 'btn', 'accept()'], 'Accept');
   create(controls, 'button', ['id', 'class', 'onclick'], ['accept', 'btn', 'cancel()'], 'Cancel');
 }
@@ -137,9 +137,9 @@ function calculateTotalAndTax(){
     }
     var tax = (subtotal * 16)/100;
     var total = tax + subtotal;
-    document.getElementById('tax-number').innerHTML = '$ ' + tax;
-    document.getElementById('subtotal-number').innerHTML = '$ ' + subtotal;
-    document.getElementById('total-number').innerHTML = '$ ' + total;
+    document.getElementById('tax-number').innerHTML = '$ ' + tax.toFixed(2);
+    document.getElementById('subtotal-number').innerHTML = '$ ' + subtotal.toFixed(2);
+    document.getElementById('total-number').innerHTML = '$ ' + total.toFixed(2);
   } else {
     document.getElementById('tax-number').innerHTML = '$ 0';
     document.getElementById('subtotal-number').innerHTML = '$ 0';
