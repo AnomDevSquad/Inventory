@@ -58,76 +58,251 @@
     width: 20%;
 }
 
-.main_content #menu, .main_content #orders {
+.main_content .menu, .main_content .client_order {
     position: relative;
     float: left;
-}
-
-.main_content #menu, .main_content #orders {
     width: 50%;
     height: 100%;
+}
+
+.menu .title {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 24pt;
+    text-align: center;
+    padding: 10px 0;
+    background: #206a35;
+    color: #fafdfb;
+}
+
+.food_menu .category, .food_menu .dish {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.food_menu {
+    width: 100%;
+    height: calc(100% - 70px);
     overflow-y: auto;
 }
 
-.main_content #orders #dishes {
-  width: 100%;
-  height: calc(100% - 90px);
-  overflow-y: auto;
+.food_menu .category {
+    border-top: 3px solid #295a36;
 }
 
-.main_content #menu p, .main_content #orders p {
-    line-height: 40px;
-    height: 40px;
+.food_menu .category div {
+    margin: 0;
+    padding: 0;
+}
+
+.food_menu .category .title {
+    margin: 0;
+    padding: 5px 0;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16pt;
     text-align: center;
-    color: #fafdfb;
-    font-size: 20pt;
-    margin: 0;
-    padding: 5px;
-    background: #1a562b;
+    background: #2c9149;
 }
 
-.main_content #menu button, .main_content #orders button {
-    font-size: 14pt;
-    width: 100%;
-    margin: 0;
-    padding: 10px;
-    border: 0;
-    cursor: pointer;
-    background: #38b85d;
-    transition: 0.5s;
-    overflow: hidden;
-}
-
-.main_content #menu button:hover, .main_content #orders button:hover {
-    font-size: 18pt;
-    background: #45c76a;
-    transition: 0.5s;
-}
-
-.main_content #orders form {
-    height: 40px;
-}
-
-.main_content #menu .name, .main_content #menu .price, .main_content #orders .name, .main_content #orders .price {
+.food_menu .dish, .food_menu .dish .picture, .food_menu .name, .food_menu .price {
     position: relative;
     float: left;
-    width: calc(50% - 20px);
+    margin: 0;
+    padding: 0;
+}
+
+.food_menu .dish {
+    height: 80px;
+    padding: 5px;
+    background: #b7dec2;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.food_menu .dish:hover {
+    background: #d2ead9;
+    transition: 0.5s;
+}
+
+.food_menu .dish span {
+    display: block;
+    height: 100%;
+}
+
+.food_menu .dish .picture {
+    width: 80px;
+    background: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.food_menu .dish .picture img {
+    zoom: 4;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.food_menu .dish .price {
+    width: 150px;
+    text-align: right;
+    font-size: 18pt;
+    color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    padding-right: 30px;
+}
+
+.food_menu .dish .name {
+    width: calc(100% - 270px - (10px * 2));
+    height: calc(100% - 20px);
+    font-size: 16pt;
+    padding: 10px;
+}
+
+.client_order .title {
+    width: 100%;
     height: 50px;
     line-height: 50px;
-    background: rgba(0, 0, 0, 0);
+    padding: 10px 0;
+    text-align: center;
+    background: #206a35;
+    color: #f0fbf3;
+    font-size: 24pt;
 }
 
-.main_content #menu .picture, .main_content #orders .picture {
+.client_order div, .client_order form, .client_order span {
+    position: relative;
+    float: left;
+}
+
+.client_order form {
     width: 100%;
-    height: 200px;
+    height: 0px;
     overflow: hidden;
+    visibility: collapse;
 }
 
-.main_content #menu .name, .main_content #orders .name {
-    font-size: 16pt;
+.client_order .order_dishes {
+    width: 100%;
+    height: calc(100% - 210px);
+    background: #bfe7bb;
+    overflow-y: auto;
 }
 
-.main_content #menu .picture img .main_content #orders .picture img {
-    width: 300px;
-    margin: auto;
+.client_order .order_dishes .dish {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.client_order .order_dishes .dish:nth-child(even) {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.client_order .bill {
+    width: 100%;
+    height: 100px;
+    background: #2f6f28;
+}
+
+.client_order .controls {
+    width: 100%;
+    height: 40px;
+    background: #2f6f28;
+}
+
+.client_order .bill .tax, .client_order .bill .subtotal, .client_order .bill .total {
+    width: 100%;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.client_order .bill .tax, .client_order .bill .subtotal {
+    height: 30px;
+}
+
+.client_order .bill .total {
+    height: 40px;
+}
+
+.client_order .bill .amount_type {
+    width: calc(60% - 10px);
+    padding-left: 10px;
+    height: 100%;
+    line-height: 30px;
+    text-align: left;
+}
+
+.client_order .bill .money {
+    width: calc(40% - 10px);
+    height: 100%;
+    line-height: 30px;
+    padding-right: 10px;
+    text-align: right;
+}
+
+.client_order .controls button {
+    width: calc(50% - 8px);
+    height: calc(100% - 8px);
+    border: 0;
+    margin: 4px;
+    padding: 0px;
+    border-radius: 1000000px;
+    background: #a6cc70;
+    color: #010201;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.client_order .controls button:hover {
+    background: #bdd996;
+    color: #121909;
+}
+
+.client_order .dish {
+    width: 100%;
+    height: 80px;
+}
+
+.client_order .picture {
+    width: 80px;
+    height: 80px;
+}
+
+.client_order .picture img {
+    zoom: 4;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.client_order span {
+    display: inline-block;
+    position: relative;
+    float: left;
+}
+
+.client_order span.price {
+    display: block;
+    width: 80px;
+    height: 80px;
+    line-height: 100px;
+}
+
+.client_order span.combo {
+    display: block;
+    width: 80px;
+    height: 80px;
+    line-height: 100px;
+}
+
+.client_order span.name {
+    width: calc(100% - 320px);
+    height: 60px;
+    padding: 10px;
 }
