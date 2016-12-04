@@ -46,21 +46,28 @@ function initNewOrder() {
 
 function loadDishes(content, data) {
   var menu = create(content, 'div', ['id', 'class'], ['menu', 'menu']);
-  var order = create(content, 'div', ['id', 'class'], ['order', 'order']);
-  create(menu, 'div', ['id', 'class'], ['', 'title'], 'Food');
-  create(order, 'div', ['id', 'class'], ['', 'title'], 'Order');
+  var order = create(content, 'div', ['id', 'class'], ['client_order', 'client_order']);
+  create(menu, 'div', ['id', 'class'], ['', 'title'], 'Menu');
+  var food_menu = create(menu, 'div', ['id', 'class'], ['food_menu', 'food_menu']);
+  create(order, 'div', ['id', 'class'], ['', 'title'], 'Client order');
   for (var i = 0; i < categoryName.length; i++) {
-    create(menu, 'div', ['id', 'class'], [idCategory[i], 'category'], '<p>'+ categoryName[i] +'</p>');
+    create(food_menu, 'div', ['id', 'class'], [idCategory[i], 'category'], '<p class="title">'+ categoryName[i] +'</p>');
   }
   var json = JSON.parse(data);
   var dishes = json.dishes;
   for (var i = 0; i < dishes.length; i++) {
     var item = dishes[i];
     var category = document.getElementById(item.category);
+<<<<<<< HEAD
     var dish = create(category, 'div', ['id', 'class', 'onclick'], ['dish_'+item.id, 'dish', 'addDish(this.id)']);
     create(dish, 'span', ['id', 'class'], ['', 'picture'], 'image');
+=======
+    var dish = create(category, 'div', ['id', 'class'], ['', 'dish']);
+    var picture = create(dish, 'span', ['id', 'class'], ['', 'picture']);
+>>>>>>> origin/master
     create(dish, 'span', ['id', 'class'], ['', 'name'], item.name);
-    create(dish, 'span', ['id', 'class'], ['', 'price'], '$ '+item.price);
+    create(dish, 'span', ['id', 'class'], ['', 'price'], '$ '+item.price.toFixed(2));
+    create(picture, 'img',['src'],['img/dishes/'+item.id+'.jpg']);
   }
   var form = create(order, 'form', ['id', 'method'], ['form', 'post']);
   var orderDishes = create(order, 'div', ['id', 'class'], ['order_content', 'order_dishes']);
