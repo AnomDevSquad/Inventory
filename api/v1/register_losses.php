@@ -13,10 +13,7 @@
         "to_warehouse":"'.$wari.'",
         "quantity":"'.$qty.'"
       ';
-    }
-    else{
-      $json .= '"status": 1, "message":"Invalid Parameters"';
+
     }
   $json .= '}';
-  echo $json;
 ?>

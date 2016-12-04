@@ -1,21 +1,22 @@
 <?php
 require_once ('OrderDetail.php');
+require_once ('/../exceptions/OrderNotFoundException.php');
+require_once ('/../exceptions/NewOrderException.php');
+require_once ('/../exceptions/SqlExecuteException.php');
 
 class Order
 {
-	private $id;
-	private $date;
-	private $subtotal;
-	private $tax_amount;
-	private $total;
-	private $orderdetails;
+	private $id, $date, $status, $subtotal, $tax_amount, $total, $orderdetails;
 	public function __construct()
 	{
 		$argsCount = func_num_args();
 		if($argsCount == 0){
 			$this->id=-1;
 			$this->date=new DateTime("0000-00-00");
-			$this->subtotal=0;
+			$this->subtotal = 0;
+			$this->tax_amount = 0;
+			$this->total = 0;
+			$this->status = -1;
 			$this->orderdetails = array();
 		}
 		else{
@@ -73,13 +74,14 @@ class Order
 				$this->subtotal=$args[2];
 				$this->orderdetails=$args[3];
 			}
-			elseif($argsCount == 5){
+			elseif($argsCount == 6){
 				$this->id=$args[0];
 				$this->date=$args[1];
 				$this->subtotal=$args[2];
 				$this->tax_amount = $args[3];
 				$this->total = $args[4];
-				$this->orderdetails=array();
+				$this->orderdetails = array();
+				$this->status = $args[5];
 			}
 		}
 	}
@@ -95,10 +97,13 @@ class Order
 	public function set_total($newVal){$this->total = $newVal;}
 	public function get_orderdetails(){ return $this->orderdetails; }
 	public function set_orderdetails($newValue) { $this->orderdetails = $newValue; }
+	public function get_status() { return $this->status; }
+	public function set_status($newValue) { $this->status = $newValue; }
 	public function to_json(){
 		return '{
 			"id":'.$this->get_id().',
 			"date":"'.date_format($this->get_date(), 'Y/m/d H:i:s').'",
+			"status":'.$this->get_status().',
 			"subtotal":'.floatval($this->get_subtotal()).',
 			"taxAmount":'.floatval($this->get_tax_amount()).',
 			"total":'.floatval($this->get_total()).',
@@ -125,7 +130,7 @@ class Order
 		try{
 			$sql =
 			'SELECT
-				o.ord_id, o.ord_date, o.ord_subtotal, o.ord_iva, o.ord_total,
+				o.ord_id, o.ord_date, o.ord_status, o.ord_subtotal, o.ord_iva, o.ord_total,
 				od.dis_id, d.dis_name, d.dis_description, d.dis_price, od.ord_dis_quantity
 				from Sales.orders o
 				join Sales.order_dishes od on od.ord_id = o.ord_id
@@ -138,10 +143,11 @@ class Order
 				if($o->get_id() != odbc_result($data,'ord_id')) {
 					$o_id = odbc_result($data, 'ord_id');
 					$o_date = new DateTime(odbc_result($data, 'ord_date'));
+					$o_status = odbc_result($data, 'ord_status');
 					$o_subtotal = odbc_result($data, 'ord_subtotal');
 					$o_tax_amount = odbc_result($data, 'ord_iva');
 					$o_total = odbc_result($data, 'ord_total');
-					$o = new Order($o_id, $o_date, $o_subtotal,$o_tax_amount, $o_total);
+					$o = new Order($o_id, $o_date, $o_subtotal,$o_tax_amount, $o_total, $o_status);
 					$order_details = array();
 					array_push($list, $o);
 				}
@@ -150,8 +156,10 @@ class Order
 									odbc_result($data, 'dis_id'),
 									odbc_result($data, 'dis_name'),
 									odbc_result($data, 'dis_description'),
-									odbc_result($data, 'dis_price')),
-								odbc_result($data, 'ord_dis_quantity'));
+									odbc_result($data, 'dis_price')
+								),
+								odbc_result($data, 'ord_dis_quantity')
+							);
 				array_push($order_details, $od);
 				$o->set_orderdetails($order_details);
 			}
@@ -160,6 +168,81 @@ class Order
 			$connection->close();
 		}
 		return $list;
+	}
+	public static function add_new_order($empployee, $dishes, $quantities){
+		if(is_a($employee, 'Employee')){
+			if(is_array($dishes)){
+				$connection = new SqlServerConnection();
+				$sql = sprintf(
+					'
+					DECLARE @e int, @id int;
+					EXEC Sales.new_order %d,@e OUTPUT,@id OUTPUT;
+					SELECT @e as error, @id as id;
+					GO
+					', $employee->get_id()
+				);
+				try{
+					$data = $connection->execute_query($sql);
+					$id = -1;
+					while(odbc_fetch_array($data)){
+						$error = odbc_result($data, 'error');
+						if($error != 0) throw new NewOrderException();
+						$id = odbc_result($data, 'id');
+					}
+					$sql = sprintf(
+						'	SELECT [ord_id]
+						      ,[ord_date]
+						      ,[ord_subtotal]
+						      ,[ord_iva]
+						      ,[ord_total]
+						      ,[ord_status]
+						      ,[ord_employee_id]
+						  FROM [Restaurant].[Sales].[orders]
+							WHERE [ord_id] = %d
+						GO
+						', $id
+					);
+					$order = new Order();
+					while(odbc_fetch_array($data)){
+						$o_id = odbc_result($data, 'ord_id');
+						$o_date = odbc_result($data, 'ord_date');
+						$o_subtotal = odbc_result($data, 'ord_subtotal');
+						$o_iva = odbc_result($data, 'ord_iva');
+						$o_total = odbc_result($data, 'ord_total');
+						$o_status = odbc_result($data, 'ord_status');
+						$order = new Order($o_id, $o_date, $o_subtotal, $o_iva, $o_total, $o_status);
+					}
+					$procedure_add_dish ='DECLARE @e int, @m varchar(60);
+					EXEC Sales.add_dish_to_order %d,%d,%d, @e OUTPUT;
+					SELECT @e as [error];
+					GO';
+					$i = 0;
+					foreach ($dishes as $dish_id) {
+						$sql = sprintf($procedure_add_dish, $order->get_id(), $dish_id, $quantities[$i]);
+						$data = $connection->execute_query($sql);
+						while(odbc_fetch_array($data)){
+							$error = odbc_result($data, 'error');
+							switch ($error) {
+								case 0:
+									break;
+								case 1:
+									throw new OrderNotFoundException();
+									break;
+								case 2:
+									throw new DishNotFoundException();
+									break;
+								default:
+									throw new SqlExcecuteException();
+							}
+						}
+						$i++;
+					}
+				}
+				finally{
+					$connection->close();
+				}
+			}
+		}
 	}
 }
 ?>

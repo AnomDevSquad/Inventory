@@ -69,7 +69,14 @@
     overflow-y: auto;
 }
 
+.main_content #orders #dishes {
+  width: 100%;
+  height: calc(100% - 90px);
+  overflow-y: auto;
+}
+
 .main_content #menu p, .main_content #orders p {
+    line-height: 40px;
     height: 40px;
     text-align: center;
     color: #fafdfb;
@@ -79,7 +86,7 @@
     background: #1a562b;
 }
 
-.main_content #menu button {
+.main_content #menu button, .main_content #orders button {
     font-size: 14pt;
     width: 100%;
     margin: 0;
@@ -88,26 +95,39 @@
     cursor: pointer;
     background: #38b85d;
     transition: 0.5s;
+    overflow: hidden;
 }
 
-.main_content #menu button:hover {
-    padding: 20px;
+.main_content #menu button:hover, .main_content #orders button:hover {
     font-size: 18pt;
     background: #45c76a;
     transition: 0.5s;
 }
 
-.main_content #orders #dishes {
+.main_content #orders form {
+    height: 40px;
+}
+
+.main_content #menu .name, .main_content #menu .price, .main_content #orders .name, .main_content #orders .price {
+    position: relative;
+    float: left;
+    width: calc(50% - 20px);
+    height: 50px;
+    line-height: 50px;
+    background: rgba(0, 0, 0, 0);
+}
+
+.main_content #menu .picture, .main_content #orders .picture {
     width: 100%;
-    height: calc(100% - 80px);
+    height: 200px;
+    overflow: hidden;
 }
 
-.main_content #orders #dishes button{
-  padding: 10px;
-  width: calc(100% - 20px);
-  margin: 10px;
+.main_content #menu .name, .main_content #orders .name {
+    font-size: 16pt;
 }
 
-.main_content #orders form{
-  height: 40px;
+.main_content #menu .picture img .main_content #orders .picture img {
+    width: 300px;
+    margin: auto;
 }
