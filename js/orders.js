@@ -58,13 +58,8 @@ function loadDishes(content, data) {
   for (var i = 0; i < dishes.length; i++) {
     var item = dishes[i];
     var category = document.getElementById(item.category);
-<<<<<<< HEAD
     var dish = create(category, 'div', ['id', 'class', 'onclick'], ['dish_'+item.id, 'dish', 'addDish(this.id)']);
-    create(dish, 'span', ['id', 'class'], ['', 'picture'], 'image');
-=======
-    var dish = create(category, 'div', ['id', 'class'], ['', 'dish']);
     var picture = create(dish, 'span', ['id', 'class'], ['', 'picture']);
->>>>>>> origin/master
     create(dish, 'span', ['id', 'class'], ['', 'name'], item.name);
     create(dish, 'span', ['id', 'class'], ['', 'price'], '$ '+item.price.toFixed(2));
     create(picture, 'img',['src'],['img/dishes/'+item.id+'.jpg']);
@@ -77,9 +72,28 @@ function loadDishes(content, data) {
 function addDish(id) {
   var item = document.getElementById(id);
   var dish = item.cloneNode(true);
+  var order = document.getElementById('order_content');
   dish.setAttribute('id', '_'+id.slice(5, id.length));
   dish.setAttribute('onclick', 'removeDish(this.id)');
-  document.getElementById('order_content').appendChild(dish);
+  var dishName = dish.childNodes[1].innerHTML;
+  if (validateCombo(order, dishName)) {
+    var getSimilarDish = document.getElementById('_'+id.slice(5, id.length));
+    var getCombo = parseInt(getSimilarDish.childNodes[3].innerHTML.slice(1));
+    getSimilarDish.childNodes[3].innerHTML = 'X' + (getCombo + 1);
+  } else {
+    create(dish, 'span', ['id', 'class'], ['combo', 'combo'], 'X1');
+    order.appendChild(dish);
+  }
+}
+
+function validateCombo(order, dishName){
+  var isSimilar = false;
+  for (var i = 0; i < order.childNodes.length; i++) {
+    if (order.childNodes[i].childNodes[1].innerHTML == dishName) {
+      isSimilar = true;
+    }
+  }
+  return isSimilar;
 }
 
 function removeDish(id) {
