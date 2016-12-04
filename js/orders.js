@@ -57,27 +57,27 @@ function loadDishes(content, data) {
   for (var i = 0; i < dishes.length; i++) {
     var item = dishes[i];
     var category = document.getElementById(item.category);
-    var dish = create(category, 'div', ['id', 'class'], ['', 'dish']);
+    var dish = create(category, 'div', ['id', 'class', 'onclick'], ['dish_'+item.id, 'dish', 'addDish(this.id)']);
     create(dish, 'span', ['id', 'class'], ['', 'picture'], 'image');
     create(dish, 'span', ['id', 'class'], ['', 'name'], item.name);
     create(dish, 'span', ['id', 'class'], ['', 'price'], '$ '+item.price);
   }
   var form = create(order, 'form', ['id', 'method'], ['form', 'post']);
-  var orderDishes = create(order, 'div', ['id', 'class'], ['', 'order_dishes']);
+  var orderDishes = create(order, 'div', ['id', 'class'], ['order_content', 'order_dishes']);
 
 }
 
 function addDish(id) {
-    var dishes = document.getElementById('dishes');
-    var dish = document.getElementById(id).cloneNode(true);
-    dish.setAttribute('id', id.slice(5, id.length));
-    dish.setAttribute('onclick', 'removeDish(this.id);');
-    dishes.appendChild(dish);
+  var item = document.getElementById(id);
+  var dish = item.cloneNode(true);
+  dish.setAttribute('id', '_'+id.slice(5, id.length));
+  dish.setAttribute('onclick', 'removeDish(this.id)');
+  document.getElementById('order_content').appendChild(dish);
 }
 
 function removeDish(id) {
-    var item = document.getElementById(id);
-    item.parentNode.removeChild(item);
+  var item = document.getElementById(id);
+  item.parentNode.removeChild(item);
 }
 
 function buy() {
