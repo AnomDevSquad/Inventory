@@ -38,7 +38,7 @@ function loadWS() {
                 svg.setAttribute('height', '700px');
                 document.getElementById('main_content').appendChild(svg);
                 drawWStockChart(document.getElementById('svg'), document.getElementById('main_title'));
-                addChartValues();
+                addWChartValues(1000);
             } else
                 alert(JSONuser.errorMessage);
 
@@ -47,22 +47,28 @@ function loadWS() {
 }
 
 
-function addWChartValues() {
+function addWChartValues(Grange) {
     //read values
     for (var i = 0; i < Ging.length; i++) {
-        var ordN = Gdata[i];
+        var sV = Gdata[i];
         //validations
-        if (isNaN(ordN)) ordN = 0; //if invalid then 0
+        if (isNaN(sV)) sV = 0; //if invalid then 0
 
         var bar = document.getElementById('bar' + i);
 
 
-        if (ordN == 0) {
+        if (sV == 0) {
             bar.setAttribute('class', 'bar');
             bar.setAttribute('width', '1%');
         }
 
-        var barWidth = ordN * 6;
+        var horizontalLine = document.getElementsByTagName('line')[1];
+        var maxL = parseInt(horizontalLine.getAttribute('x2'));
+        var minL = parseInt(horizontalLine.getAttribute('x1'));
+        var space = maxL - minL;
+        // var barWidth = sV * 6;
+        // var barWidth = sV / 16;
+        var barWidth = space * sV / Grange;
         if (barWidth != 0) bar.setAttribute('width', barWidth + '%');
     }
     clean();
@@ -70,14 +76,14 @@ function addWChartValues() {
 
 function drawWStockChart(svgParent, titleParent) {
     //header
-    titleParent.innerHTML = '<p>Current Warehouse Stock' + ' (' + Ging[0] + ' To ' + Ging[6] + ')</p>';
+    titleParent.innerHTML = '<p>Current Warehouse Stock</p>';
     // y axis
     drawLine(svgParent, '30%', '70px', '30%', '600px', 'axis');
     drawLine(svgParent, '30%', '600px', '90%', '600px', 'axis');
     var count = 0;
     for (var i = 0; i <= 10; i++) {
         drawLine(svgParent, (30 + count) + '%', '600px', (30 + count) + '%', '610px', 'axis');
-        writeText(svgParent, 'name' + i, (30 + count) + '%', '625', i, '');
+        writeText(svgParent, 'name' + i, (30 + count) + '%', '625', i*100, '');
         count += 6;
     }
     count = 0;

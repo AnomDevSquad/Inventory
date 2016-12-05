@@ -96,4 +96,5 @@ function defineLocation(svgParent, d) {
 function clean() {
     Wdays = [];
     Gdata = [];
+    Ging = [];
 }

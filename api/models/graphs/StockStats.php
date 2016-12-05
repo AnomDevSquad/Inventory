@@ -25,7 +25,7 @@ class StockStats
 	public function set_qty($newVal){$this->qty = $newVal;}
 
 
-	public function to_json(){ return ' { "ing":'.$this->get_ing().', "qty":"'.$this->get_qty().'"  }'; }
+	public function to_json(){ return ' { "ing": "'.$this->get_ing().'", "qty":'.$this->get_qty().'  }'; }
 
 
 	public function get_kitchen_stock(){
@@ -35,7 +35,8 @@ class StockStats
 		$sql = sprintf("SELECT ki.ing_description AS Ing, s.sto_quantity AS Qty
 										FROM Inventory.stock s JOIN Kitchen.ingredients ki
 										ON s.sto_id_ing = ki.ing_id
-										WHERE s.war_id = 1");
+										WHERE s.war_id = 1
+										order by s.sto_quantity desc");
 		$data = $connection->execute_query($sql);
 		while (odbc_fetch_array($data)) {
 			array_push($list, new StockStats(odbc_result($data, 'Ing'),odbc_result($data, 'Qty')));
@@ -51,7 +52,8 @@ class StockStats
 		$sql = sprintf("SELECT ki.ing_description AS Ing, s.sto_quantity AS Qty
 										FROM Inventory.stock s JOIN Kitchen.ingredients ki
 										ON s.sto_id_ing = ki.ing_id
-										WHERE s.war_id = 2");
+										WHERE s.war_id = 2
+										order by s.sto_quantity desc");
 		$data = $connection->execute_query($sql);
 		while (odbc_fetch_array($data)) {
 			array_push($list, new StockStats(odbc_result($data, 'Ing'),odbc_result($data, 'Qty')));
