@@ -2,6 +2,8 @@
 
 insert into Inventory.measurementunits values ('B', 'Box'), ('GL', 'Galon');
 
+
+
 UPDATE Kitchen.dish_ingredients SET measurement='OZ' WHERE ing_id=20 AND dis_id=8;
 UPDATE Kitchen.dish_ingredients SET dis_ing_quantity=8 WHERE ing_id=20 AND dis_id=8;
 UPDATE Kitchen.dish_ingredients SET measurement='OZ' WHERE ing_id=20 AND dis_id=14;
@@ -11,6 +13,7 @@ update Kitchen.dish_ingredients set dis_ing_quantity=500 where ing_id=16 and dis
 
 
 
+insert into Inventory.warehouses values (1, 'Kitchen'), (2, 'Warehouse'); --En caso de no tener registros en warehouse incluir...
 
 
 insert into Inventory.ingredient_measurements values 
@@ -83,6 +86,10 @@ insert into Inventory.ingredient_measurements values
 (34, 1, 'G'),
 (34, 2, 'KG');
 
+insert into Inventory.stock values 
+(4, 1, 100, 100, 30),
+(5, 1, 100, 100, 30),
+(6, 1, 100, 100, 30);
 
 
 insert into Inventory.stock values 
@@ -149,6 +156,7 @@ insert into Inventory.stock values
  (33, 2, 10, 18, 8),
  (34, 1, 8000, 12000, 4000),
  (34, 2, 15, 24, 10);
+
 
 
  --Para cambiar el nombre de las columnas 

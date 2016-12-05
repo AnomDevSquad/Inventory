@@ -41,7 +41,7 @@ insert into Sales.Orders values
 (34, '2016-11-27', 113.00, 18.08, 131.08, 0, 1 );
 
 
-insert into Sales.order_dishes values
+insert into Sales.order_dishes (dis_id, ord_id, ord_dis_quantity, ord_date, dis_price) values
  (2, 1, 1, getDate(), 5.00),
  (3, 1, 1, GETDATE(), 8.00),
  (1, 2, 2, getDate(), 10.00),
