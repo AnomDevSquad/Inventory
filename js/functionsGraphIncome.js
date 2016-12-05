@@ -97,4 +97,7 @@ function clean() {
     Wdays = [];
     Gdata = [];
     Ging = [];
+    pow = 0;
+    rangee = 0;
+    valrangee = 0;
 }

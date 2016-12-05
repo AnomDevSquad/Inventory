@@ -3,9 +3,7 @@ var Ging = [];
 var Size = 0;
 //Data for graph
 var Gdata = [];
-//Graph lines
-var y1 = 170;
-var y2 = 470;
+
 
 //setInterval(updateGraph,1000);
 
@@ -37,8 +35,9 @@ function loadWS() {
                 svg.setAttribute('width', '700px');
                 svg.setAttribute('height', '700px');
                 document.getElementById('main_content').appendChild(svg);
+                chartRange();
                 drawWStockChart(document.getElementById('svg'), document.getElementById('main_title'));
-                addWChartValues(1000);
+                addWChartValues(rangee);
             } else
                 alert(JSONuser.errorMessage);
 
@@ -83,7 +82,7 @@ function drawWStockChart(svgParent, titleParent) {
     var count = 0;
     for (var i = 0; i <= 10; i++) {
         drawLine(svgParent, (30 + count) + '%', '600px', (30 + count) + '%', '610px', 'axis');
-        writeText(svgParent, 'name' + i, (30 + count) + '%', '625', i*100, '');
+        writeText(svgParent, 'name' + i, (30 + count) + '%', '625', i*(valrangee * 10), '');
         count += 6;
     }
     count = 0;

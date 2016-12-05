@@ -4,8 +4,12 @@ var Size = 0;
 //Data for graph
 var Gdata = [];
 //Graph lines
-var y1 = 170;
-var y2 = 470;
+// var y1 = 170;
+// var y2 = 470;
+
+var pow = 0;
+var rangee = 0;
+var valrangee = 0;
 
 //setInterval(updateGraph,1000);
 
@@ -37,8 +41,9 @@ function loadKS() {
                 svg.setAttribute('width', '700px');
                 svg.setAttribute('height', '700px');
                 document.getElementById('main_content').appendChild(svg);
+                chartRange();
                 drawKStockChart(document.getElementById('svg'), document.getElementById('main_title'));
-                addKChartValues(1000);
+                addKChartValues(rangee);
             } else
                 alert(JSONuser.errorMessage);
 
@@ -83,7 +88,7 @@ function drawKStockChart(svgParent, titleParent) {
     //horizontal
     for (var i = 0; i <= 10; i++) {
         drawLine(svgParent, (30 + count) + '%', '600px', (30 + count) + '%', '610px', 'axis');
-        writeText(svgParent, 'name' + i, (30 + count) + '%', '625', i*100, '');
+        writeText(svgParent, 'name' + i, (30 + count) + '%', '625', i * (valrangee * 10), '');
         count += 6;
     }
     count = 0;
@@ -95,4 +100,37 @@ function drawKStockChart(svgParent, titleParent) {
         writeText(svgParent, 'name' + i, '28%', (count + 70) + (separator / 2), Ging[i], 'name');
         count += separator;
     }
+}
+
+function chartRange() {
+    var big = Gdata[0];
+    var s = 0;
+    for (var x = 0; x < Gdata.length; x++) {
+        s += Gdata[x];
+    }
+    //var prom = s / Gdata.length;
+    var multi = getMultiplier(big);
+    pow = getPower(big);
+    if (big - (multi * pow) <= 50)
+        rangee = multi * pow + 50;
+    else
+        rangee = multi * pow + 100;
+
+    //rangee = Math.round(((big+pow)/pow)) * pow;
+    valrangee = rangee / pow;
+    console.log(pow);
+    console.log(rangee);
+    console.log(valrangee);
+}
+
+function getPower(n) {
+    var m = 1;
+    while ((m * 10) < n) m *= 10;
+
+    return m;
+}
+
+function getMultiplier(n) {
+    var s = '' + n;
+    return parseInt(s[0]);
 }
