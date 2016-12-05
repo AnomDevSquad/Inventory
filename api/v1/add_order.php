@@ -5,70 +5,36 @@
   require_once('/../models/exceptions/OrderNotFoundException.php');
   require_once('/../models/exceptions/DishNotFoundException.php');
   require_once('/../models/exceptions/NewOrderException.php');
-  //
-  // $headers = getallheaders();
-  //
-  // $json = '{';
-  //
-  // if (isset($_POST['dishes'])) {
-  //   $array = $_POST['dishes'];
-  //   $dish_ids = array_unique($_POST['dishes']);
-  //   $dish_qtys = array();
-  //   $count = 0;
-  //
-  //   foreach ($dish_ids as $key => $i) {
-  //     foreach ($array as $key => $j) {
-  //       if ($i == $j) {
-  //         $count++;
-  //       }
-  //     }
-  //     array_push($dish_qtys, $count);
-  //     $count = 0;
-  //   }
-  //
-  //   $dish_ids = array_values($dish_ids);
-  //
-  //   $list = array();
-  //   foreach ($dish_ids as $key => $value) {
-  //     array_push($list, new Dish($value));
-  //   }
-  //
-  //   $sum = 0;
-  //   $subtotal = 0;
-  //   $iva = 0;
-  //
-  //   for ($i=0; $i < count($list); $i++) {
-  //     $sum = $list[$i]->get_price() * $dish_qtys[$i];
-  //     $subtotal += $sum;
-  //     $sum = 0;
-  //   }
-  //   $iva = ($subtotal * 16) / 100;
-  //
-  //   $connection = new SqlServerConnection();
-  //   $sql = sprintf('EXEC I_RegisterOrder %d,%d,%d,%d', $subtotal, $iva, 1, 1);
-  //   $connection->execute_query($sql);
-  //
-  //   $sql = 'SELECT TOP 1 ord_id FROM Sales.orders ORDER BY ord_id DESC';
-  //   $data = $connection->execute_query($sql);
-  //   $last_id = odbc_result($data, 'ord_id');
-  //
-  //   for ($i=0; $i < count($dish_ids); $i++) {
-  //     $sql = sprintf('EXEC I_AttachDishes2Order %d,%d,%d', $last_id, $dish_ids[$i], $dish_qtys[$i]);
-  //     $connection->execute_query($sql);
-  //   }
-  //   $connection->execute_query('EXEC I_SaveIngredients');
-  //   $connection->execute_query('EXEC I_LowerStock01');
-  //   $connection->execute_query('EXEC I_InsertMovements');
-  //
-  //   print_r($dish_ids);
-  //   print_r($dish_qtys);
-  //
-  //   $connection->close();
-  // }
-  // $json .= '}';
-  // echo $json;
 
-  print_r($_POST['dishes']);
-  print_r($_POST['combos']);
+  if (isset($_POST['dishes']) && isset($_POST['combos'])) {
+    $dishes = $_POST['dishes'];
+    $combos = $_POST['combos'];
+    $subtotal = floatval($_POST['subtotal']);
+    $tax = floatval($_POST['tax']);
 
+    $connection = new SqlServerConnection();
+
+    $sql = sprintf('EXEC I_RegisterOrder %f,%f,%d,%d', $subtotal, $tax, 1, 1);
+    $connection->execute_query($sql);
+
+    $sql = "SELECT TOP 1 ord_id FROM Sales.orders ORDER BY ord_id DESC";
+    $data = $connection->execute_query($sql);
+    $last_id = odbc_result($data, 'ord_id');
+
+    for ($i=0; $i <  count($dishes); $i++) {
+      $sql = sprintf('EXEC I_AttachDishes2Order %d,%d,%d', $last_id, $dishes[$i], $combos[$i]);
+      $connection->execute_query($sql);
+    }
+
+    $connection->execute_query('EXEC I_SaveIngredients');
+    $connection->execute_query('EXEC I_LowerStock01');
+    $connection->execute_query('EXEC I_InsertMovements');
+
+    $connection->close();
+
+    print_r($dishes);
+    print_r($combos);
+    print_r($subtotal);
+    print_r($tax);
+  }
 ?>

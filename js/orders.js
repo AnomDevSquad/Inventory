@@ -151,13 +151,13 @@ function accept() {
   var dishes = document.getElementById('order_content');
   var form = document.getElementById('form');
   if (dishes.childNodes.length > 0) {
-    var dishesListId = [];
-    var comboList = [];
     for (var i = 0; i < dishes.childNodes.length; i++) {
       var item = dishes.childNodes[i];
       create(form, 'input', ['type', 'name', 'value'], ['hidden', 'dishes[]', item.id.slice(1)]);
       create(form, 'input', ['type', 'name', 'value'], ['hidden', 'combos[]', item.childNodes[3].innerHTML.slice(1)]);
     }
+    create(form, 'input',['type', 'name', 'value'], ['hidden', 'subtotal', document.getElementById('subtotal-number').innerHTML.slice(2)]);
+    create(form, 'input',['type', 'name', 'value'], ['hidden', 'tax', document.getElementById('tax-number').innerHTML.slice(2)]);
     var request = new XMLHttpRequest();
     request.open('POST', 'api/v1/add_order.php', true);
     var data = new FormData(form);
