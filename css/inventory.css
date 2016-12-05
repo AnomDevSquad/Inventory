@@ -1,27 +1,70 @@
-.main_content form, .main_content label, .main_content select, .main_content button, .main_content input{
-  position: relative;
-  float: left;
+.main_content form, .main_content label, .main_content select, .main_content button, .main_content input {
+    position: relative;
+    float: left;
 }
-.main_content #form_movement{
-  margin: 10px 10px;
-  width: 700px;
-  height: 100%;
-}
-.main_content #form_movement label{
-  display: block;
-  width: calc(50% - 20px);
-  padding: 10px;
-}
-.main_content #form_movement select{
-  display: block;
-  width: calc(50% - 22px);
-  padding: 10px;
-}
-.main_content #form_movement input{
-  display: block;
-  width: calc(50% - 45px);
-  padding: 10px;
-}
-.main_content #form_movement button{
 
+.main_content #form_movement {
+    margin: 10px 10px;
+    width: calc(700px - 20px);
+    height: calc(100% - 20px);
 }
+
+.main_content #form_movement label {
+    display: block;
+    width: calc(50% - 20px);
+    padding: 10px;
+}
+
+.main_content #form_movement select {
+    display: block;
+    width: calc(50% - 22px);
+    padding: 10px;
+}
+
+.main_content #form_movement input {
+    display: block;
+    width: calc(50% - 45px);
+    padding: 10px;
+}
+
+.main_content #form_movement button {}
+
+.main_content .table {
+    width: 70%;
+    height: 100%;
+    margin: auto;
+    overflow-y: auto;
+}
+
+.main_content .table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #7551be;
+}
+
+.main_content .table table th {
+    padding: 10px;
+    font-size: 18pt;
+    background: #201436;
+    color: #fdfcfe;
+    text-align: center;
+}
+
+.main_content .table table tr {
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.main_content .table table tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.main_content .table table td {
+    padding: 10px;
+}
+
+.main_content .table table .number {
+    text-align: right;
+}
+
+.main_content .table table .name {}

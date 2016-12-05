@@ -32,8 +32,8 @@ function initInventoryTemplate() {
 function loadTablesComparation() {
     document.getElementById('main_content').innerHTML = '';
     var content = document.querySelector('#main_content');
-    var section_table = create(content, 'div', ['id'], ['table-content']);
-    var table = create(section_table, 'table', ['id', 'class'], ['table-comparation', 'table']);
+    var section_table = create(content, 'div', ['id', 'class'], ['table-content', 'table']);
+    var table = create(section_table, 'table', ['id'], ['table-comparation']);
     var header = ['Id', 'Name', 'Kitchen', 'Warehouse'];
     for (var i = 0; i < header.length; i++) {
         create(table, 'th', ['class'], ['table-header'], header[i]);
@@ -52,10 +52,10 @@ function loadStock(table) {
             for (var i = 0; i < stock.length; i+=2) {
               var tr = create(table, 'tr', [], []);
               var item = stock[i];
-              create(tr, 'td', [], [], item.ingredient.id);
-              create(tr, 'td', [], [], item.ingredient.description);
-              create(tr, 'td', [], [], item.quantity);
-              create(tr, 'td', [], [], stock[i+1].quantity);
+              create(tr, 'td', ['class'], ['identifer'], item.ingredient.id);
+              create(tr, 'td', ['class'], ['name'], item.ingredient.description);
+              create(tr, 'td', ['class'], ['number'], item.quantity);
+              create(tr, 'td', ['class'], ['number'], stock[i+1].quantity);
             }
         }
     }
