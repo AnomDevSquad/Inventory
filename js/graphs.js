@@ -1,16 +1,14 @@
 function init() {
     document.getElementById('title').innerHTML = 'CHARTS';
-    var id = document.getElementById('action_1');
-    id.innerHTML = 'Sales';
-    id.setAttribute('onClick', 'sales();');
-    var id2 = document.getElementById('action_2');
-    id2.innerHTML = 'Income';
-    id2.setAttribute('onClick', 'income();');
+    var a = ['Sales','Income','Kitchen Stock','Warehouse Stock'];
+    var v = ['sales();','income();','kitchenS();','warehouseS();'];
+    for(var x = 0; x < 4; x++){
+      var id = document.getElementById('action_'+(x+1));
+      id.innerHTML = a[x];
+      id.setAttribute('onClick', v[x]);
+    }
 
-    var element = document.getElementById('action_3');
-    element.parentNode.removeChild(element);
-    var element = document.getElementById('action_4');
-    element.parentNode.removeChild(element);
+
     var opt1 = document.createElement('p');
     var opt2 = document.createElement('p');
     opt1.innerHTML = 'Orders';
@@ -34,4 +32,16 @@ function income() {
     document.getElementById('main_title').innerHTML = '';
     document.getElementById('main_content').innerHTML = '';
     loadGI();
+}
+
+function kitchenS() {
+    document.getElementById('main_title').innerHTML = '';
+    document.getElementById('main_content').innerHTML = '';
+    loadKS();
+}
+
+function warehouseS() {
+    document.getElementById('main_title').innerHTML = '';
+    document.getElementById('main_content').innerHTML = '';
+    loadWS();
 }
