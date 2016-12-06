@@ -1,3 +1,4 @@
+use inventory;
 --drop procedure I_RegisterOrder
 
 --results

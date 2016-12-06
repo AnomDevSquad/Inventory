@@ -1,9 +1,10 @@
+use inventory;
 --drop procedure I_SaveIngredients
 
 --results
 --0 = No error. Order registered successfuly
 --999 = Unknown error found. Something went wrong
-create procedure I_InsertMovements
+CREATE procedure I_InsertMovements
 as
 begin
 	--variables
@@ -18,8 +19,11 @@ begin
 		@INGQUANTITY as int
 
 		DECLARE Cursor_InsertMovements CURSOR FOR select s.sto_id_ing, st.sto_quantity - s.sto_quantity
-														from Inventory.stock s join stockTemp st
-														on s.sto_id_ing = st.sto_id_ing
+																							from Inventory.stock s join Inventory.stockTemp st
+																							on s.sto_id_ing = st.sto_id_ing
+																							where s.war_id = 1
+																							group by s.sto_id_ing, st.sto_quantity, s.sto_quantity
+																							having (st.sto_quantity - s.sto_quantity) > 0
 				Open Cursor_InsertMovements
 				Fetch next from Cursor_InsertMovements into @INGID, @INGQUANTITY
 				while @@FETCH_STATUS = 0
@@ -32,7 +36,7 @@ begin
 					end
 				close Cursor_InsertMovements
 				deallocate Cursor_InsertMovements
-		drop table stockTemp;
+		drop table Inventory.stockTemp;
 		set @ERROR = @@ERROR;
 		if (@ERROR <> 0)
 			begin

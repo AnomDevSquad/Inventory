@@ -1,9 +1,10 @@
+use inventory;
 --drop procedure I_AttachDishes2Order
 
 --results
 --0 = No error. Order registered successfuly
 --999 = Unknown error found. Something went wrong
-create procedure I_AttachDishes2Order
+ALTER procedure I_AttachDishes2Order
 	@ORDERID as int,
 	@DISHID as int,
 	@QUANTITY as int
@@ -21,7 +22,7 @@ as begin
 		if (@@ROWCOUNT = 0) 
 			begin
 				select @VALUE = dis_price from Kitchen.dishes where dis_id = @DISHID;
-				insert into Sales.order_dishes(ord_id,dis_id,ord_dis_quantity,ord_date, ord_total) values(@ORDERID,@DISHID,@QUANTITY,GETDATE(),@VALUE);
+				insert into Sales.order_dishes(ord_id,dis_id,ord_dis_quantity,ord_dis_date,dis_dis_subtotal) values(@ORDERID,@DISHID,@QUANTITY,GETDATE(),@VALUE);
 				--ERROR HANDLER
 				set @ERROR = @@ERROR;
 				if (@ERROR <> 0) 
