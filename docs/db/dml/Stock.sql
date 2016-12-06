@@ -11,7 +11,6 @@ update Kitchen.dish_ingredients set dis_ing_quantity=500 where ing_id=16 and dis
 
 
 insert into Inventory.ingredient_measurements values 
-(2, 1, 'ML'),
 (4, 1, 'LVS'),
 (5, 1, 'LVS'),
 (6, 1, 'LVS'),
@@ -64,7 +63,7 @@ insert into Inventory.ingredient_measurements values
 (26, 1, 'PC'),
 (26, 2, 'B'),
 (27, 1, 'ML'),
-(27, 2, 'G'),
+(27, 2, 'GL'),
 (28, 1, 'PC'),
 (28, 2, 'B'),
 (29, 1, 'PC'),
@@ -90,6 +89,7 @@ insert into Inventory.stock values
 insert into Inventory.stock values 
 (1, 1, 100, 50, 200),
 (1, 2, 4, 3, 6 ),
+(2, 1, 10000, 12000, 5000),
 (2, 2, 6, 10, 3),
 (3, 1, 10000, 12000, 5000),
 (3, 2, 10, 12, 5),
@@ -151,6 +151,9 @@ insert into Inventory.stock values
  (33, 2, 10, 18, 8),
  (34, 1, 8000, 12000, 4000),
  (34, 2, 15, 24, 10);
+
+
+
 
 
  --Para cambiar el nombre de las columnas 
