@@ -45,6 +45,7 @@ function initNewOrder() {
 }
 
 function loadDishes(content, data) {
+  document.getElementById('main_title').innerHTML = '<p id="title">New Order</p>'
   var menu = create(content, 'div', ['id', 'class'], ['menu', 'menu']);
   var order = create(content, 'div', ['id', 'class'], ['client_order', 'client_order']);
   create(menu, 'div', ['id', 'class'], ['', 'title'], 'Menu');
@@ -165,13 +166,16 @@ function accept() {
     request.onreadystatechange = function() {
       if (request.status == 200 && request.readyState == 4) {
         console.log(request.responseText);
+        cancel();
       }
     }
   }
 }
 
 function cancel(){
-  alert('cancel')
+  document.querySelector('#order_content').innerHTML = '';
+  document.querySelector('#form').innerHTML = '';
+  calculateTotalAndTax();
 }
 
 function initOrders() {
