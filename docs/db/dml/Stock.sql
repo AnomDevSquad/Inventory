@@ -52,9 +52,9 @@ insert into Inventory.ingredient_measurements values
 (20, 1, 'OZ'),
 (20,2, 'GL'),
 (21, 1, 'OZ'),
-(21, 1, 'GL'),
+(21, 2, 'GL'),
 (22, 1, 'PC'),
-(22,2, 'B'),
+(22, 2, 'B'),
 (23, 1, 'PC'),
 (23, 2, 'B'),
 (24, 1, 'G'),
@@ -81,6 +81,11 @@ insert into Inventory.ingredient_measurements values
 (34, 2, 'KG');
 
 
+
+insert into Inventory.stock values 
+(4, 1, 100, 100, 30),
+(5, 1, 100, 100, 30),
+(6, 1, 100, 100, 30);
 
 insert into Inventory.stock values 
 (1, 1, 100, 50, 200),
