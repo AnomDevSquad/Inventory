@@ -3,7 +3,7 @@
 -- 2: no existe el ingrediente en alguno de los warehouse
 -- 3: no hay suficiente existencias en el warehouseO
 -- 4: el cantidad de ingrediente no cabe en el warehouse al que se quiere pasar
--- 5: el factor de conversion no se encuentra en las conversiones
+-- 5: el factor de conversion no se encuentra registrado
 -- 999: error desconocido(usualmente de base de datos)
 ALTER PROCEDURE Inventory.new_transfer
 	@warehouseO as int,
