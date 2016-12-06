@@ -4,6 +4,7 @@
 	require_once('Ingredient.php');
 	require_once('Measurement.php');
 	require_once('/../exceptions/StockEmptyException.php');
+	require_once('/../exceptions/ItemInStockNotFoundException.php');
 
 	class Stock
 	{
@@ -23,14 +24,15 @@
 					$connection = new SqlServerConnection();
 					$sql = sprintf(
 					"	SELECT
-						i.ing_id, i.ing_description,
-						mu.meu_id, mu.meu_description,
-						w.war_id, w.war_name,
-						s.sto_quantity, s.sto_max, s.sto_min
+							i.ing_id, i.ing_description,
+							w.war_id, w.war_name,
+							s.sto_quantity, s.sto_max, s.sto_min,
+							m.meu_id, m.meu_description
 						FROM Inventory.stock s
 						JOIN Kitchen.ingredients i ON s.sto_id_ing = i.ing_id
 						JOIN Inventory.warehouses w ON s.war_id = w.war_id
-						JOIN Inventory.measurementunits mu ON i.mu = mu.meu_id
+						JOIN Inventory.ingredient_measurements im ON i.ing_id = im.ims_id_ingredient
+						JOIN Inventory.measurementunits m ON im.ims_id_measurement = m.meu_id
 						WHERE i.ing_id = %d and w.war_id = '%s'", $args[0], $args[1]);
 					$data = $connection->execute_query($sql);
 					$found = odbc_num_rows($data) > 0;
@@ -134,6 +136,7 @@
 				JOIN Inventory.measurementunits m ON im.ims_id_measurement = m.meu_id
 				WHERE im.ims_id_warehouse = %d AND w.war_id = %d';
 			$sql = sprintf($sql, $warehouse_id, $warehouse_id);
+			// echo $sql;
 			$data = $connection->execute_query($sql);
 			if(odbc_num_rows($data) < 1) throw new StockEmptyException();
 			while (odbc_fetch_array($data)) {

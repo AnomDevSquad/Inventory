@@ -27,7 +27,15 @@
     padding: 10px;
 }
 
+.main_content #form_movement input[type=number]{
+  width: calc(35% - 45px);
+}
+
 .main_content #form_movement button {}
+
+.main_content #form_movement .measurement{
+  width: 10%;
+}
 
 .main_content .table {
     width: 70%;
@@ -66,5 +74,3 @@
 .main_content .table table .number {
     text-align: right;
 }
-
-.main_content .table table .name {}

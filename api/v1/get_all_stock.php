@@ -1,3 +1,4 @@
+
 <?php
   header("Access-Control-Allow-Origin:*");
   require_once('/../models/inventory/Stock.php');

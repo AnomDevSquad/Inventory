@@ -35,6 +35,8 @@
       $wari = $_POST['waridin'];
       $qty = $_POST['qty'];
 
+
+
       $result = Transfer::new_transfer($sto, $waro, $wari, $qty);
       $json .= '"status": '.$result.', "message": '.$messages[$result];
     }
