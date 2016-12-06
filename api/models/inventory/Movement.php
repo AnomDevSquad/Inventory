@@ -110,9 +110,15 @@
 			$connection = new SqlServerConnection();
 			try{
 				$sql =
+<<<<<<< HEAD
 				"	SELECT m.mov_id, m.mov_date, m.mov_quantity, i.ing_id, i.ing_description,
 					s.sto_quantity, mu.meu_id, mu.meu_description, w.war_id, w.war_name, mc.mco_id,
 					mc.mco_description
+=======
+				"	SELECT	m.mov_id, m.mov_date, m.mov_quantity, s.sto_id_ing, i.ing_id, i.ing_description,
+							s.sto_quantity, mu.meu_id, mu.meu_description, w.war_id, w.war_name, mc.mco_id,
+							mc.mco_description
+>>>>>>> 03b4f2c6043125937560eb5db6c8d255856c76a9
 					FROM Inventory.movements m
 					JOIN Inventory.movementconcepts mc on m.mov_concept = mc.mco_id
 					JOIN Inventory.stock s on s.sto_id_ing = m.mov_id_stock_ingredient
