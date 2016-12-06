@@ -24,14 +24,13 @@ insert into Inventory.stock values
 (8,2,89,20,700),
 (9,2,150,20,700),
 (10,2,120,20,700);
-
-
 go
+
 insert into Inventory.movementconcepts values
 (1, 'Purchase'), (2, 'Sale'),  (3, 'Minimum losses '), (4, 'Maximum Losses'), (5, 'Entry Transfer'),
 (6, 'Output Transfer'), (9,'Spoiled'), (10, 'Expiration');
-
 go
+
 --  los campos estan en orden
 insert into Inventory.movements values
 (5,1,1,getdate(),10),

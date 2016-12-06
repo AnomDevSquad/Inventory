@@ -1,4 +1,3 @@
-use inventory;
 --drop procedure I_LowerStock01
 
 --results
