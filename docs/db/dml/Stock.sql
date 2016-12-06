@@ -11,16 +11,17 @@ update Kitchen.dish_ingredients set dis_ing_quantity=500 where ing_id=16 and dis
 
 
 insert into Inventory.ingredient_measurements values 
-(4, 1, 'LVS'),
-(5, 1, 'LVS'),
-(6, 1, 'LVS'),
 (1,1, 'PC'),
 (1,2,'B'),
+(2, 1, 'ML'),
 (2,2, 'GL'),
 (3,2,'GL'),
 (3,1, 'ML'),
+(4, 1, 'LVS'),
 (4,2,'B'),
+(5, 1, 'LVS'),
 (5,2,'B'),
+(6, 1, 'LVS'),
 (6,2, 'B'),
 (7, 1, 'ML'), 
 (7,2, 'GL'),
@@ -81,10 +82,6 @@ insert into Inventory.ingredient_measurements values
 
 
 
-insert into Inventory.stock values 
-(4, 1, 100, 100, 30),
-(5, 1, 100, 100, 30),
-(6, 1, 100, 100, 30);
 
 insert into Inventory.stock values 
 (1, 1, 100, 50, 200),
@@ -93,8 +90,11 @@ insert into Inventory.stock values
 (2, 2, 6, 10, 3),
 (3, 1, 10000, 12000, 5000),
 (3, 2, 10, 12, 5),
+(4, 1, 100, 100, 30),
 (4, 2, 20, 50, 15),
+(5, 1, 100, 100, 30),
 (5, 2, 23, 50, 15),
+(6, 1, 100, 100, 30),
 (6, 2, 25, 50, 15),
 (7, 1, 7000, 15000, 4000),
 (7, 2, 15, 25, 10), 
