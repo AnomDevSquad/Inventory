@@ -23,10 +23,30 @@ function initInventoryTemplate() {
     templateElements().options.option2.appendChild(opt2);
 
     templateElements().actions.action1.addEventListener('click', loadFormTransfer);
-    templateElements().actions.action2.addEventListener('click', loadFormTransfer);
+    templateElements().actions.action2.addEventListener('click', loadFormLosses);
     templateElements().actions.action3.addEventListener('click', loadTablesComparation);
     templateElements().options.option1.addEventListener('click', goOrders);
     templateElements().options.option2.addEventListener('click', goGraphs);
+}
+
+function loadFormLosses(){
+  document.getElementById('main_content').innerHTML = '';
+  var content = document.getElementById('main_content');
+  var form = create(content, 'form', ['id'], ['form_movement']);
+  var labels = ['Ingredient', 'Warehouse', 'Quantity'];
+  var inputsName = ['itmid', 'warid', 'qty']
+  for (var i = 0; i < labels.length; i++) {
+    if (labels[i] == 'Quantity') {
+      create(form, 'label', '', '', labels[i]);
+      create(form, 'input', ['id', 'type', 'name', 'min', 'max'], [labels[i].toLocaleLowerCase(), 'number', inputsName[i], '1', '']);
+    } else {
+      create(form, 'label', '', '', labels[i]);
+      create(form, 'select', ['id', 'name'], [labels[i].toLocaleLowerCase(), inputsName[i]]);
+    }
+  }
+  create(form, 'button', ['id', 'type'], ['button_losses', 'submit'], 'Generate Loss');
+  loadStockItems();
+  loadWarehouseItems();
 }
 
 function loadTablesComparation() {
@@ -66,7 +86,7 @@ function loadFormTransfer() {
     var content = document.getElementById('main_content');
     var form = create(content, 'form', ['id'], ['form_movement']);
     var labels = ['Ingredient', 'WarehouseOutput', 'WarehouseInput', 'Quantity'];
-    var inputsName = ['itmid', 'waridout', 'waridin', 'qty']
+    var inputsName = ['itmid', 'wari', 'qty']
     for (var i = 0; i < labels.length; i++) {
         if (labels[i] == 'Quantity') {
             create(form, 'label', '', '', labels[i]);
@@ -153,13 +173,22 @@ function loadWarehouseItems() {
             if (json.status == 0) {
                 var warehouseOutput = document.querySelector('#warehouseoutput');
                 var warehouseInput = document.querySelector('#warehouseinput');
+                var warehouse = document.querySelector('#warehouse');
                 var wh = json.warehouses;
-                create(warehouseOutput, 'option', [], [], 'Select Option');
-                create(warehouseInput, 'option', [], [], 'Select Option');
+                if (warehouseInput != undefined && warehouseOutput != undefined) {
+                  create(warehouseOutput, 'option', [], [], 'Select Option');
+                  create(warehouseInput, 'option', [], [], 'Select Option');
+                } else {
+                  create(warehouse, 'option', [], [], 'Select Option');
+                }
                 for (var i = 0; i < wh.length; i++) {
                     var item = wh[i];
-                    create(warehouseOutput, 'option', ['id', 'value'], [item.id, item.id], item.description);
-                    create(warehouseInput, 'option', ['id', 'value'], [item.id, item.id], item.description);
+                    if (warehouseInput != undefined && warehouseOutput != undefined) {
+                      create(warehouseOutput, 'option', ['id', 'value'], [item.id, item.id], item.description);
+                      create(warehouseInput, 'option', ['id', 'value'], [item.id, item.id], item.description);
+                    } else {
+                      create(warehouse, 'option', ['id', 'value'], [item.id, item.id], item.description);
+                    }
                 }
             }
         }
