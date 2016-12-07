@@ -88,7 +88,8 @@ function drawKStockChart(svgParent, titleParent) {
     //horizontal
     for (var i = 0; i <= 10; i++) {
         drawLine(svgParent, (30 + count) + '%', '600px', (30 + count) + '%', '610px', 'axis');
-        writeText(svgParent, 'name' + i, (30 + count) + '%', '625', i * (valrangee * 10), '');
+		var st = Math.round(i*(valrangee * (pow / 10)));
+        writeText(svgParent, 'name' + i, (30 + count) + '%', '625',st, '');
         count += 6;
     }
     count = 0;
@@ -112,7 +113,7 @@ function chartRange() {
     var multi = getMultiplier(big);
     pow = getPower(big);
     if (big - (multi * pow) <= 50)
-        rangee = multi * pow + 50;
+        rangee = multi * pow;// + 50;
     else
         rangee = multi * pow + 100;
 

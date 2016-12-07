@@ -82,7 +82,8 @@ function drawWStockChart(svgParent, titleParent) {
     var count = 0;
     for (var i = 0; i <= 10; i++) {
         drawLine(svgParent, (30 + count) + '%', '600px', (30 + count) + '%', '610px', 'axis');
-        writeText(svgParent, 'name' + i, (30 + count) + '%', '625', i*(valrangee * 10), '');
+		var st = Math.round(i*(valrangee * (pow / 10)));
+        writeText(svgParent, 'name' + i, (30 + count) + '%', '625', st, '');
         count += 6;
     }
     count = 0;
