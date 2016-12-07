@@ -76,6 +76,8 @@ function loadFormTransfer() {
             create(form, 'select', ['id', 'name'], [labels[i].toLocaleLowerCase(), inputsName[i]]);
         }
     }
+    document.getElementById(labels[0].toLocaleLowerCase()).setAttribute('onchange', 'getIngredient(this.value)');
+    document.getElementById(labels[1].toLocaleLowerCase()).setAttribute('onchange', 'getWarehouseOutput(this.value)');
     create(form, 'button', ['id'], ['submit'], 'generate movement');
 
     document.getElementById('submit').addEventListener('click', function(e) {
@@ -100,6 +102,8 @@ function loadFormTransfer() {
         request.onreadystatechange = function() {
           if (request.status == 200 && request.readyState == 4) {
             console.log(request.responseText);
+            var json = JSON.parse(request.responseText);
+            alert(json.result);
             for (var i = 0; i < labels.length; i++) {
               if (i == 3) {
                 document.getElementById(labels[i].toLocaleLowerCase()).value = '';
@@ -131,7 +135,7 @@ function loadStockItems() {
                 for (var i = 0; i < stock.length; i++) {
                     var item = stock[i];
                     if (item.warehouse.id == 1) {
-                        create(ingredient, 'option', ['id'], [item.ingredient.id], item.ingredient.description);
+                        create(ingredient, 'option', ['id', 'value'], [item.ingredient.id, item.ingredient.id], item.ingredient.description);
                     }
                 }
             }
@@ -154,12 +158,20 @@ function loadWarehouseItems() {
                 create(warehouseInput, 'option', [], [], 'Select Option');
                 for (var i = 0; i < wh.length; i++) {
                     var item = wh[i];
-                    create(warehouseOutput, 'option', ['id'], [item.id], item.description);
-                    create(warehouseInput, 'option', ['id'], [item.id], item.description);
+                    create(warehouseOutput, 'option', ['id', 'value'], [item.id, item.id], item.description);
+                    create(warehouseInput, 'option', ['id', 'value'], [item.id, item.id], item.description);
                 }
             }
         }
     }
+}
+
+function getWarehouseOutput(value){
+  alert(value)
+}
+
+function getIngredient(value){
+  alert(value)
 }
 
 function loadConceptItems() {

@@ -7,33 +7,50 @@
       $wari = $_POST['waridin'];
       $qty = $_POST['qty'];
 
+      $connection = new SqlServerConnection();
+      $sql = sprintf(
+      'declare @var as int;
+       EXEC Inventory.transferIngredient %d, %d, %d, %d, @var output;
+       select @var as error;',
+       $waro, $wari, $sto, $qty
+      );
+      $data = $connection->execute_query($sql);
+      while (odbc_fetch_array($data)) {
+        $error = odbc_result($data, 'error');
+      }
+      $connection->close();
       $json .= '
         "status":0,
         "item":"'.$sto.'",
         "from_warehouse":"'.$waro.'",
         "to_warehouse":"'.$wari.'",
-        "quantity":"'.$qty.'"
+        "quantity":"'.$qty.'",
       ';
 
-      $connection = new SqlServerConnection();
-      $sql = "select war_id from Inventory.warehouses where war_name = '%s'";
-      $sqlexecute = sprintf($sql, $waro);
-      $data = $connection->execute_query($sqlexecute);
-      $id_o = odbc_result($data, 'war_id');
-
-      $sqlexecute = sprintf($sql, $wari);
-      $data = $connection->execute_query($sqlexecute);
-      $id_i = odbc_result($data, 'war_id');
-
-      $sql = "select * from Kitchen.ingredients where ing_description = '%s'";
-      $sqlexecute = sprintf($sql, $waro);
-      $data = $connection->execute_query($sql, $sto);
-      $id_ing = odbc_result($data, $sto);
-
-      $sql = sprintf('EXEC Inventory.new_transfer %d,%d,%d,%d', $id_o, $id_i, $id_ing, $qty, 1);
-      $connection->execute_query($sql);
-
-      $connection->close();
+      if ($error == 0) {
+        $json .= '"result": "Transferencia Exitosa"';
+      }
+      if ($error == 1) {
+        $json .= '"result": "No Existe alguno de los warehouses"';
+      }
+      if ($error == 2) {
+        $json .= '"result": "No se puede transferir al mismo warehouse"';
+      }
+      if ($error == 3) {
+        $json .= '"result": "No Existe ese ingredient"';
+      }
+      if ($error == 4) {
+        $json .= '"result": "No hay suficiente existencia en el warehouse output"';
+      }
+      if ($error == 5) {
+        $json .= '"result": "El ingrediente no se puedo registrar en el warehouses input"';
+      }
+      if ($error == 6) {
+        $json .= '"result": "La cantidad de ingrediente no cabe en el warehouse al que se queire pasar"';
+      }
+      if ($error == 999) {
+        $json .= '"result": "Error desconocido"';
+      }
     }
     else{
       $json .= '"status": 1, "message":"Invalid Parameters"';
