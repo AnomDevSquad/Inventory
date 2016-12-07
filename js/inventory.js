@@ -1,6 +1,7 @@
+var urlAPI = 'http://localhost:8080/4to/Inventory/';
+
 function init() {
     setTimeout(initInventoryTemplate, 100);
-    setTimeout(kitchenStock, 100);
 }
 
 function transfer() {
@@ -68,13 +69,13 @@ function loadStock(table) {
         if (request.status == 200 && request.readyState == 4) {
             var json = JSON.parse(request.responseText)
             var stock = json.stock;
-            for (var i = 0; i < stock.length; i += 2) {
-                var tr = create(table, 'tr', [], []);
-                var item = stock[i];
-                create(tr, 'td', ['class'], ['identifer'], item.ingredient.id);
-                create(tr, 'td', ['class'], ['name'], item.ingredient.description);
-                create(tr, 'td', ['class'], ['number'], item.quantity);
-                create(tr, 'td', ['class'], ['number'], stock[i + 1].quantity);
+            for (var i = 0; i < stock.length; i+=2) {
+              var tr = create(table, 'tr', [], []);
+              var item = stock[i];
+              create(tr, 'td', ['class'], ['identifer'], item.ingredient.id);
+              create(tr, 'td', ['class'], ['name'], item.ingredient.description);
+              create(tr, 'td', ['class'], ['number'], item.quantity);
+              create(tr, 'td', ['class'], ['number'], stock[i+1].quantity);
             }
         }
     }
@@ -92,13 +93,9 @@ function loadFormTransfer() {
             create(form, 'input', ['id', 'type', 'name', 'min', 'max'], [labels[i].toLocaleLowerCase(), 'number', inputsName[i], '1', '']);
         } else {
             create(form, 'label', '', '', labels[i]);
-            var select = create(form, 'select', ['id', 'name'], [labels[i].toLocaleLowerCase(), inputsName[i]]);
-            if (labels[i] != 'WarehouseInput') {
-                select.addEventListener('change', putMeasurement);
-            }
+            create(form, 'select', ['id', 'name'], [labels[i].toLocaleLowerCase(), inputsName[i]]);
         }
     }
-
     document.getElementById(labels[0].toLocaleLowerCase()).setAttribute('onchange', 'getIngredient(this.value)');
     document.getElementById(labels[1].toLocaleLowerCase()).setAttribute('onchange', 'getWarehouseOutput(this.value)');
     create(form, 'button', ['id'], ['submit'], 'generate movement');
@@ -134,15 +131,19 @@ function loadFormTransfer() {
                 document.getElementById(labels[i].toLocaleLowerCase()).selectedIndex = 0;
               }
             }
+          }
         }
+      }
     });
+
     loadStockItems();
     loadWarehouseItems();
+    // loadConceptItems();
 }
 
 function loadStockItems() {
     var request = new XMLHttpRequest();
-    request.open('GET', 'api/v1/get_stock_warehouse.php?warid=2', true);
+    request.open('GET', 'api/v1/get_all_stock.php', true);
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
@@ -221,75 +222,3 @@ function loadConceptItems() {
         }
     }
 }
-
-function kitchenStock() {
-    var request = new XMLHttpRequest();
-    request.open('GET', 'api/v1/get_stock_warehouse.php?warid=1', true);
-    request.send();
-    request.onreadystatechange = function() {
-        if (request.status == 200 && request.readyState == 4) {
-            var json = JSON.parse(request.responseText);
-            var stockElements = json.stock;
-            if (json.status == 0) {
-                // console.log(json);
-                for (var i = 0; i < stockElements.length; i++) {
-
-                }
-            }
-        }
-    }
-}
-
-// class StockIngredient {
-//     constructor(jsonObj) {
-//         this._ingredient = jsonObj.ingredient.description;
-//         this._image = 'img/ingredients/img_' + jsonObj.ingredient.id;
-//         this._quantity = jsonObj.quantity;
-//         this._max = jsonObj.max;
-//         this._min = jsonObj.min;
-//
-//         this.div = ducument.createElement('div');
-//         this.divTitle = ducument.createElement('div');
-//         this.divPicture = ducument.createElement('div');
-//         this.divNumbers = ducument.createElement('div');
-//         this.pTitle = ducument.createElement('p');
-//         this.pQuantity = ducument.createElement('p');
-//         this.pMax = ducument.createElement('p');
-//         this.pMin = ducument.createElement('p');
-//         this.imgIngredient = document.createElement('img');
-//
-//         this.div.appendChild(this.divTitle);
-//         this.div.appendChild(this.divPicture);
-//         this.div.appendChild(this.divNumbers);
-//         this.divTitle.appendChild(this.pTitle);
-//         this.divPicture.appendChild(this.imgIngredient);
-//         this.divNumbers.appendChild(this.pMin);
-//         this.divNumbers.appendChild(this.pQuantity);
-//         this.divNumbers.appendChild(this.pMax);
-//         this.divNumbers.appendChild(this.pMin);
-//
-//         this.div.setAttribute('class', 'stockElement');
-//         this.divTitle.setAttribute('class', 'header');
-//         this.divPicture.setAttribute('class', 'picture');
-//         this.divNumbers.setAttribute('class', 'quantities');
-//         this.pTitle.setAttribute('class', 'title');
-//         this.pQuantity.setAttribute('class', 'quantity');
-//         this.pMax.setAttribute('class', 'max');
-//         this.pMin.setAttribute('class', 'min');
-//         this.imgIngredient.setAttribute('class', 'image');
-//
-//         this.pTitle.innerHTML = this._ingredient;
-//         this.pQuantity.innerHTML = this._quantity;
-//         this.pMax.innerHTML = this._max;
-//         this.pMin.innerHTML = this._min;
-//         this.imgIngredient.setAttribute('src', this._image);
-//     }
-//
-//     draw(padre) {
-//         padre.appendChild(this.div);
-//     }
-//
-//     remove() {
-//         this.div.parentNode.removeChild(this.div);
-//     }
-// }
