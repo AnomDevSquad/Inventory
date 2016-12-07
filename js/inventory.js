@@ -98,43 +98,7 @@ function loadFormTransfer() {
             }
         }
     }
-<<<<<<< HEAD
-    var label = create(form, 'label', ['id'], ['ingredientmeasurement']);
-    label.setAttribute('class', 'measurement');
-    create(form, 'button', ['id'], ['submit'], 'generate movement');
 
-    document.getElementById('submit').addEventListener('click', function(e) {
-        e.preventDefault();
-
-        var ingredient = document.getElementById(labels[0].toLocaleLowerCase()).value;
-        var warOutput = document.getElementById(labels[1].toLocaleLowerCase()).value;
-        var warInput = document.getElementById(labels[2].toLocaleLowerCase()).value;
-        var quantity = document.getElementById(labels[3].toLocaleLowerCase()).value;
-
-        if (ingredient == 'Select Option' || warOutput == 'Select Option' || warInput == 'Select Option' || quantity == "") {
-            alert('Faltan campos por llenar');
-        } else if (warOutput == warInput) {
-            alert('No se pueden Transferir al mismo Warehouse')
-        } else if (parseInt(quantity) <= 0) {
-            alert('La cantidad a transferir no puede ser menor o igual a 0');
-        } else {
-            var request = new XMLHttpRequest();
-            request.open('POST', 'api/v1/post_transfer.php', true);
-            var data = new FormData(document.getElementById('form_movement'));
-            request.send(data);
-            request.onreadystatechange = function() {
-                if (request.status == 200 && request.readyState == 4) {
-                    //console.log(request.responseText);
-                    alert(request.responseText);
-                    for (var i = 0; i < labels.length; i++) {
-                        if (i == 3) {
-                            document.getElementById(labels[i].toLocaleLowerCase()).value = '';
-                        } else {
-                            document.getElementById(labels[i].toLocaleLowerCase()).selectedIndex = 0;
-                        }
-                    }
-                }
-=======
     document.getElementById(labels[0].toLocaleLowerCase()).setAttribute('onchange', 'getIngredient(this.value)');
     document.getElementById(labels[1].toLocaleLowerCase()).setAttribute('onchange', 'getWarehouseOutput(this.value)');
     create(form, 'button', ['id'], ['submit'], 'generate movement');
@@ -169,11 +133,9 @@ function loadFormTransfer() {
               } else {
                 document.getElementById(labels[i].toLocaleLowerCase()).selectedIndex = 0;
               }
->>>>>>> test
             }
         }
     });
-
     loadStockItems();
     loadWarehouseItems();
 }
@@ -191,13 +153,8 @@ function loadStockItems() {
                 create(ingredient, 'option', [], [], 'Select Option');
                 for (var i = 0; i < stock.length; i++) {
                     var item = stock[i];
-<<<<<<< HEAD
-                    if (item.warehouse.id == 2) {
-                        create(ingredient, 'option', ['id', "value"], [item.ingredient.id, item.ingredient.id], item.ingredient.description);
-=======
                     if (item.warehouse.id == 1) {
                         create(ingredient, 'option', ['id', 'value'], [item.ingredient.id, item.ingredient.id], item.ingredient.description);
->>>>>>> test
                     }
                 }
             }
@@ -225,17 +182,12 @@ function loadWarehouseItems() {
                 }
                 for (var i = 0; i < wh.length; i++) {
                     var item = wh[i];
-<<<<<<< HEAD
-                    create(warehouseOutput, 'option', ['id', "value"], [item.id, item.id], item.description);
-                    create(warehouseInput, 'option', ['id', "value"], [item.id, item.id], item.description);
-=======
                     if (warehouseInput != undefined && warehouseOutput != undefined) {
                       create(warehouseOutput, 'option', ['id', 'value'], [item.id, item.id], item.description);
                       create(warehouseInput, 'option', ['id', 'value'], [item.id, item.id], item.description);
                     } else {
                       create(warehouse, 'option', ['id', 'value'], [item.id, item.id], item.description);
                     }
->>>>>>> test
                 }
             }
         }
@@ -268,40 +220,6 @@ function loadConceptItems() {
             }
         }
     }
-}
-
-function putMeasurement() {
-    var ingid = document.getElementById('ingredient').value;
-    var waro = document.getElementById('warehouseoutput').value;
-    if (ingid === 'Select Option')
-        ingid = 0;
-    if (waro === 'Select Option')
-        waro = 0;
-
-        //console.log(ingid, waro);
-
-    if (ingid != 0 && waro != 0) {
-        var request = new XMLHttpRequest();
-        request.open('GET', 'api/v1/get_ingredient_measurement.php?ingredientid=' + ingid + '&warehouseid=' + waro);
-        request.send();
-        request.onreadystatechange = function() {
-            if (request.status == 200 && request.readyState == 4) {
-                var json = JSON.parse(request.responseText);
-                if (json.status == 0) {
-                    // console.log(document.getElementById('ingredientmeasurement'));
-                    // console.log(json.measurement.description);
-                    document.getElementById('ingredientmeasurement').innerHTML = json.measurement.description;
-                    // console.log(document.getElementById('ingredientmeasurement').value);
-                }
-            }
-        }
-    }
-
-}
-
-function getCombo(id) {
-    var value = this.options[this.selectedIndex].value;
-    alert(value)
 }
 
 function kitchenStock() {
