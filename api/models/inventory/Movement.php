@@ -110,15 +110,16 @@
 			$connection = new SqlServerConnection();
 			try{
 				$sql =
-				"	SELECT 	m.mov_id, m.mov_date, m.mov_quantity, s.sto_id_ing, i.ing_id, i.ing_description,
-									s.sto_quantity, mu.meu_id, mu.meu_description, w.war_id, w.war_name, mc.mco_id,
-									mc.mco_description, mc.mco_type
-					FROM Inventory.movements m 
-					JOIN Inventory.movementconpects mc on m.mov_concept = mc.mco_id 
-					JOIN Inventory.stock s on	m.mov_id_stock_ingredient = s.sto_id_ing 
-					JOIN Inventory.ingredients i on s.sto_id_ing = i.ing_id
-					JOIN Inventory.measurementunits mu on i.mu = mu.meu_id 
-					JOIN Inventory.warehouses w on s.war_id = w.war_id";
+				"	SELECT m.mov_id, m.mov_date, m.mov_quantity, i.ing_id, i.ing_description,
+					s.sto_quantity, mu.meu_id, mu.meu_description, w.war_id, w.war_name, mc.mco_id,
+					mc.mco_description
+					FROM Inventory.movements m
+					JOIN Inventory.movementconcepts mc on m.mov_concept = mc.mco_id
+					JOIN Inventory.stock s on s.sto_id_ing = m.mov_id_stock_ingredient
+					JOIN Kitchen.ingredients i on i.ing_id = s.sto_id_ing
+					JOIN Inventory.ingredient_measurements im on im.ims_id_ingredient = i.ing_id
+					JOIN Inventory.measurementunits mu on mu.meu_id = im.ims_id_measurement
+					JOIN Inventory.warehouses w on w.war_id = s.war_id";
 				$data = $connection->execute_query($sql);
 				while (odbc_fetch_array($data)) {
 					$id = odbc_result($data, 'mov_id');
@@ -139,7 +140,7 @@
 							),
 							odbc_result($data, 'sto_quantity')
 						);
-					$movement_concept = new MovementConcept(odbc_result($data, 'mco_id'),odbc_result($data, 'mco_description'), odbc_result($data, 'mco_type'));
+					$movement_concept = new MovementConcept(odbc_result($data, 'mco_id'),odbc_result($data, 'mco_description'));
 					array_push($list, new Movement($id, $date, $quantity, $stock, $movement_concept));
 				}
 			}

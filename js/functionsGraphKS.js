@@ -14,7 +14,7 @@ var valrangee = 0;
 //setInterval(updateGraph,1000);
 
 //API STUFF
-var urlApis = 'http://localhost:8080/Inventory/api/v1/';
+var urlApis = 'api/v1/';
 
 function loadKS() {
     var x = new XMLHttpRequest(); //ajax request

@@ -2,8 +2,6 @@
 
 insert into Inventory.measurementunits values ('B', 'Box'), ('GL', 'Galon');
 
-
-
 UPDATE Kitchen.dish_ingredients SET measurement='OZ' WHERE ing_id=20 AND dis_id=8;
 UPDATE Kitchen.dish_ingredients SET dis_ing_quantity=8 WHERE ing_id=20 AND dis_id=8;
 UPDATE Kitchen.dish_ingredients SET measurement='OZ' WHERE ing_id=20 AND dis_id=14;
@@ -12,24 +10,20 @@ UPDATE KITCHEN.dish_ingredients SET measurement='G' where ing_id=16 and dis_id=1
 update Kitchen.dish_ingredients set dis_ing_quantity=500 where ing_id=16 and dis_id=14
 
 
-
-insert into Inventory.warehouses values (1, 'Kitchen'), (2, 'Warehouse'); --En caso de no tener registros en warehouse incluir...
-
-
-insert into Inventory.ingredient_measurements values 
-(2, 1, 'ML'),
-(4, 1, 'LVS'),
-(5, 1, 'LVS'),
-(6, 1, 'LVS'),
+insert into Inventory.ingredient_measurements values
 (1,1, 'PC'),
 (1,2,'B'),
+(2, 1, 'ML'),
 (2,2, 'GL'),
 (3,2,'GL'),
 (3,1, 'ML'),
+(4, 1, 'LVS'),
 (4,2,'B'),
+(5, 1, 'LVS'),
 (5,2,'B'),
+(6, 1, 'LVS'),
 (6,2, 'B'),
-(7, 1, 'ML'), 
+(7, 1, 'ML'),
 (7,2, 'GL'),
 (8,1,'PC'),
 (8,2,'B'),
@@ -58,9 +52,9 @@ insert into Inventory.ingredient_measurements values
 (20, 1, 'OZ'),
 (20,2, 'GL'),
 (21, 1, 'OZ'),
-(21, 1, 'GL'),
+(21, 2, 'GL'),
 (22, 1, 'PC'),
-(22,2, 'B'),
+(22, 2, 'B'),
 (23, 1, 'PC'),
 (23, 2, 'B'),
 (24, 1, 'G'),
@@ -70,7 +64,7 @@ insert into Inventory.ingredient_measurements values
 (26, 1, 'PC'),
 (26, 2, 'B'),
 (27, 1, 'ML'),
-(27, 2, 'G'),
+(27, 2, 'GL'),
 (28, 1, 'PC'),
 (28, 2, 'B'),
 (29, 1, 'PC'),
@@ -86,29 +80,30 @@ insert into Inventory.ingredient_measurements values
 (34, 1, 'G'),
 (34, 2, 'KG');
 
-insert into Inventory.stock values 
-(4, 1, 100, 100, 30),
-(5, 1, 100, 100, 30),
-(6, 1, 100, 100, 30);
 
 
-insert into Inventory.stock values 
+
+insert into Inventory.stock values
 (1, 1, 100, 50, 200),
 (1, 2, 4, 3, 6 ),
+(2, 1, 10000, 12000, 5000),
 (2, 2, 6, 10, 3),
 (3, 1, 10000, 12000, 5000),
 (3, 2, 10, 12, 5),
+(4, 1, 100, 100, 30),
 (4, 2, 20, 50, 15),
+(5, 1, 100, 100, 30),
 (5, 2, 23, 50, 15),
+(6, 1, 100, 100, 30),
 (6, 2, 25, 50, 15),
 (7, 1, 7000, 15000, 4000),
-(7, 2, 15, 25, 10), 
+(7, 2, 15, 25, 10),
 (8, 1, 100, 130, 50),
-(8, 2, 4, 6, 3 ), 
+(8, 2, 4, 6, 3 ),
 (9,1,80, 150, 60 ),
 (9, 2, 4, 8, 3),
 (10, 1, 1000, 1500, 800),
-(10, 2, 8, 15, 7), 
+(10, 2, 8, 15, 7),
 (11, 1, 10000, 15000, 6000),
 (11,2, 10, 16, 8),
 (12, 1, 60, 80, 30),
@@ -148,9 +143,9 @@ insert into Inventory.stock values
  (29, 1, 45, 60, 18),
  (29, 2, 6, 25, 5),
  (30, 1, 30, 65, 12),
- (30, 2, 20, 25, 10), 
+ (30, 2, 20, 25, 10),
  (31, 1, 30, 65, 15),
- (31, 2, 16, 20, 8), 
+ (31, 2, 16, 20, 8),
  (32, 1, 26, 40, 15),
  (33, 1, 5000, 10000, 3000),
  (33, 2, 10, 18, 8),
@@ -159,6 +154,8 @@ insert into Inventory.stock values
 
 
 
- --Para cambiar el nombre de las columnas 
+
+
+ --Para cambiar el nombre de las columnas
 EXEC sp_rename 'Inventory.stock.sto_min', 'sto_maximum', 'COLUMN';
 EXEC sp_rename 'Inventory.stock.sto_max', 'sto_minimum', 'COLUMN';

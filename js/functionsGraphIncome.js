@@ -6,7 +6,7 @@ var Size = 0;
 var Gdata = [];
 
 //API STUFF
-var urlApis = 'http://localhost:8080/Inventory/api/v1/';
+var urlApis = 'api/v1/';
 
 function loadGI() {
     var x = new XMLHttpRequest(); //ajax request

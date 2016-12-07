@@ -1,9 +1,3 @@
-
-insert into Sales.orderstatus values 
-(0, 'Order Delivered'),
-(1, 'Order in Process'),
-(2, 'Order Canceled');
-
 insert into Sales.Orders values
 (1, getDate(), 13.00, 2.08, 15.08, 0, 1),
 (2, getDate(), 40.00, 6.4, 46.4, 0, 2),
@@ -41,7 +35,7 @@ insert into Sales.Orders values
 (34, '2016-11-27', 113.00, 18.08, 131.08, 0, 1 );
 
 
-insert into Sales.order_dishes (dis_id, ord_id, ord_dis_quantity, ord_date, dis_price) values
+insert into Sales.order_dishes values
  (2, 1, 1, getDate(), 5.00),
  (3, 1, 1, GETDATE(), 8.00),
  (1, 2, 2, getDate(), 10.00),
@@ -128,12 +122,3 @@ insert into Sales.order_dishes (dis_id, ord_id, ord_dis_quantity, ord_date, dis_
  (9, 34, 3, '2016-11-27', 75.00),
  (1, 34, 4, '2016-11-27', 20.00),
  (4, 34, 2, '2016-11-27', 18.00);
-
-
-
-
-
-
-
-
-

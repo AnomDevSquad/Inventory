@@ -1,3 +1,4 @@
+
 <?php
   header("Access-Control-Allow-Origin:*");
   require_once('/../models/inventory/Stock.php');
@@ -5,11 +6,11 @@
   $json = '{';
     try{
       $all_stock = Stock::get_all_stock();
-      $first = true;
       $json .= '
       "status":0,
       "stock":[
       ';
+      $first = true;
       foreach ($all_stock as $stock) {
         if(!$first) $json .= ','; else $first = false;
         $json .= $stock->to_json();
