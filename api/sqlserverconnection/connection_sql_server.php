@@ -7,7 +7,7 @@
     private $connection;
     // private $connection_string = 'DRIVER={SQL Server};SERVER=LAB01TIC-PC11;DATABASE=Restaurant';
     // private $connection_string = 'DRIVER={SQL Server};SERVER=USER;DATABASE=Restaurant';
-    private $connection_string = 'DRIVER={SQL Server};SERVER=ASUSK55N;DATABASE=Inventory';
+    private $connection_string = 'DRIVER={SQL Server};SERVER=ASUSK55N;DATABASE=Restaurant';
     private $user = 'sa';
     private $password = 'hack';
     // private $password = 'usersql';
