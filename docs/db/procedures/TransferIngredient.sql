@@ -7,21 +7,21 @@
 -- 5: el ingrediente no se pudo registrar en warehouseI
 -- 6: el cantidad de ingrediente no cabe en el warehouse al que se quiere pasar
 -- 999: error desconocido(usualmente de base de datos)
-ALTER PROCEDURE Inventory.TransferIngredient
+CREATE PROCEDURE Inventory.TransferIngredient
 	@warehouseO as int,
 	@warehouseI as int,
 	@INGID as int,
-	@INGQTY as int
+	@INGQTY as int,
+	@error as int OUTPUT
 AS
 BEGIN
   DECLARE
   @checkEnoughStock as int,
   @checkEnoughSpace as int,
   @stockInWarI as int,
-  @checkIng as int,
-  @error as int
-  BEGIN TRAN
+  @checkIng as int;
   set @error = 0;
+  BEGIN TRAN
     IF(	ISNULL((SELECT war_id FROM Inventory.warehouses WHERE war_id = @warehouseO), 0) = 0
 		OR ISNULL((SELECT war_id FROM Inventory.warehouses WHERE war_id = @warehouseI), 0) = 0 )
 		BEGIN
@@ -89,9 +89,7 @@ BEGIN
 					goto handleError;
 				END
 		END
-
   COMMIT TRAN;
-
 handleError:
   IF(@error <> 0) ROLLBACK TRAN;
   goto returnError;
