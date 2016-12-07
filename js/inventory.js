@@ -67,15 +67,15 @@ function loadStock(table) {
     request.send();
     request.onreadystatechange = function() {
         if (request.status == 200 && request.readyState == 4) {
-            var json = JSON.parse(request.responseText)
+            var json = JSON.parse(request.responseText);
             var stock = json.stock;
             for (var i = 0; i < stock.length; i+=2) {
-              var tr = create(table, 'tr', [], []);
-              var item = stock[i];
-              create(tr, 'td', ['class'], ['identifer'], item.ingredient.id);
-              create(tr, 'td', ['class'], ['name'], item.ingredient.description);
-              create(tr, 'td', ['class'], ['number'], item.quantity);
-              create(tr, 'td', ['class'], ['number'], stock[i+1].quantity);
+                var tr = create(table, 'tr', [], []);
+                var item = stock[i];
+                create(tr, 'td', ['class'], ['identifer'], item.ingredient.id);
+                create(tr, 'td', ['class'], ['name'], item.ingredient.description);
+                create(tr, 'td', ['class'], ['number'], item.quantity);
+                create(tr, 'td', ['class'], ['number'], stock[i+1].quantity);
             }
         }
     }
@@ -152,10 +152,10 @@ function loadStockItems() {
                 var stock = json.stock;
                 var ingredient = document.querySelector('#ingredient');
                 create(ingredient, 'option', [], [], 'Select Option');
-                for (var i = 0; i < stock.length; i++) {
+                for (var i = 0; i < stock.length; i+=2) {
                     var item = stock[i];
                     if (item.warehouse.id == 1) {
-                        create(ingredient, 'option', ['id', 'value'], [item.ingredient.id, item.ingredient.id], item.ingredient.description);
+                      create(ingredient, 'option', ['id', 'value'], [item.ingredient.id, item.ingredient.id], item.ingredient.description);
                     }
                 }
             }

@@ -91,13 +91,10 @@
 	public static function get_all_stock(){
 		$list = array();
 		$connection = new SqlServerConnection();
-		$sql =
-		'	SELECT i.ing_id, i.ing_description,w.war_id, w.war_name,s.sto_quantity, s.sto_max, s.sto_min, m.meu_id, m.meu_description
-			FROM Inventory.stock s
-			JOIN Kitchen.ingredients i ON s.sto_id_ing = i.ing_id
-			JOIN Inventory.warehouses w ON s.war_id = w.war_id
-			JOIN Inventory.ingredient_measurements im ON i.ing_id = im.ims_id_ingredient
-			JOIN Inventory.measurementunits m ON im.ims_id_measurement = m.meu_id';
+		$sql = 'SELECT *
+						FROM Inventory.stock s
+						JOIN Kitchen.ingredients i ON s.sto_id_ing = i.ing_id
+						JOIN Inventory.warehouses w ON s.war_id = w.war_id';
 		$data = $connection->execute_query($sql);
 		if(odbc_num_rows($data) < 1) throw new StockEmptyException();
 		while (odbc_fetch_array($data)) {
