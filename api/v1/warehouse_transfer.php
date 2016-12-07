@@ -1,10 +1,10 @@
 <?php
   require_once('/../sqlserverconnection/connection_sql_server.php');
   $json = '{';
-    if (isset($_POST['itmid']) && isset($_POST['waridout']) && isset($_POST['waridin']) && isset($_POST['qty'])) {
+    if (isset($_POST['itmid']) && isset($_POST['waro']) && isset($_POST['wari']) && isset($_POST['qty'])) {
       $sto = $_POST['itmid'];
-      $waro = $_POST['waridout'];
-      $wari = $_POST['waridin'];
+      $waro = $_POST['wari'];
+      $wari = $_POST['waro'];
       $qty = $_POST['qty'];
 
       $connection = new SqlServerConnection();

@@ -44,7 +44,15 @@ function loadFormLosses(){
       create(form, 'select', ['id', 'name'], [labels[i].toLocaleLowerCase(), inputsName[i]]);
     }
   }
-  create(form, 'button', ['id', 'type'], ['button_losses', 'submit'], 'Generate Loss');
+  document.getElementById(labels[0].toLocaleLowerCase()).setAttribute('onchange', 'getIngredient(this.value)');
+  document.getElementById(labels[1].toLocaleLowerCase()).setAttribute('onchange', 'getWarehouseOutput(this.value)');
+  create(form, 'button', ['id'], ['submit'], 'generate loss');
+
+  document.getElementById('submit').addEventListener('onclick', function(e){
+    e.preventDefault();
+    alert('hola');
+  });
+
   loadStockItems();
   loadWarehouseItems();
 }
@@ -86,7 +94,7 @@ function loadFormTransfer() {
     var content = document.getElementById('main_content');
     var form = create(content, 'form', ['id'], ['form_movement']);
     var labels = ['Ingredient', 'WarehouseOutput', 'WarehouseInput', 'Quantity'];
-    var inputsName = ['itmid', 'wari', 'qty']
+    var inputsName = ['itmid', 'waro', 'wari','qty']
     for (var i = 0; i < labels.length; i++) {
         if (labels[i] == 'Quantity') {
             create(form, 'label', '', '', labels[i]);
