@@ -257,8 +257,8 @@ class Order {
 
         this.pTitle.innerHTML = 'Order #' + this._no;
         this.pSubtotalTitle.innerHTML = 'Subtotal';
-        this.pTaxTitle.innerHTML = 'Tax';
-        this.pTotalTitle.innerHTML = 'Total';
+        this.pTaxTitle.innerHTML = 'Tax ';
+        this.pTotalTitle.innerHTML = 'Total ';
         this.pSubtotal.innerHTML = this._subtotal;
         this.pTax.innerHTML = this._tax;
     }
@@ -346,8 +346,8 @@ class Dish {
 
         this.pName.innerHTML = this._name;
         this.pQuantity.innerHTML = this._quantity;
-        this.pPrice.innerHTML = '$' + this._price;
-        this.pSubtotal.innerHTML = '$' + this._subtotal;
+        this.pPrice.innerHTML = ' $ ' + this._price;
+        this.pSubtotal.innerHTML = ' $ ' + this._subtotal;
     }
 
     draw(parent) {

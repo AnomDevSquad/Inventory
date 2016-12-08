@@ -1,4 +1,4 @@
-var urlAPI = 'http://localhost:8080/4to/Inventory/';
+// var urlAPI = 'http://localhost:8080/4to/Inventory/';
 
 function init() {
     setTimeout(initInventoryTemplate, 100);
@@ -16,7 +16,7 @@ function initInventoryTemplate() {
     templateElements().actions.action1.innerHTML = 'Transfer';
     templateElements().actions.action2.innerHTML = 'Loss';
     templateElements().actions.action3.innerHTML = 'Comparation';
-    templateElements().actions.action4.innerHTML = 'Inventory';
+    templateElements().actions.action4.innerHTML = 'Movements';
     templateElements().options.option1.innerHTML = '';
     templateElements().options.option2.innerHTML = '';
     templateElements().options.option1.appendChild(opt1);
@@ -27,11 +27,14 @@ function initInventoryTemplate() {
     templateElements().actions.action3.addEventListener('click', loadTablesComparation);
     templateElements().options.option1.addEventListener('click', goOrders);
     templateElements().options.option2.addEventListener('click', goGraphs);
+
+    document.getElementById('title').innerHTML = "Inventory";
 }
 
 function loadFormLosses(){
-  document.getElementById('main_content').innerHTML = '';
   var content = document.getElementById('main_content');
+  content.innerHTML = '';
+  document.getElementById('main_title').innerHTML = '<p>Loss</p>';
   var form = create(content, 'form', ['id'], ['form_movement']);
   var labels = ['Ingredient', 'Warehouse', 'Concept', 'Quantity'];
   var inputsName = ['itmid', 'war', 'concept','qty']
@@ -48,20 +51,20 @@ function loadFormLosses(){
   document.getElementById(labels[1].toLocaleLowerCase()).setAttribute('onchange', 'getWarehouseOutput(this.value)');
   document.getElementById(labels[2].toLocaleLowerCase()).setAttribute('onchange', 'getConcept(this.value)');
 
-  create(form, 'button', ['id'], ['submit'], 'Generate Loss');
+  create(form, 'button', ['id'], ['submit'], 'Register Loss');
 
   document.getElementById('submit').addEventListener('click', function(e){
     e.preventDefault();
-      var form = document.getElementById('form_movement');
-      var data = new FormData(form);
-      var request = new XMLHttpRequest();
-      request.open('POST', 'api/v1/register_losses.php', true);
-      request.send(data);
-      request.onreadystatechange = function(){
-        if (request.status == 200 && request.readyState == 4) {
-          console.log(request.responseText);
-        }
+    var form = document.getElementById('form_movement');
+    var data = new FormData(form);
+    var request = new XMLHttpRequest();
+    request.open('POST', 'api/v1/register_losses.php', true);
+    request.send(data);
+    request.onreadystatechange = function(){
+      if (request.status == 200 && request.readyState == 4) {
+        console.log(request.responseText);
       }
+    }
     return false;
   });
 
@@ -72,6 +75,7 @@ function loadFormLosses(){
 
 function loadTablesComparation() {
     document.getElementById('main_content').innerHTML = '';
+    document.getElementById('main_title').innerHTML = '<p>Comparation</p>';
     var content = document.querySelector('#main_content');
     var section_table = create(content, 'div', ['id', 'class'], ['table-content', 'table']);
     var table = create(section_table, 'table', ['id'], ['table-comparation']);
@@ -104,6 +108,7 @@ function loadStock(table) {
 
 function loadFormTransfer() {
     document.getElementById('main_content').innerHTML = '';
+    document.getElementById('main_title').innerHTML = '<p>Transfer</p>';
     var content = document.getElementById('main_content');
     var form = create(content, 'form', ['id'], ['form_movement']);
     var labels = ['Ingredient', 'WarehouseOutput', 'WarehouseInput', 'Quantity'];
@@ -119,7 +124,7 @@ function loadFormTransfer() {
     }
     document.getElementById(labels[0].toLocaleLowerCase()).setAttribute('onchange', 'getIngredient(this.value)');
     document.getElementById(labels[1].toLocaleLowerCase()).setAttribute('onchange', 'getWarehouseOutput(this.value)');
-    create(form, 'button', ['id'], ['submit'], 'generate movement');
+    create(form, 'button', ['id'], ['submit'], 'Generate Movement');
 
     document.getElementById('submit').addEventListener('click', function(e) {
       e.preventDefault();
@@ -159,7 +164,6 @@ function loadFormTransfer() {
 
     loadStockItems();
     loadWarehouseItems();
-    // loadConceptItems();
 }
 
 function loadStockItems() {
@@ -197,9 +201,15 @@ function loadWarehouseItems() {
                 var warehouse = document.querySelector('#warehouse');
                 var wh = json.warehouses;
                 if (warehouseInput != undefined && warehouseOutput != undefined) {
+                  /*
+                  Estos warehouse son para la transferencia de ingredientes;
+                  */
                   create(warehouseOutput, 'option', [], [], 'Select Option');
                   create(warehouseInput, 'option', [], [], 'Select Option');
                 } else {
+                  /*
+                  Este warehouse es para el registro de las perdidas;
+                  */
                   create(warehouse, 'option', [], [], 'Select Option');
                 }
                 for (var i = 0; i < wh.length; i++) {
@@ -235,12 +245,14 @@ function loadConceptItems() {
         if (request.status == 200 && request.readyState == 4) {
             var json = JSON.parse(request.responseText);
             if (json.status == 0) {
-                var concpet = document.querySelector('#concept');
+                var concept = document.querySelector('#concept');
                 var c = json.concepts;
-                create(concpet, 'option', [], [], 'Select Option');
+                create(concept, 'option', [], [], 'Select Option');
                 for (var i = 0; i < c.length; i++) {
                     var item = c[i];
-                    create(concept, 'option', ['id', 'value'], [item.id, item.id], item.description);
+                    if (item.id == 3 || item.id == 4 || item.id == 9 || item.id == 10) {
+                      create(concept, 'option', ['id', 'value'], [item.id, item.id], item.description);
+                    }
                 }
             }
         }

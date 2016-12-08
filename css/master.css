@@ -39,3 +39,29 @@ html, body
   -webkit-radius-border: 10px;
   background: #586469;
 }
+
+#main_title{
+  text-align: left;
+  color: white;
+}
+
+#main_title p{
+  margin-left:17%;
+  font-size: 20pt;
+}
+
+button {
+  width: auto;
+  border-radius: 10px;
+  margin:10px;
+  padding: 15px;
+  border-style: none;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+button:hover{
+  background: #353c3f;
+  color: white;
+  transition: 0.5s;
+}
