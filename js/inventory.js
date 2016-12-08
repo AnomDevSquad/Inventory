@@ -33,8 +33,8 @@ function loadFormLosses(){
   document.getElementById('main_content').innerHTML = '';
   var content = document.getElementById('main_content');
   var form = create(content, 'form', ['id'], ['form_movement']);
-  var labels = ['Ingredient', 'Warehouse', 'Quantity'];
-  var inputsName = ['itmid', 'warid', 'qty']
+  var labels = ['Ingredient', 'Warehouse', 'Concept', 'Quantity'];
+  var inputsName = ['itmid', 'war', 'concept','qty']
   for (var i = 0; i < labels.length; i++) {
     if (labels[i] == 'Quantity') {
       create(form, 'label', '', '', labels[i]);
@@ -46,15 +46,28 @@ function loadFormLosses(){
   }
   document.getElementById(labels[0].toLocaleLowerCase()).setAttribute('onchange', 'getIngredient(this.value)');
   document.getElementById(labels[1].toLocaleLowerCase()).setAttribute('onchange', 'getWarehouseOutput(this.value)');
-  create(form, 'button', ['id'], ['submit'], 'generate loss');
+  document.getElementById(labels[2].toLocaleLowerCase()).setAttribute('onchange', 'getConcept(this.value)');
 
-  document.getElementById('submit').addEventListener('onclick', function(e){
+  create(form, 'button', ['id'], ['submit'], 'Generate Loss');
+
+  document.getElementById('submit').addEventListener('click', function(e){
     e.preventDefault();
-    alert('hola');
+      var form = document.getElementById('form_movement');
+      var data = new FormData(form);
+      var request = new XMLHttpRequest();
+      request.open('POST', 'api/v1/register_losses.php', true);
+      request.send(data);
+      request.onreadystatechange = function(){
+        if (request.status == 200 && request.readyState == 4) {
+          console.log(request.responseText);
+        }
+      }
+    return false;
   });
 
   loadStockItems();
   loadWarehouseItems();
+  loadConceptItems();
 }
 
 function loadTablesComparation() {
@@ -211,6 +224,9 @@ function getIngredient(value){
   alert(value)
 }
 
+function getConcept(value){
+  alert(value)
+}
 function loadConceptItems() {
     var request = new XMLHttpRequest();
     request.open('GET', 'api/v1/get_all_movement_concepts.php', true);
@@ -224,7 +240,7 @@ function loadConceptItems() {
                 create(concpet, 'option', [], [], 'Select Option');
                 for (var i = 0; i < c.length; i++) {
                     var item = c[i];
-                    create(concept, 'option', ['id'], [item.id], item.description);
+                    create(concept, 'option', ['id', 'value'], [item.id, item.id], item.description);
                 }
             }
         }

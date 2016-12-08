@@ -3,8 +3,8 @@
   $json = '{';
     if (isset($_POST['itmid']) && isset($_POST['waro']) && isset($_POST['wari']) && isset($_POST['qty'])) {
       $sto = $_POST['itmid'];
-      $waro = $_POST['wari'];
-      $wari = $_POST['waro'];
+      $waro = $_POST['waro'];
+      $wari = $_POST['wari'];
       $qty = $_POST['qty'];
 
       $connection = new SqlServerConnection();
